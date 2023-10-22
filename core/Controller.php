@@ -22,7 +22,6 @@ class Controller
         switch ($status) {
             case 'user':
                 if (!$this->user) {
-                    Flasher::setFlash("Login first to access this page!", "danger");
                     header('Location: '. BASEURL .'/login');
                     exit;
                 }
@@ -32,6 +31,7 @@ class Controller
                     header('Location: '. BASEURL .'/home');
                     exit;
                 }
+                break;
         }
     }
 

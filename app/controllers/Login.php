@@ -8,7 +8,7 @@ class Login extends Controller
 	{
 		$this->auth('guest');
 
-		$data['title'] = 'Perpustakaan - Login';
+		$data['title'] = 'Login';
 
 		$this->view('login', $data);
 	}
@@ -31,7 +31,7 @@ class Login extends Controller
 
 					Cookie::create_jwt($payload, $payload['exp']);
 
-					Flasher::setFlash('Login <b>SUCCES</b>', 'success');
+					Flasher::setFlash('Login <b>SUCCESS</b>', 'success');
 					header("Location: " . BASEURL . "/home");
 				}
 			} else {

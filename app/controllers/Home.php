@@ -8,7 +8,7 @@ class Home extends Controller
 	{
 		$this->auth('both');
 
-		$data['title'] = 'Perpustakaan - Home';
+		$data['title'] = 'Home';
 		$data['user'] = $this->user;
 
 		$this->view('home', $data);
