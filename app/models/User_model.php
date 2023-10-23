@@ -43,16 +43,16 @@ class User_model
 	public function register($username, $password, $email)
 	{
 		$this->db->query(
-            "INSERT INTO {$this->table}
-                VALUES
-            (null, :username, :password, :email, 'user', CURRENT_TIMESTAMP, 1)"
-        );
+			"INSERT INTO {$this->table}
+				VALUES
+			(null, :username, :password, :email, 'user', CURRENT_TIMESTAMP, 1)"
+		);
 
-        $this->db->bind('username', $username);
-        $this->db->bind('password', hash('sha256', $password));
-        $this->db->bind('email', $email);
-        $this->db->execute();
+		$this->db->bind('username', $username);
+		$this->db->bind('password', hash('sha256', $password));
+		$this->db->bind('email', $email);
+		$this->db->execute();
 
-        $this->db->rowCount(); 
+		$this->db->rowCount(); 
 	}
 }

@@ -6,11 +6,11 @@ class Register extends Controller
 
   public function index()
   {
-	$this->auth('guest');
-	
-	$data['title'] = 'Register';
+		$this->auth('guest');
+		
+		$data['title'] = 'Sign Up';
 
-	$this->view('register', $data);
+		$this->view('register', $data);
   }
 
   public function process()

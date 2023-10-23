@@ -1,6 +1,6 @@
 <?php
 
-class Home extends Controller
+class Dashboard extends Controller
 {
 	protected $model = '';
 
@@ -8,10 +8,10 @@ class Home extends Controller
 	{
 		$this->auth('user');
 
-		$data['title'] = 'Home';
+		$data['title'] = 'Dashboard';
 		$data['user'] = $this->user;
 
-		$this->view('home', $data);
+		$this->view('dashboard', $data);
 	}
 
 	public function store()

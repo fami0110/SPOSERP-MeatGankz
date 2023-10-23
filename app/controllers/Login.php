@@ -8,7 +8,7 @@ class Login extends Controller
 	{
 		$this->auth('guest');
 
-		$data['title'] = 'Login';
+		$data['title'] = 'Sign In';
 
 		$this->view('login', $data);
 	}
