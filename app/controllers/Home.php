@@ -10,6 +10,8 @@ class Home extends Controller
 
 		$data['title'] = 'Home';
 		$data['user'] = $this->user;
+		$data['jmlSupplier'] = $this->model('Supplier_model')->getJmlData()['count'];
+		$data['jmlMenu'] = $this->model('Menu_model')->getJmlData()['count'];
 
 		$this->view('home', $data);
 	}

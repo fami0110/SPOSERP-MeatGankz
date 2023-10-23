@@ -45,7 +45,7 @@
                                                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Product
                                                     </p>
                                                     <h5 class="font-weight-bolder mb-0">
-                                                        1
+                                                    <?= $data['jmlMenu'] ?>
                                                         <!-- <span class="text-success text-sm font-weight-bolder">+3%</span> -->
                                                     </h5>
                                                 </div>
@@ -68,7 +68,7 @@
                                                 <div class="numbers">
                                                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Supplier</p>
                                                     <h5 class="font-weight-bolder mb-0">
-                                                        1
+                                                        <?= $data['jmlSupplier'] ?>
                                                         <!-- <span class="text-danger text-sm font-weight-bolder">-2%</span> -->
                                                     </h5>
                                                 </div>

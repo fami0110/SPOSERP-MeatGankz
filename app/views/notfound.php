@@ -17,7 +17,7 @@
                     <a href="<?= BASEURL; ?>" class="btn bg-gradient-dark mt-4">Go to Homepage</a>
                 </div>
                 <div class="col-lg-6 my-auto position-relative">
-                    <img class="w-100 position-relative" src="<?= BASEURL; ?>img/illustrations/error-404.png"
+                    <img class="w-100 position-relative" src="<?= BASEURL; ?>/img/illustrations/error-404.png"
                         alt="404-error">
                 </div>
             </div>

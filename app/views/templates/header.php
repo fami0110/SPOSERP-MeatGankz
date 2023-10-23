@@ -22,7 +22,6 @@
     <link href="<?= BASEURL; ?>/css/nucleo-svg.css" rel="stylesheet" />
 
     <link id="pagestyle" href="<?= BASEURL; ?>/css/soft-ui-dashboard.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <style>
         .async-hide {
             opacity: 0 !important
@@ -236,19 +235,19 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="../pages/applications/wizard.html">
+                                <a class="nav-link " href="<?= BASEURL; ?>wizard.html">
                                     <span class="sidenav-mini-icon"> P </span>
                                     <span class="sidenav-normal"> Pemasukan </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="../pages/applications/datatables.html">
+                                <a class="nav-link " href="<?= BASEURL; ?>datatables.html">
                                     <span class="sidenav-mini-icon"> P </span>
                                     <span class="sidenav-normal"> Pengeluaran </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="../pages/applications/calendar.html">
+                                <a class="nav-link " href="<?= BASEURL; ?>/supplier">
                                     <span class="sidenav-mini-icon"> S </span>
                                     <span class="sidenav-normal"> Supplier </span>
                                 </a>
@@ -441,30 +440,41 @@
                 </div>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center justify-content-start">
-                        <div class="btn btn-outline-primary mb-0 me-2">
-                            <i class="bi bi-receipt pe-2"></i>
-                            <span>SALE</span>
-                        </div>
-                        <div class="btn btn-outline-primary mb-0 me-2">
-                            <i class="bi bi-cash pe-2"></i>
-                            <span>CUSTOMER RECEIVE</span>
-                        </div>
-                        <div class="btn btn-outline-primary mb-0 me-2">
-                            <i class="bi bi-cash pe-2"></i>
-                            <span>SUPPLIER PAYMENT</span>
-                        </div>
-                        <div class="btn btn-outline-primary mb-0 me-2">
-                            <i class="bi bi-cart pe-2"></i>
-                            <span>PURCHASE</span>
-                        </div>
+                        
                     </div>
                     <ul class="navbar-nav  justify-content-end">
-                        <li class="nav-item d-flex align-items-center">
-                            <a href="../pages/authentication/signin/illustration.html"
-                                class="nav-link text-body font-weight-bold px-0" target="_blank">
-                                <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline d-none">Sign In</span>
+                    <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                            <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-user cursor-pointer me-2"></i>
+                                <h7 class="font-weight-bold"><?= $data['user']['username'] ?></h7>
                             </a>
+                            <ul class="dropdown-menu dropdown-menu-end px-2 py-3 pb-1 me-sm-n4"
+                                aria-labelledby="dropdownMenuButton">
+                                <li class="mb-2">
+                                    <a class="dropdown-item border-radius-md" href="javascript:;">
+                                        <div class="d-flex py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                    <span class="font-weight-bold">Profile</span>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="mb-2">
+                                    <a class="dropdown-item border-radius-md" href="<?= BASEURL; ?>/logout">
+                                        <div class="d-flex py-1">
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                <!-- <i class="fa fa-arrow-right"></i> -->
+                                                    <span class="font-weight-bold">Log Out</span>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
@@ -480,7 +490,7 @@
                                 <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
                             </a>
                         </li>
-                        <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                        <!-- <li class="nav-item dropdown pe-2 d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-bell cursor-pointer"></i>
@@ -563,7 +573,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
