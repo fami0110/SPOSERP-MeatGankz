@@ -9,6 +9,6 @@ class Forbidden extends Controller
 		$data['title'] = 'Forbidden';
 		$data['user'] = $this->user;
 
-		$this->view('notfound', $data);
+		$this->view('forbidden', $data);
   }
 }
