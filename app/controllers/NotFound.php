@@ -4,8 +4,11 @@ class NotFound extends Controller
 {
   public function index()
   {
-    echo
-        "<h1>NotFound<h1>
-        <p>Page not found!</p>";
+    $this->auth('both');
+
+		$data['title'] = 'Home';
+		$data['user'] = $this->user;
+
+		$this->view('notfound', $data);
   }
 }
