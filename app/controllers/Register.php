@@ -2,7 +2,7 @@
 
 class Register extends Controller
 {
-  protected $model_name = "Login_model";
+//   protected $model_name = "register";
 
   public function index()
   {
@@ -18,10 +18,10 @@ class Register extends Controller
 		try {
 			$this->model("User_model")->register($_POST["username"], $_POST["password"], $_POST["email"]);
 			Flasher::setFlash('Register <b>SUCCESS</b>!', 'success');
-			header("Location: " . BASEURL . "/login");
+			header("Location: " . BASEURL . "login");
 		} catch (Exception $e) {
-			Flasher::setFlash('Register <b>FAILED</b>!', 'success');
-			header("Location: " . BASEURL . "/login");
+			Flasher::setFlash('Register <b>FAILED</b>!', 'danger');
+			header("Location: " . BASEURL . "register");
 		}
 
 		exit;

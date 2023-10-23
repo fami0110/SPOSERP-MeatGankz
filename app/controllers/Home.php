@@ -6,7 +6,7 @@ class Home extends Controller
 
 	public function index()
 	{
-		$this->auth('both');
+		$this->auth('user');
 
 		$data['title'] = 'Home';
 		$data['user'] = $this->user;
