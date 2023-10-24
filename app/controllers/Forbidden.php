@@ -4,8 +4,11 @@ class Forbidden extends Controller
 {
   public function index()
   {
-    echo 
-        "<h1>Forbidden</h1>
-        <p>You don't have permission to access this page.</p>";
+    $this->auth('both');
+
+		$data['title'] = 'Forbidden';
+		$data['user'] = $this->user;
+
+		$this->view('forbidden', $data);
   }
 }

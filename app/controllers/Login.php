@@ -8,7 +8,7 @@ class Login extends Controller
 	{
 		$this->auth('guest');
 
-		$data['title'] = 'Login';
+		$data['title'] = 'Sign In';
 
 		$this->view('login', $data);
 	}
@@ -32,17 +32,18 @@ class Login extends Controller
 					Cookie::create_jwt($payload, $payload['exp']);
 
 					Flasher::setFlash('Login <b>SUCCESS</b>', 'success');
-					header("Location: " . BASEURL . "/home");
-				}
+
+				} else {
+                    Flasher::setFlash('Login <b>FAILED</b>', 'danger');
+                }
 			} else {
-				Flasher::setFlash('Login <b>FAILED</b>', 'danger');
-				header("Location: " . BASEURL . "/login");
+				Flasher::setFlash('Username or Password <b>INCORRECT</b>!', 'danger');
 			}
 		} else {
-			Flasher::setFlash('Login <b>FAILED</b>!', 'danger');
-			header("Location: " . BASEURL . "/login");
+			Flasher::setFlash('Fill all the column first!', 'danger');
 		}
-
+        
+        header("Location: " . BASEURL);
 		exit;
 	}
 }

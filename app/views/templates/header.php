@@ -4,24 +4,22 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="<?= BASEURL; ?>/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="<?= BASEURL; ?>/img/favicon.png">
-    <title>
-        POS - meatGenkz
-    </title>
-
+    <!-- icon -->
+    <link rel="apple-touch-icon" sizes="76x76" href="<?= BASEURL ?>/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="<?= BASEURL ?>/img/favicon.png">
+    <!-- stylesheet -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-
-    <link href="<?= BASEURL; ?>/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="<?= BASEURL; ?>/css/nucleo-svg.css" rel="stylesheet" />
-
-    <link rel="stylesheet" href="<?= BASEURL; ?>\icon\fa\css\fontawesome.min.css">
-
+    <!-- CSS -->
+    <link href="<?= BASEURL ?>/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="<?= BASEURL ?>/css/nucleo-svg.css" rel="stylesheet" />
+    <link rel="stylesheet" href="<?= BASEURL ?>\icon\fa\css\fontawesome.min.css">
+    <link id="pagestyle" href="<?= BASEURL ?>/css/soft-ui-dashboard.css" rel="stylesheet" />
+    <!-- scripts -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="<?= BASEURL; ?>/css/nucleo-svg.css" rel="stylesheet" />
-
-    <link id="pagestyle" href="<?= BASEURL; ?>/css/soft-ui-dashboard.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <!-- title -->
+    <title>POS - <?= $data['title'] ?></title>
     <style>
         .async-hide {
             opacity: 0 !important

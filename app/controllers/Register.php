@@ -6,11 +6,11 @@ class Register extends Controller
 
   public function index()
   {
-	$this->auth('guest');
-	
-	$data['title'] = 'Register';
+		$this->auth('guest');
+		
+		$data['title'] = 'Sign Up';
 
-	$this->view('register', $data);
+		$this->view('register', $data);
   }
 
   public function process()
@@ -18,10 +18,10 @@ class Register extends Controller
 		try {
 			$this->model("User_model")->register($_POST["username"], $_POST["password"], $_POST["email"]);
 			Flasher::setFlash('Register <b>SUCCESS</b>!', 'success');
-			header("Location: " . BASEURL . "login");
+			header("Location: " . BASEURL . "/login");
 		} catch (Exception $e) {
 			Flasher::setFlash('Register <b>FAILED</b>!', 'danger');
-			header("Location: " . BASEURL . "register");
+			header("Location: " . BASEURL . "/register");
 		}
 
 		exit;

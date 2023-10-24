@@ -2,13 +2,13 @@
 
 class NotFound extends Controller
 {
-  public function index()
-  {
-    $this->auth('both');
+    public function index()
+    {
+        $this->auth('both');
 
-		$data['title'] = 'Home';
-		$data['user'] = $this->user;
+        $data['title'] = 'NotFound';
+        $data['user'] = $this->user;
 
-		$this->view('notfound', $data);
-  }
+        $this->view('notfound', $data);
+    }
 }

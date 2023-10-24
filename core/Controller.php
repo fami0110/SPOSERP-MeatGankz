@@ -28,7 +28,7 @@ class Controller
                 break;
             case 'guest':
                 if ($this->user) {
-                    header('Location: '. BASEURL .'/home');
+                    header('Location: '. BASEURL .'/dashboard');
                     exit;
                 }
                 break;

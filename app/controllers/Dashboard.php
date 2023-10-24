@@ -1,6 +1,6 @@
 <?php
 
-class Home extends Controller
+class Dashboard extends Controller
 {
 	protected $model = '';
 
@@ -8,12 +8,12 @@ class Home extends Controller
 	{
 		$this->auth('user');
 
-		$data['title'] = 'Home';
+		$data['title'] = 'Dashboard';
 		$data['user'] = $this->user;
 		$data['jmlSupplier'] = $this->model('Supplier_model')->getJmlData()['count'];
 		$data['jmlMenu'] = $this->model('Menu_model')->getJmlData()['count'];
 
-		$this->view('home', $data);
+		$this->view('dashboard', $data);
 	}
 
 	public function store()

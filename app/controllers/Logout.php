@@ -14,7 +14,7 @@ class Logout extends Controller
 		} else {
 			Flasher::setFlash('<b>FAILED</b> to logout. Try again later.', 'danger');
 		}
-		header("Location: " . BASEURL . "/home");
+		header("Location: " . BASEURL);
 		exit;
 	}
 }
