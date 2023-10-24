@@ -6,10 +6,10 @@ class Menu_model
 {
 	protected $table = "menu";
 	protected $fields = [
-        'nama',
-        'jumlah',
-        'bahan'
-    ];
+		'nama',
+		'jumlah',
+		'bahan'
+	];
 	protected $user;
 	protected $db;
 
@@ -26,10 +26,10 @@ class Menu_model
 	}
 
 	public function getJmlData()
-    {
-        $this->db->query("SELECT COUNT(*) AS count FROM {$this->table} WHERE `status` = 1");
-        return $this->db->fetch();
-    }
+	{
+		$this->db->query("SELECT COUNT(*) AS count FROM {$this->table} WHERE `status` = 1");
+		return $this->db->fetch();
+	}
 
 	public function getDataById($id)
 	{
@@ -40,60 +40,60 @@ class Menu_model
 
 	public function insert($data)
 	{
-		$fields_query = ":nama, :jumlah, :bahan";
+		$fields_query = ":nama, :jumlah, :bahan,";
 
 		$this->db->query(
-            "INSERT INTO {$this->table} 
+			"INSERT INTO {$this->table} 
 				VALUES
-            (null, :uuid, {$fields_query}, '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
-        );
+			(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
+		);
 
-        $this->db->bind('uuid', Uuid::uuid4()->toString());
-        foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
-        $this->db->bind('created_by', $this->user);
+		$this->db->bind('uuid', Uuid::uuid4()->toString());
+		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
+		$this->db->bind('created_by', $this->user);
 
-        $this->db->execute();
+		$this->db->execute();
 
-        return $this->db->rowCount();
+		return $this->db->rowCount();
 	}
 
 	public function update($id, $data)
 	{
 		$fields_query = "
-            nama = :nama,
-            jumlah = :jumlah,
-            bahan = :bahan,
-        ";
+			nama = :nama,
+			jumlah = :jumlah,
+			bahan = :bahan,
+		";
 
 		$this->db->query(
-            "UPDATE {$this->table}
+			"UPDATE {$this->table}
 				SET
-                {$fields_query}
-                modified_at = CURRENT_TIMESTAMP,
-                modified_by = :modified_by
-            WHERE id = :id"
-        );
+				{$fields_query}
+				modified_at = CURRENT_TIMESTAMP,
+				modified_by = :modified_by
+			WHERE id = :id"
+		);
 
-        $this->db->bind('id', $id);
-        $this->db->bind('modified_by', $this->user);
+		$this->db->bind('id', $id);
+		$this->db->bind('modified_by', $this->user);
 
-        $this->db->execute();
+		$this->db->execute();
 
-        return $this->db->rowCount();
+		return $this->db->rowCount();
 	}
 
 	public function delete($id)
 	{
 		$this->db->query(
-            "UPDATE {$this->table}  
-                SET 
-                `deleted_at` = CURRENT_TIMESTAMP,
-                `deleted_by` = :deleted_by,
-                `is_deleted` = 1,
-                `is_restored` = 0,
-                `status` = 0
-            WHERE id = :id"
-        );
+			"UPDATE {$this->table}  
+				SET 
+				`deleted_at` = CURRENT_TIMESTAMP,
+				`deleted_by` = :deleted_by,
+				`is_deleted` = 1,
+				`is_restored` = 0,
+				`status` = 0
+			WHERE id = :id"
+		);
 
 		$this->db->bind('deleted_by', $this->user);
 		$this->db->bind('id', $id);
@@ -105,7 +105,7 @@ class Menu_model
 	public function destroy($id)
 	{
 		$this->db->query("DELETE FROM {$this->table} WHERE");
-		
+
 		$this->db->bind('id', $id);
 
 		$this->db->execute();

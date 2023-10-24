@@ -35,11 +35,11 @@ class Template_model
 		$this->db->query(
 			"INSERT INTO {$this->table} 
 				VALUES
-      (null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
+      		(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
 		);
 
-		$this->db->bind('uuid', Uuid::uuid4()->toString());
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
+		$this->db->bind('uuid', Uuid::uuid4()->toString());
 		$this->db->bind('created_by', $this->user);
 
 		$this->db->execute();
@@ -60,6 +60,7 @@ class Template_model
 			WHERE id = :id"
 		);
 
+		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
 		$this->db->bind('id', $id);
 		$this->db->bind('modified_by', $this->user);
 
@@ -76,7 +77,7 @@ class Template_model
 				`deleted_at` = CURRENT_TIMESTAMP,
 				`deleted_by` = :deleted_by,
 				`is_deleted` = 1,
-					`is_restored` = 0,
+				`is_restored` = 0,
 			WHERE id = :id"
 		);
 
