@@ -10,6 +10,8 @@ class Dashboard extends Controller
 
 		$data['title'] = 'Dashboard';
 		$data['user'] = $this->user;
+		$data['jmlSupplier'] = $this->model('Supplier_model')->getJmlData()['count'];
+		$data['jmlMenu'] = $this->model('Menu_model')->getJmlData()['count'];
 
 		$this->view('dashboard', $data);
 	}
