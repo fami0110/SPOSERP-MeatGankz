@@ -7,12 +7,12 @@
                 <div class="card-header pb-0">
                     <div class="row">
                         <div class="col-lg-8">
-                            <h6 class="card-title">Supplier</h6>
+                            <h5 class="card-title">Supplier</h5>
                         </div>
                         <div class="col-lg-4">
                             <div class="d-flex justify-content-end">
                                 <button class="btn bg-gradient-primary d-lg-block" type="button" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal"">
+                                    data-bs-target="#exampleModal">
                                         Tambah Data Supplier
                                 </button>
                             </div>

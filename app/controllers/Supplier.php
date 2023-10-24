@@ -47,8 +47,8 @@ class Supplier extends Controller
 
 	public function update()
     {
-        $id = $_POST['id']; // Pastikan id diperoleh dari $_POST
-        $data = $_POST; // Gunakan seluruh data dari $_POST
+        $id = $_POST['id']; 
+        $data = $_POST; 
 
         if ($this->model('Supplier_model')->update($id, $data) > 0) {
             Flasher::setFlash('Update <b>SUCCESS</b>', 'success');
