@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 24, 2023 at 02:05 AM
+-- Generation Time: Oct 24, 2023 at 02:14 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -46,6 +46,39 @@ CREATE TABLE `laporan_pengeluaran` (
   `is_restored` tinyint(1) NOT NULL,
   `status` tinyint(1) GENERATED ALWAYS AS ((case when ((`is_deleted` = 0) and (`is_restored` = 0)) then _utf8mb4'1' when ((`is_deleted` = 1) and (`is_restored` = 0)) then _utf8mb4'0' when ((`is_deleted` = 0) and (`is_restored` = 1)) then _utf8mb4'1' end)) STORED
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menu`
+--
+
+CREATE TABLE `menu` (
+  `id` int NOT NULL,
+  `uuid` varchar(36) NOT NULL,
+  `nama` text NOT NULL,
+  `jumlah` text NOT NULL,
+  `bahan` text NOT NULL,
+  `note` varchar(50) NOT NULL,
+  `create_at` datetime DEFAULT NULL,
+  `created_by` char(36) NOT NULL,
+  `modified_at` datetime DEFAULT NULL,
+  `modified_by` char(36) NOT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `deleted_by` char(36) NOT NULL,
+  `restored_at` datetime DEFAULT NULL,
+  `restored_by` char(36) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `is_restored` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `menu`
+--
+
+INSERT INTO `menu` (`id`, `uuid`, `nama`, `jumlah`, `bahan`, `note`, `create_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`, `status`) VALUES
+(1, 'dceba83d-6b69-4e04-b6a4-66386c97a258', 'steak', '2', 'daging premium', '', '2023-10-23 20:22:11', 'admin', NULL, '', '2023-10-23 20:23:02', 'admin', NULL, '', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -182,6 +215,12 @@ ALTER TABLE `laporan_pengeluaran`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `menu`
+--
+ALTER TABLE `menu`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `shipment`
 --
 ALTER TABLE `shipment`
@@ -214,6 +253,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `laporan_pengeluaran`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `menu`
+--
+ALTER TABLE `menu`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `shipment`
