@@ -77,5 +77,8 @@
 			</div>
 		</section>
 	</main>
+	<!-- script -->
+	<script src="<?= BASEURL; ?>/js/core/popper.min.js"></script>
+	<script src="<?= BASEURL; ?>/js/core/bootstrap.min.js"></script>
 </body>
 </html>
