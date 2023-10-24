@@ -31,13 +31,13 @@ class Login extends Controller
 
 					Cookie::create_jwt($payload, $payload['exp']);
 
-					Flasher::setFlash('Login <b>SUCCESS</b>', 'success');
+					Flasher::setFlash('Login &nbsp<b>SUCCESS</b>', 'success');
 
 				} else {
-                    Flasher::setFlash('Login <b>FAILED</b>', 'danger');
+                    Flasher::setFlash('Login &nbsp<b>FAILED</b>', 'danger');
                 }
 			} else {
-				Flasher::setFlash('Username or Password <b>INCORRECT</b>!', 'danger');
+				Flasher::setFlash('Username or Password &nbsp<b>INCORRECT</b>!', 'danger');
 			}
 		} else {
 			Flasher::setFlash('Fill all the column first!', 'danger');
