@@ -2,10 +2,25 @@
 
 use Ramsey\Uuid\Uuid;
 
-class Template_model
+class Pemasukan_model
 {
-	protected $table = "table_template";
-	protected $fields = [];
+	protected $table = "shipment";
+	protected $fields = [
+        'harga',
+        'unit_harga',
+        'menu',
+        'pesan',
+        'unit_pesan',
+        'berat',
+        'unit_berat',
+        'harga_exw',
+        'total_exw',
+        'ongkir',
+        'ice_pack',
+        'diskon',
+        'total',
+        'keterangan'
+    ];
 	protected $user;
 	protected $db;
 
@@ -18,7 +33,7 @@ class Template_model
 	public function getAllData()
 	{
 		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1");
-	return $this->db->fetchAll();
+		return $this->db->fetchAll();
 	}
 
 	public function getDataById($id)
@@ -30,12 +45,12 @@ class Template_model
 
 	public function insert($data)
 	{
-		$fields_query = "";
+		$fields_query = ":harga, :unit_harga, :menu, :pesan, :unit_pesan, :berat, :unit_berat, :harga_exw, :total_exw, :ongkir, :ice_pack, :diskon, :total, :keterangan";
 
 		$this->db->query(
 			"INSERT INTO {$this->table} 
 				VALUES
-      		(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, DEFAULT)"
+      		(null, :uuid, {$fields_query}, '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, DEFAULT)"
 		);
 
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
@@ -49,14 +64,29 @@ class Template_model
 
 	public function update($id, $data)
 	{
-		$fields_query = "";
+		$fields_query = "
+            harga = :harga,
+            unit_harga = :unit_harga,
+            menu = :menu,
+            pesan = :pesan,
+            unit_pesan = :unit_pesan,
+            berat = :berat,
+            unit_berat = :unit_berat,
+            harga_exw = :harga_exw,
+            total_exw = :total_exw,
+            ongkir = :ongkir,
+            ice_pack = :ice_pack,
+            diskon = :diskon,
+            total = :total,
+            keterangan = :keterangan,
+        ";
 
 		$this->db->query(
 			"UPDATE {$this->table}
 				SET
-				{$fields_query}
-				modified_at = CURRENT_TIMESTAMP,
-				modified_by = :modified_by
+					{$fields_query}
+					modified_at = CURRENT_TIMESTAMP,
+					modified_by = :modified_by
 			WHERE id = :id"
 		);
 
@@ -77,7 +107,7 @@ class Template_model
 				`deleted_at` = CURRENT_TIMESTAMP,
 				`deleted_by` = :deleted_by,
 				`is_deleted` = 1,
-				`is_restored` = 0,
+				`is_restored` = 0
 			WHERE id = :id"
 		);
 
@@ -97,37 +127,4 @@ class Template_model
 		$this->db->execute();
 		return $this->db->rowCount();
 	}
-
-	public function uploadFile($file, $type = [], $targetDir = 'upload/', $maxSize = 2*MB, $oldFileName = '')
-    {
-		if (!empty($oldFileName)) 
-			$this->deleteFile($targetDir . '/' . $oldFileName);
-
-        $name = $file['name'];
-
-		if ($file["size"] > $maxSize)
-            return false;
-        
-        $imageFileType = explode('.', $name);
-        $imageFileType = strtolower(end($imageFileType));
-        if (!in_array($imageFileType, $type))
-            return false;
-
-        $fileName = uniqid() . "." . $imageFileType;
-        $targetDir .= $fileName;
-
-        try {
-            move_uploaded_file($file['tmp_name'], $targetDir);
-        } catch (Exception $e) {
-            echo $e; die;
-        }
-
-        return $fileName;
-    }
-
-    public function deleteFile($filepath)
-    {
-        if (file_exists($filepath)) 
-			unlink($filepath);
-    }
 }
