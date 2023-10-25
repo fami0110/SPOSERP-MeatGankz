@@ -289,7 +289,7 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " aria-expanded="false" href="#productsExample">
+                                <a class="nav-link " aria-expanded="false" href="<?= BASEURL; ?>/keuangan">
                                     <span class="sidenav-mini-icon"> K </span>
                                     <span class="sidenav-normal"> Keuangan</span>
                                 </a>
