@@ -1,8 +1,6 @@
 <?php
 
-
 use Ramsey\Uuid\Uuid;
-use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 class Menu_model
 {
@@ -42,18 +40,14 @@ class Menu_model
 
 	public function insert($data)
 	{
-		// $fields_query = ":nama, :foto, :jumlah, :bahan,";
+		$fields_query = ":nama, :jumlah, :bahan,";
 
 		$this->db->query(
 			"INSERT INTO {$this->table} 
 				VALUES
-			(null, :uuid, :nama, :foto, :jumlah, :bahan, '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
+			(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
 		);
 
-		$foto = $this->uploadFile($_FILES['foto'], ['png', 'jpg', 'jpeg', 'gif'], 'img/datafoto/');
-		// if (!$foto) return 0;
-
-		$this->db->bind('foto', $foto);
 		$this->db->bind('uuid', Uuid::uuid4()->toString());
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
 		$this->db->bind('created_by', $this->user);
@@ -65,33 +59,22 @@ class Menu_model
 
 	public function update($id, $data)
 	{
-		// $fields_query = "
-		// 	nama = :nama,
-		// 	jumlah = :jumlah,
-		// 	bahan = :bahan,
-		// ";
+		$fields_query = "
+			nama = :nama,
+			jumlah = :jumlah,
+			bahan = :bahan,
+		";
 
 		$this->db->query(
 			"UPDATE {$this->table}
 				SET
-				nama = :nama,
-				foto = :foto,
-				jumlah = :jumlah,
-				bahan = :bahan,
+				{$fields_query}
 				modified_at = CURRENT_TIMESTAMP,
 				modified_by = :modified_by
 			WHERE id = :id"
 		);
 
-		if ($_FILES["foto"]["error"] === 4) {
-            $foto = $data['fotolama'];
-        } else {
-            $this->deleteFile('img/datafoto/' . $data['fotolama']);
-            $foto = $this->uploadFile($_FILES["foto"], ['png', 'jpg', 'jpeg', 'gif'], 'img/datafoto/');
-        }
-		$this->db->bind('foto', $foto);
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
-
 		$this->db->bind('id', $id);
 		$this->db->bind('modified_by', $this->user);
 
@@ -128,43 +111,5 @@ class Menu_model
 
 		$this->db->execute();
 		return $this->db->rowCount();
-	}
-	public function uploadFile($file, $type = [], $targetDir = '/')
-    {
-        $name = $file['name'];
-        
-        // validasi ekstensi file
-        $imageFileType = explode('.', $name);
-        $imageFileType = strtolower(end($imageFileType));
-        if (!in_array($imageFileType, $type)) {
-            return false;
-        }
-
-        // validasi ukuran file
-        if ($_FILES["size"] > 20044070) {
-            return false;
-        }
-
-        $fileName = uniqid() . "." . $imageFileType;
-        $targetFile = $targetDir . $fileName; // nama file upload
-
-        try {
-            move_uploaded_file($file['tmp_name'], $targetFile);
-        } catch (IOExceptionInterface $e) {
-            echo $e->getMessage();
-        }
-
-        return $fileName;
-    }
-
-	public function deleteFile($filepath)
-    {
-        if (file_exists($filepath)) {
-            if (unlink($filepath)) {
-                return true;
-            } 
-        }
-
-        return false;
 	}
 }

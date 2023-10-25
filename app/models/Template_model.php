@@ -18,7 +18,7 @@ class Template_model
 	public function getAllData()
 	{
 		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1");
-		return $this->db->fetchAll();
+	return $this->db->fetchAll();
 	}
 
 	public function getDataById($id)

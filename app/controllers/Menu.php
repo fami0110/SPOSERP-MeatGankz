@@ -17,9 +17,9 @@ class Menu extends Controller
 
     public function insert()
     {
-        if ($this->model('Menu_model')->insert($_POST) > 0) {
-            Flasher::setFlash('Insert <b>SUCCESS</b>', 'success');
-			header("Location: " . BASEURL . "/menu");
+        if ($this->model('Menu_model')->insert($_POST, false) > 0) {
+            Flasher::setFlash('Insert &nbsp<b>SUCCESS</b>', 'success');
+			      header("Location: " . BASEURL . "/menu");
             exit;
         } else {
             Flasher::setFlash('Insert <b>FAILED</b>', 'danger');
@@ -51,11 +51,11 @@ class Menu extends Controller
         $data = $_POST; 
 
         if ($this->model('Menu_model')->update($id, $data) > 0) {
-            Flasher::setFlash('Update <b>SUCCESS</>', 'success');
+            Flasher::setFlash('Update &nbsp<b>SUCCESS</>', 'success');
             header('Location: ' . BASEURL . '/menu');
             exit;
         } else {
-            Flasher::setFlash('Update <b>FAILED</b>', 'danger');
+            Flasher::setFlash('Update &nbsp<b>FAILED</b>', 'danger');
             header('Location: ' . BASEURL . '/menu');
             exit;
         }
@@ -69,4 +69,5 @@ class Menu extends Controller
 	public function destroy()
 	{
 	}
+    
 }

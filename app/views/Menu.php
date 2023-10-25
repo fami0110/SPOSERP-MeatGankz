@@ -32,6 +32,9 @@
                                                         Nama Menu</th>
                                                     <th
                                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                        Foto</th>
+                                                    <th
+                                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                         Stok</th>
                                                     <th
                                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -42,9 +45,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                
                                                 <?php $i = 1; ?>
                                                 <?php foreach ($data["menu"] as $menu): ?>
                                                     <tr>
+                                                     
                                                         <td>
                                                             <p class="text-sm text-center font-weight-bold mb-0">
                                                                 <?= $i++; ?>
@@ -54,6 +59,9 @@
                                                             <p class="text-sm text-center font-weight-bold mb-0">
                                                                 <?= $menu['nama']; ?>
                                                             </p>
+                                                        </td>
+                                                        <td class="align-middle text-center">
+                                                            <img src="<?= BASEURL?>/img/datafoto/<?=$menu['foto']?>" alt="img" <?=$menu['foto']?>" style="max-width: 150px; max-height: 10%" >
                                                         </td>
                                                         <td>
                                                             <p class="text-sm text-center font-weight-bold mb-0">
@@ -74,7 +82,14 @@
                                                             <a href="<?= BASEURL; ?>/menu/delete/<?= $menu['id'] ?>"
                                                                 onclick="return confirm ('Hapus data?')" class="btn btn-dark">
                                                                 <i class="bi bi-trash"></i>
+
+
+                                                            <!-- <td><img src="<?= BASEURL ?>/img/datafoto<?= $menu['foto'] ?>" ></td> -->
+
+                                                            
                                                             </a>
+                                                        </td>
+                                                            
                                                         </td>
                                                     </tr>
                                                 <?php endforeach ?>
@@ -95,13 +110,21 @@
                                     <i class="fa fa-xmark"></i>
                                 </button>
                             </div>
+                        
                             <div class="modal-body">
-                                <form action="<?= BASEURL; ?>/menu/insert" method="post">
+                                <form action="<?= BASEURL; ?>/menu/insert" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="id" id="id">
                                     <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Nama Menu</label>
                                         <input type="text" class="form-control" name="nama" id="nama">
                                     </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Upload Foto</label>
+                                        <input type="file" class="form-control" name="foto" id="foto" accept=".png, .jpg, .jpeg, .gif" required>
+                                    </div>
+                                    
+                                        <input type="hidden" class="form-control" name="fotolama" id="fotolama" accept=".png, .jpg, .jpeg, .gif" required>
+                                    
                                     <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Jumlah</label>
                                         <input type="number" class="form-control" name="jumlah" id="jumlah">
