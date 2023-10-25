@@ -74,6 +74,7 @@ class Menu_model
 			WHERE id = :id"
 		);
 
+		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
 		$this->db->bind('id', $id);
 		$this->db->bind('modified_by', $this->user);
 

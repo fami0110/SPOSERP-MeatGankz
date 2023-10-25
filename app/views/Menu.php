@@ -87,14 +87,17 @@
                 </div>
                 <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="modalLabel">Tambah Data</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn btn-dark mb-0" data-bs-dismiss="modal" aria-label="Close">
+                                    <i class="fa fa-xmark"></i>
+                                </button>
                             </div>
                             <div class="modal-body">
                                 <form action="<?= BASEURL; ?>/menu/insert" method="post">
+                                <input type="hidden" name="id" id="id">
                                     <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Nama Menu</label>
                                         <input type="text" class="form-control" name="nama" id="nama">
@@ -152,9 +155,8 @@
                             dataType: "json",
                             success: function(data) {
                             $('#nama').val(data.nama);
-                            $("#alamat").val(data.alamat);
-                            $('#kontak').val(data.kontak);
-                            $('#email').val(data.email);
+                            $("#jumlah").val(data.jumlah);
+                            $('#bahan').val(data.bahan);
                             $('#id').val(data.id);
                             console.log(data);
                             },
