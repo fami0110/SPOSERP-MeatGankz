@@ -91,7 +91,6 @@ class Menu_model
         }
 		$this->db->bind('foto', $foto);
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
-	
 
 		$this->db->bind('id', $id);
 		$this->db->bind('modified_by', $this->user);
