@@ -2,10 +2,14 @@
 
 use Ramsey\Uuid\Uuid;
 
-class Template_model
+class Menu_model
 {
-	protected $table = "table_template";
-	protected $fields = [];
+	protected $table = "menu";
+	protected $fields = [
+		'nama',
+		'jumlah',
+		'bahan'
+	];
 	protected $user;
 	protected $db;
 
@@ -18,7 +22,13 @@ class Template_model
 	public function getAllData()
 	{
 		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1");
-	return $this->db->fetchAll();
+		return $this->db->fetchAll();
+	}
+
+	public function getJmlData()
+	{
+		$this->db->query("SELECT COUNT(*) AS count FROM {$this->table} WHERE `status` = 1");
+		return $this->db->fetch();
 	}
 
 	public function getDataById($id)
@@ -30,16 +40,16 @@ class Template_model
 
 	public function insert($data)
 	{
-		$fields_query = "";
+		$fields_query = ":nama, :jumlah, :bahan,";
 
 		$this->db->query(
 			"INSERT INTO {$this->table} 
 				VALUES
-      		(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
+			(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
 		);
 
-		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
 		$this->db->bind('uuid', Uuid::uuid4()->toString());
+		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
 		$this->db->bind('created_by', $this->user);
 
 		$this->db->execute();
@@ -49,14 +59,18 @@ class Template_model
 
 	public function update($id, $data)
 	{
-		$fields_query = "";
+		$fields_query = "
+			nama = :nama,
+			jumlah = :jumlah,
+			bahan = :bahan,
+		";
 
 		$this->db->query(
 			"UPDATE {$this->table}
 				SET
-					{$fields_query}
-					modified_at = CURRENT_TIMESTAMP,
-					modified_by = :modified_by
+				{$fields_query}
+				modified_at = CURRENT_TIMESTAMP,
+				modified_by = :modified_by
 			WHERE id = :id"
 		);
 
@@ -78,6 +92,7 @@ class Template_model
 				`deleted_by` = :deleted_by,
 				`is_deleted` = 1,
 				`is_restored` = 0,
+				`status` = 0
 			WHERE id = :id"
 		);
 
@@ -90,7 +105,7 @@ class Template_model
 
 	public function destroy($id)
 	{
-		$this->db->query("DELETE FROM {$this->table} WHERE id = :id");
+		$this->db->query("DELETE FROM {$this->table} WHERE");
 
 		$this->db->bind('id', $id);
 
