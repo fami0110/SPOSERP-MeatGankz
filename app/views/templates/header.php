@@ -110,8 +110,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?= BASEURL; ?>">
                         <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center  me-2 d-flex align-items-center justify-content-center">
-                            <div class="fa fa-house" style="width: 12px; height: 12px; font-size: 12px;"></div>
+                            class="icon icon-shape text-icon icon-sm shadow border-radius-md bg-white text-center  me-2 d-flex align-items-center justify-content-center">
+                            <div class="fa fa-house" style="width: 12px; height: 12px; font-size: 12px; color: #3a416d;"></div>
                         </div>
                         <span class="nav-link-text ms-1">Dashboard</span>
                     </a>
@@ -147,7 +147,7 @@
                     <a class="nav-link" href="<?= BASEURL; ?>/menu">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center  me-2 d-flex align-items-center justify-content-center">
-                            <div class="fa fa-utensils" style="width: 12px; height: 12px; font-size: 12px;"></div>
+                            <div class="fa fa-utensils text-icon" style="width: 12px; height: 12px; font-size: 12px; color: #3a416d;"></div>
                         </div>
                         <span class="nav-link-text ms-1">Menu</span>
                     </a>
@@ -157,7 +157,7 @@
                         aria-controls="applicationsExamples" role="button" aria-expanded="false">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                            <div class="fa fa-inbox" style="width: 12px; height: 12px; font-size: 12px;"></div>
+                            <div class="fa fa-inbox text-icon" style="width: 12px; height: 12px; font-size: 12px; color: #3a416d;"></div>
                         </div>
                         <span class="nav-link-text ms-1">Stok</span>
                     </a>

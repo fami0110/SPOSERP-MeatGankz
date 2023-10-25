@@ -35,7 +35,7 @@ class Template_model
 		$this->db->query(
 			"INSERT INTO {$this->table} 
 				VALUES
-      		(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
+      		(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, DEFAULT)"
 		);
 
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
