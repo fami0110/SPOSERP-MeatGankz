@@ -11,6 +11,8 @@ class Kasir extends Controller
 		$data['title'] = 'Menu';
 		$data['user'] = $this->user;
         $data['menu'] = $this->model('Menu_model')->getAllData();
+        // $data['stok'] = $this->model('kelolaStok_model')->getAllData();
+
 		
 		$this->view('kasir', $data);
 	}
