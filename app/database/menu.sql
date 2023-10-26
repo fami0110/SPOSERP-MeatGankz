@@ -25,10 +25,11 @@ DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` varchar(36) NOT NULL,
-  `nama` text NOT NULL,
-  `foto` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `jumlah` text NOT NULL,
-  `bahan` text NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `kategori` varchar(20) NOT NULL,
+  `harga` int NOT NULL,
+  `tersedia` tinyint(1) NOT NULL,
+  `foto` varchar(100) NOT NULL,
   `note` varchar(50) NOT NULL,
   `create_at` datetime DEFAULT NULL,
   `created_by` char(36) NOT NULL,
@@ -63,4 +64,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-26 13:03:12
+-- Dump completed on 2023-10-26 14:45:06

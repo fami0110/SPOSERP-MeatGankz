@@ -21,10 +21,10 @@ class Menu extends Controller
     {
         if ($this->model('Menu_model')->insert($_POST, false) > 0) {
             Flasher::setFlash('Insert&nbsp<b>SUCCESS</b>', 'success');
-			      header("Location: " . BASEURL . "/menu");
+			header("Location: " . BASEURL . "/menu");
             exit;
         } else {
-            Flasher::setFlash('Insert <b>FAILED</b>', 'danger');
+            Flasher::setFlash('Insert&nbsp<b>FAILED</b>', 'danger');
             header('Location: ' . BASEURL . '/menu');
             exit;
         }

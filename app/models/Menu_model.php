@@ -11,9 +11,7 @@ class Menu_model
 		'nama',
 		'kategori',
 		'harga',
-		'jumlah',
-		'tanggal',
-		'bahan'
+		'tersedia',
 	];
 	protected $user;
 	protected $db;
@@ -45,7 +43,7 @@ class Menu_model
 
 	public function insert($data)
 	{
-		// $fields_query = ":nama, :foto, :jumlah, :bahan,";
+		$fields_query = ":nama, :foto, :jumlah, :bahan,";
 
 		$this->db->query(
 			"INSERT INTO {$this->table} 
@@ -55,7 +53,7 @@ class Menu_model
 
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
 		$this->db->bind('foto', 
-			$this->uploadFile($_FILES['foto'], ['png', 'jpg', 'jpeg', 'gif'], 'img/datafoto/'));
+			$this->uploadFile($_FILES['foto'], 'png|jpg|jpeg|gif', 'img/datafoto/'));
 
 		$this->db->bind('uuid', Uuid::uuid4()->toString());
 		$this->db->bind('created_by', $this->user);
