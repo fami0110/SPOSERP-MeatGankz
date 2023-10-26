@@ -9,7 +9,10 @@ class Menu_model
 	protected $table = "menu";
 	protected $fields = [
 		'nama',
+		'kategori',
+		'harga',
 		'jumlah',
+		'tanggal',
 		'bahan'
 	];
 	protected $user;
@@ -47,7 +50,7 @@ class Menu_model
 		$this->db->query(
 			"INSERT INTO {$this->table} 
 				VALUES
-			(null, :uuid, :nama, :foto, :jumlah, :bahan, '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
+			(null, :uuid, :nama, :kategori, :harga, :foto, :jumlah, :tanggal, :bahan, '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
 		);
 
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
@@ -87,8 +90,10 @@ class Menu_model
 
 		$this->db->bind('id', $id);
 		$this->db->bind('modified_by', $this->user);
-
+		
 		$this->db->execute();
+		
+
 
 		return $this->db->rowCount();
 	}
