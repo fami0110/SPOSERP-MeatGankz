@@ -24,6 +24,22 @@
         .async-hide {
             opacity: 0 !important
         }
+        .animation-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid rgba(0, 0, 0, 0.125);
+            border-radius: 1rem;
+            transition: transform 0.3s ease-in-out
+        }
+
+        .animation-card:hover {
+            transform: scale(1.03);
+        }
     </style>
     <script>
         (function (a, s, y, n, c, h, i, d, e) {
