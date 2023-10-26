@@ -9,7 +9,10 @@ class Menu_model
 	protected $table = "menu";
 	protected $fields = [
 		'nama',
+		'kategori',
+		'harga',
 		'jumlah',
+		'tanggal',
 		'bahan'
 	];
 	protected $user;
@@ -47,7 +50,7 @@ class Menu_model
 		$this->db->query(
 			"INSERT INTO {$this->table} 
 				VALUES
-			(null, :uuid, :nama, :foto, :jumlah, :bahan, '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
+			(null, :uuid, :nama, :kategori, :harga, :foto, :jumlah, :tanggal, :bahan, '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
 		);
 
 		$foto = $this->uploadFile($_FILES['foto'], ['png', 'jpg', 'jpeg', 'gif'], 'img/datafoto/');
@@ -73,29 +76,38 @@ class Menu_model
 
 		$this->db->query(
 			"UPDATE {$this->table}
-				SET
-				nama = :nama,
-				foto = :foto,
-				jumlah = :jumlah,
-				bahan = :bahan,
-				modified_at = CURRENT_TIMESTAMP,
-				modified_by = :modified_by
+			SET
+			nama = :nama,
+			harga = :harga,
+			foto = :foto,
+			jumlah = :jumlah,
+			bahan = :bahan,
+			modified_at = CURRENT_TIMESTAMP,
+			modified_by = :modified_by
 			WHERE id = :id"
 		);
-
+		
 		if ($_FILES["foto"]["error"] === 4) {
-            $foto = $data['fotolama'];
-        } else {
-            $this->deleteFile('img/datafoto/' . $data['fotolama']);
-            $foto = $this->uploadFile($_FILES["foto"], ['png', 'jpg', 'jpeg', 'gif'], 'img/datafoto/');
-        }
+			$foto = $data['fotolama'];
+		} else {
+			if (!empty($data['fotolama'])) {
+				$this->deleteFile('img/datafoto/' . $data['foto_lama']);
+			}
+			
+			$foto = $this->uploadFile($_FILES["foto"], ['png', 'jpg', 'jpeg', 'gif'], 'img/datafoto/');
+		}
 		$this->db->bind('foto', $foto);
-		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
-
+		
+		foreach ($this->fields as $field) {
+			$this->db->bind($field, $data[$field]);
+		}
+		
 		$this->db->bind('id', $id);
 		$this->db->bind('modified_by', $this->user);
-
+		
 		$this->db->execute();
+		
+
 
 		return $this->db->rowCount();
 	}

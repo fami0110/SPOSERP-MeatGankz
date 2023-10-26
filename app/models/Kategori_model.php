@@ -2,14 +2,11 @@
 
 use Ramsey\Uuid\Uuid;
 
-class Supplier_model
+class Kategori_model
 {
-	protected $table = "supplier";
+	protected $table = "kategori";
 	protected $fields = [
-        'nama',
-        'alamat',
-        'kontak',
-        'email'
+        'nama'
     ];
 	protected $user;
 	protected $db;
@@ -23,13 +20,7 @@ class Supplier_model
 	public function getAllData()
 	{
 		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1");
-		return $this->db->fetchAll();
-	}
-
-	public function getJmlData()
-	{
-		$this->db->query("SELECT COUNT(*) AS count FROM {$this->table} WHERE `status` = 1");
-		return $this->db->fetch();
+	return $this->db->fetchAll();
 	}
 
 	public function getDataById($id)
@@ -41,16 +32,16 @@ class Supplier_model
 
 	public function insert($data)
 	{
-		$fields_query = ":nama, :alamat, :kontak, :email,";
+		$fields_query = ":nama";
 
 		$this->db->query(
-				"INSERT INTO {$this->table} 
-					VALUES
-				(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, DEFAULT)"
+			"INSERT INTO {$this->table} 
+				VALUES
+      		(null, :uuid, {$fields_query}, '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, DEFAULT)"
 		);
 
-		$this->db->bind('uuid', Uuid::uuid4()->toString());
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
+		$this->db->bind('uuid', Uuid::uuid4()->toString());
 		$this->db->bind('created_by', $this->user);
 
 		$this->db->execute();
@@ -61,18 +52,15 @@ class Supplier_model
 	public function update($id, $data)
 	{
 		$fields_query = "
-			nama = :nama,
-			alamat = :alamat,
-			kontak = :kontak,
-			email = :email,
-		";
+            nama= :nama,
+        ";
 
 		$this->db->query(
-      		"UPDATE {$this->table}
+			"UPDATE {$this->table}
 				SET
-				{$fields_query}
-				modified_at = CURRENT_TIMESTAMP,
-				modified_by = :modified_by
+					{$fields_query}
+					modified_at = CURRENT_TIMESTAMP,
+					modified_by = :modified_by
 			WHERE id = :id"
 		);
 
@@ -96,7 +84,7 @@ class Supplier_model
 				`is_restored` = 0,
 				`status` = DEFAULT
 			WHERE id = :id"
-    	);
+		);
 
 		$this->db->bind('deleted_by', $this->user);
 		$this->db->bind('id', $id);
@@ -107,8 +95,8 @@ class Supplier_model
 
 	public function destroy($id)
 	{
-		$this->db->query("DELETE FROM {$this->table} WHERE");
-		
+		$this->db->query("DELETE FROM {$this->table} WHERE id = :id");
+
 		$this->db->bind('id', $id);
 
 		$this->db->execute();

@@ -87,6 +87,7 @@
     --bs-link-hover-color: #830866;
     --bs-code-color: #d63384;
     --bs-highlight-bg: #fcf8e3
+    --bs-border-width: 1px;
 }
 
 *,
@@ -2489,11 +2490,11 @@ progress {
 }
 
 .table-bordered>:not(caption)>* {
-    border-width: 1px 0
+    border-width: var(--bs-border-width) 0;
 }
 
 .table-bordered>:not(caption)>*>* {
-    border-width: 0 1px
+    border-width: 0 var(--bs-border-width)
 }
 
 .table-borderless>:not(caption)>*>* {
@@ -29380,6 +29381,7 @@ Github: https://github.com/fiduswriter/Simple-DataTables
 */
 .dataTable-wrapper .dataTable-top {
     padding-left: 1.5rem;
+    padding-right: 1.5rem;
     padding-top: none;
 }
 
