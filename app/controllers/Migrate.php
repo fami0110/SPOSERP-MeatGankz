@@ -49,7 +49,7 @@ class Migrate extends Controller
 			header('Location: '. BASEURL .'/migrate');
 			exit;
 		} catch (Exception $e) {
-			Flasher::setFlash("Migration <b>FAILED</b>! message: <pre>$e</pre>", 'danger');
+			Flasher::setFlash("Migration &nbsp<b>FAILED</b>! message: <pre>$e</pre>", 'danger');
 			header('Location: '. BASEURL .'/migrate');
 			exit;
 		}

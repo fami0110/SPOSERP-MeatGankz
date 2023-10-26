@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 24, 2023 at 02:14 AM
--- Server version: 8.0.30
--- PHP Version: 8.1.10
+-- Waktu pembuatan: 25 Okt 2023 pada 03.55
+-- Versi server: 8.0.30
+-- Versi PHP: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `laporan_pengeluaran`
+-- Struktur dari tabel `laporan_pengeluaran`
 --
 
 CREATE TABLE `laporan_pengeluaran` (
@@ -50,13 +50,14 @@ CREATE TABLE `laporan_pengeluaran` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `menu`
+-- Struktur dari tabel `menu`
 --
 
 CREATE TABLE `menu` (
   `id` int NOT NULL,
   `uuid` varchar(36) NOT NULL,
   `nama` text NOT NULL,
+  `foto` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `jumlah` text NOT NULL,
   `bahan` text NOT NULL,
   `note` varchar(50) NOT NULL,
@@ -73,17 +74,10 @@ CREATE TABLE `menu` (
   `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `menu`
---
-
-INSERT INTO `menu` (`id`, `uuid`, `nama`, `jumlah`, `bahan`, `note`, `create_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`, `status`) VALUES
-(1, 'dceba83d-6b69-4e04-b6a4-66386c97a258', 'steak', '2', 'daging premium', '', '2023-10-23 20:22:11', 'admin', NULL, '', '2023-10-23 20:23:02', 'admin', NULL, '', 1, 0, 0);
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `shipment`
+-- Struktur dari tabel `shipment`
 --
 
 CREATE TABLE `shipment` (
@@ -120,13 +114,13 @@ CREATE TABLE `shipment` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `stok_bahan`
+-- Struktur dari tabel `stok_bahan`
 --
 
 CREATE TABLE `stok_bahan` (
   `id` int NOT NULL,
   `uuid` char(36) NOT NULL,
-  `menu` text NOT NULL,
+  `deskripsi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `tanggal` date NOT NULL,
   `masuk` int NOT NULL,
   `stok` int NOT NULL,
@@ -145,10 +139,17 @@ CREATE TABLE `stok_bahan` (
   `status` tinyint(1) GENERATED ALWAYS AS ((case when ((`is_deleted` = 0) and (`is_restored` = 0)) then _utf8mb4'1' when ((`is_deleted` = 1) and (`is_restored` = 0)) then _utf8mb4'0' when ((`is_deleted` = 0) and (`is_restored` = 1)) then _utf8mb4'1' end)) STORED
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `stok_bahan`
+--
+
+INSERT INTO `stok_bahan` (`id`, `uuid`, `deskripsi`, `tanggal`, `masuk`, `stok`, `keluar`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES
+(1, 'f38be5eb-bca9-4e24-862a-a96a4dc245e9', 'oke', '2023-10-26', 12, 1, 1, '', '2023-10-25 09:23:36', 'admin', NULL, '', NULL, '', NULL, '', 0, 0);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `supplier`
+-- Struktur dari tabel `supplier`
 --
 
 CREATE TABLE `supplier` (
@@ -172,19 +173,10 @@ CREATE TABLE `supplier` (
   `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `supplier`
---
-
-INSERT INTO `supplier` (`id`, `uuid`, `nama`, `alamat`, `kontak`, `email`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`, `status`) VALUES
-(1, '36929f29-b36f-4e8d-9012-3cd006c85c33', 'Daging enak', 'mana aja', '08123382520', 'teampapathore@gmail.com', '', '2023-10-23 18:54:11', 'admin', NULL, '', '2023-10-23 19:03:34', 'admin', NULL, '', 1, 0, 0),
-(2, '48bb7345-1699-4abc-b670-0121341c47cb', 'Daging enak', 'mana aja', '08123382520', 'email@example.com', '', '2023-10-23 19:04:04', 'admin', NULL, '', NULL, '', NULL, '', 0, 0, 1),
-(3, '760633c2-1d7d-46cf-aa96-8b6e29760e3e', 'mang ea?', 'bumi', '089520409050', 'mellandakumalasari13@gmail.com', '', '2023-10-23 20:07:07', 'admin', '2023-10-23 23:04:06', 'admin', NULL, '', NULL, '', 0, 0, 1);
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -198,91 +190,94 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`, `last_login_at`, `status`) VALUES
-(1, 'sando', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'masandofami@gmail.com', 'user', '2023-10-09 00:26:51', 0);
+(1, 'sando', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'masandofami@gmail.com', 'user', '2023-10-09 00:26:51', 0),
+(2, 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'meylakusuma07@gmail.com', 'user', '2023-10-25 09:23:08', 1);
+(3, 'dimas ngent', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'kontol@gmail.com', 'user', '2023-10-25 08:36:29', 1);
+
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `laporan_pengeluaran`
+-- Indeks untuk tabel `laporan_pengeluaran`
 --
 ALTER TABLE `laporan_pengeluaran`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `menu`
+-- Indeks untuk tabel `menu`
 --
 ALTER TABLE `menu`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `shipment`
+-- Indeks untuk tabel `shipment`
 --
 ALTER TABLE `shipment`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `stok_bahan`
+-- Indeks untuk tabel `stok_bahan`
 --
 ALTER TABLE `stok_bahan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `supplier`
+-- Indeks untuk tabel `supplier`
 --
 ALTER TABLE `supplier`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `laporan_pengeluaran`
+-- AUTO_INCREMENT untuk tabel `laporan_pengeluaran`
 --
 ALTER TABLE `laporan_pengeluaran`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `menu`
+-- AUTO_INCREMENT untuk tabel `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `shipment`
+-- AUTO_INCREMENT untuk tabel `shipment`
 --
 ALTER TABLE `shipment`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `stok_bahan`
+-- AUTO_INCREMENT untuk tabel `stok_bahan`
 --
 ALTER TABLE `stok_bahan`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `supplier`
+--
+ALTER TABLE `supplier`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `supplier`
---
-ALTER TABLE `supplier`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

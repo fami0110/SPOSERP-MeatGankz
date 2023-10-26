@@ -2,14 +2,24 @@
 
 use Ramsey\Uuid\Uuid;
 
-class Supplier_model
+class Pemasukan_model
 {
-	protected $table = "supplier";
+	protected $table = "shipment";
 	protected $fields = [
-        'nama',
-        'alamat',
-        'kontak',
-        'email'
+        'harga',
+        'unit_harga',
+        'menu',
+        'pesan',
+        'unit_pesan',
+        'berat',
+        'unit_berat',
+        'harga_exw',
+        'total_exw',
+        'ongkir',
+        'ice_pack',
+        'diskon',
+        'total',
+        'keterangan'
     ];
 	protected $user;
 	protected $db;
@@ -26,12 +36,6 @@ class Supplier_model
 		return $this->db->fetchAll();
 	}
 
-	public function getJmlData()
-	{
-		$this->db->query("SELECT COUNT(*) AS count FROM {$this->table} WHERE `status` = 1");
-		return $this->db->fetch();
-	}
-
 	public function getDataById($id)
 	{
 		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1 AND `id` = :id");
@@ -41,16 +45,16 @@ class Supplier_model
 
 	public function insert($data)
 	{
-		$fields_query = ":nama, :alamat, :kontak, :email,";
+		$fields_query = ":harga, :unit_harga, :menu, :pesan, :unit_pesan, :berat, :unit_berat, :harga_exw, :total_exw, :ongkir, :ice_pack, :diskon, :total, :keterangan";
 
 		$this->db->query(
-				"INSERT INTO {$this->table} 
-					VALUES
-				(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, DEFAULT)"
+			"INSERT INTO {$this->table} 
+				VALUES
+      		(null, :uuid, {$fields_query}, '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, DEFAULT)"
 		);
 
-		$this->db->bind('uuid', Uuid::uuid4()->toString());
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
+		$this->db->bind('uuid', Uuid::uuid4()->toString());
 		$this->db->bind('created_by', $this->user);
 
 		$this->db->execute();
@@ -61,18 +65,28 @@ class Supplier_model
 	public function update($id, $data)
 	{
 		$fields_query = "
-			nama = :nama,
-			alamat = :alamat,
-			kontak = :kontak,
-			email = :email,
-		";
+            harga = :harga,
+            unit_harga = :unit_harga,
+            menu = :menu,
+            pesan = :pesan,
+            unit_pesan = :unit_pesan,
+            berat = :berat,
+            unit_berat = :unit_berat,
+            harga_exw = :harga_exw,
+            total_exw = :total_exw,
+            ongkir = :ongkir,
+            ice_pack = :ice_pack,
+            diskon = :diskon,
+            total = :total,
+            keterangan = :keterangan,
+        ";
 
 		$this->db->query(
-      		"UPDATE {$this->table}
+			"UPDATE {$this->table}
 				SET
-				{$fields_query}
-				modified_at = CURRENT_TIMESTAMP,
-				modified_by = :modified_by
+					{$fields_query}
+					modified_at = CURRENT_TIMESTAMP,
+					modified_by = :modified_by
 			WHERE id = :id"
 		);
 
@@ -93,10 +107,9 @@ class Supplier_model
 				`deleted_at` = CURRENT_TIMESTAMP,
 				`deleted_by` = :deleted_by,
 				`is_deleted` = 1,
-				`is_restored` = 0,
-				`status` = 0
+				`is_restored` = 0
 			WHERE id = :id"
-    	);
+		);
 
 		$this->db->bind('deleted_by', $this->user);
 		$this->db->bind('id', $id);
@@ -107,8 +120,8 @@ class Supplier_model
 
 	public function destroy($id)
 	{
-		$this->db->query("DELETE FROM {$this->table} WHERE");
-		
+		$this->db->query("DELETE FROM {$this->table} WHERE id = :id");
+
 		$this->db->bind('id', $id);
 
 		$this->db->execute();

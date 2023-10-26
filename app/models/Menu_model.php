@@ -1,6 +1,8 @@
 <?php
 
+
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 class Menu_model
 {
@@ -40,16 +42,19 @@ class Menu_model
 
 	public function insert($data)
 	{
-		$fields_query = ":nama, :jumlah, :bahan,";
+		// $fields_query = ":nama, :foto, :jumlah, :bahan,";
 
 		$this->db->query(
 			"INSERT INTO {$this->table} 
 				VALUES
-			(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
+			(null, :uuid, :nama, :foto, :jumlah, :bahan, '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
 		);
 
-		$this->db->bind('uuid', Uuid::uuid4()->toString());
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
+		$this->db->bind('foto', 
+			$this->uploadFile($_FILES['foto'], ['png', 'jpg', 'jpeg', 'gif'], 'img/datafoto/'));
+
+		$this->db->bind('uuid', Uuid::uuid4()->toString());
 		$this->db->bind('created_by', $this->user);
 
 		$this->db->execute();
@@ -73,6 +78,12 @@ class Menu_model
 				modified_by = :modified_by
 			WHERE id = :id"
 		);
+
+		$old = $this->getDataById($id);
+
+		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
+		$this->db->bind('foto', 
+			$this->uploadFile($_FILES["foto"], "png|jpg|jpeg|gif", 'img/datafoto/', $old['foto']));
 
 		$this->db->bind('id', $id);
 		$this->db->bind('modified_by', $this->user);
@@ -111,4 +122,41 @@ class Menu_model
 		$this->db->execute();
 		return $this->db->rowCount();
 	}
+
+	public function uploadFile($file, $mimes = '', $targetDir = 'upload/', $maxSize = 2*MB, $oldFileName = '')
+    {
+		if ($file['error'] !== 4) {
+			if (!empty($oldFileName)) 
+				$this->deleteFile($targetDir . '/' . $oldFileName);
+
+			$name = $file['name'];
+
+			if ($file["size"] > $maxSize)
+				return false;
+			
+			$imageFileType = explode('.', $name);
+			$imageFileType = strtolower(end($imageFileType));
+			if (!in_array($imageFileType, explode('|', $mimes)))
+				return false;
+
+			$fileName = uniqid() . "." . $imageFileType;
+			$targetDir .= $fileName;
+
+			try {
+				move_uploaded_file($file['tmp_name'], $targetDir);
+			} catch (Exception $e) {
+				echo $e; die;
+			}
+
+			return $fileName;
+		} else {
+			return empty($oldFileName) ? false : $oldFileName;
+		}
+    }
+
+    public function deleteFile($filepath)
+    {
+        if (file_exists($filepath)) 
+			unlink($filepath);
+    }
 }

@@ -1,3 +1,4 @@
+
 <?php if ($data['user']): ?>
     <?php require_once "templates/header.php" ?>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
@@ -95,11 +96,13 @@
                 </div>
                 <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="modalLabel">Tambah Data</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn btn-dark mb-0" data-bs-dismiss="modal" aria-label="Close">
+                                    <i class="fa fa-xmark"></i>
+                                </button>
                             </div>
                             <div class="modal-body">
                                 <form action="<?= BASEURL; ?>/supplier/insert" method="post">

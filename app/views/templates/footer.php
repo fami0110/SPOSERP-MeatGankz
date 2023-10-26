@@ -27,6 +27,7 @@
 <script src="<?= BASEURL; ?>/js/plugins/chartjs.min.js"></script>
 <script src="<?= BASEURL; ?>/js/plugins/threejs.js"></script>
 <script src="<?= BASEURL; ?>/js/plugins/orbit-controls.js"></script>
+<script src="<?= BASEURL; ?>/js/script.js"></script>
 <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
