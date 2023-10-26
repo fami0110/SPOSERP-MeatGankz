@@ -151,7 +151,7 @@ DROP TABLE IF EXISTS `stok_bahan`;
 CREATE TABLE `stok_bahan` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` char(36) NOT NULL,
-  `menu` text NOT NULL,
+  `deskripsi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `tanggal` date NOT NULL,
   `masuk` int NOT NULL,
   `stok` int NOT NULL,
@@ -234,28 +234,100 @@ CREATE TABLE `users` (
   `email` varchar(50) NOT NULL,
   `role` varchar(16) NOT NULL,
   `last_login_at` datetime NOT NULL,
-  `status` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `status` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'sando','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','masandofami@gmail.com','user','2023-10-09 00:26:51',0),(2,'dimas ngent','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','kontol@gmail.com','user','2023-10-25 08:36:29',1);
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`, `last_login_at`, `status`) VALUES
+(1, 'sando', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'masandofami@gmail.com', 'user', '2023-10-09 00:26:51', 0),
+(2, 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'meylakusuma07@gmail.com', 'user', '2023-10-25 09:23:08', 1);
+(3, 'dimas ngent', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'kontol@gmail.com', 'user', '2023-10-25 08:36:29', 1);
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indeks untuk tabel `laporan_pengeluaran`
+--
+ALTER TABLE `laporan_pengeluaran`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `menu`
+--
+ALTER TABLE `menu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `shipment`
+--
+ALTER TABLE `shipment`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `stok_bahan`
+--
+ALTER TABLE `stok_bahan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `supplier`
+--
+ALTER TABLE `supplier`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
+--
+
+--
+-- AUTO_INCREMENT untuk tabel `laporan_pengeluaran`
+--
+ALTER TABLE `laporan_pengeluaran`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `menu`
+--
+ALTER TABLE `menu`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `shipment`
+--
+ALTER TABLE `shipment`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `stok_bahan`
+--
+ALTER TABLE `stok_bahan`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `supplier`
+--
+ALTER TABLE `supplier`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2023-10-26 11:32:01
