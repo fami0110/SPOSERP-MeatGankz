@@ -16,18 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `laporan_pengeluaran`
+-- Table structure for table `shipment`
 --
 
-DROP TABLE IF EXISTS `laporan_pengeluaran`;
+DROP TABLE IF EXISTS `shipment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `laporan_pengeluaran` (
+CREATE TABLE `shipment` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` char(36) NOT NULL,
-  `menu` text NOT NULL,
-  `tanggal` date NOT NULL,
-  `quantity` int NOT NULL,
+  `harga` int NOT NULL,
+  `unit_harga` varchar(20) NOT NULL,
+  `menu` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `pesan` int NOT NULL,
+  `unit_pesan` varchar(20) NOT NULL,
+  `berat` int NOT NULL,
+  `unit_berat` varchar(20) NOT NULL,
+  `harga_exw` int NOT NULL,
+  `total_exw` int NOT NULL,
+  `ongkir` int NOT NULL,
+  `ice_pack` int NOT NULL,
+  `diskon` int NOT NULL,
+  `total` int NOT NULL,
+  `keterangan` text NOT NULL,
   `note` varchar(50) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` char(36) NOT NULL,
@@ -45,12 +56,12 @@ CREATE TABLE `laporan_pengeluaran` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `laporan_pengeluaran`
+-- Dumping data for table `shipment`
 --
 
-LOCK TABLES `laporan_pengeluaran` WRITE;
-/*!40000 ALTER TABLE `laporan_pengeluaran` DISABLE KEYS */;
-/*!40000 ALTER TABLE `laporan_pengeluaran` ENABLE KEYS */;
+LOCK TABLES `shipment` WRITE;
+/*!40000 ALTER TABLE `shipment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `shipment` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -62,4 +73,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-26 13:03:09
+-- Dump completed on 2023-10-26 13:03:15

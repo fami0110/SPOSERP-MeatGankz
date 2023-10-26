@@ -11,20 +11,38 @@ class Databases
 	public function getAllTables()
 	{
 		$this->db->query(
-			"SELECT table_name, table_rows FROM information_schema.tables 
+			"SELECT table_name FROM information_schema.tables 
 				WHERE 
-			table_schema = :db_name AND
+			table_schema = '". DB_NAME ."' AND
 			table_type = 'BASE TABLE'"
 		);
+		$tables = $this->db->fetchAll(PDO::FETCH_COLUMN);
 
-		$this->db->bind('db_name', DB_NAME);
-		return $this->db->fetchAll();
+		$result = [];
+
+		foreach ($tables as $table) {
+			$this->db->query("SELECT COUNT(*) FROM {$table}");
+			$count = $this->db->fetch(PDO::FETCH_COLUMN);
+			array_push($result, [
+				'name' => $table,
+				'rows' => $count
+			]);
+		}
+
+		return $result;
 	}
 
 	public function drop($table_name)
 	{
 		$this->db->query("DROP TABLE IF EXISTS {$table_name}");
+		$this->db->execute();
+		$this->db->rowCount();
+	}
 
+	public function truncate($table_name)
+	{
+		$this->db->query("TRUNCATE TABLE ". DB_NAME .".{$table_name}");
+		$this->db->bind('db_name', DB_NAME);
 		$this->db->execute();
 		$this->db->rowCount();
 	}
@@ -34,7 +52,6 @@ class Databases
 		foreach ($queries as $query) {
 			$query = trim($query);
 			if (empty($query)) continue;
-
 			$this->db->query($query);
 			$this->db->execute();
 		}

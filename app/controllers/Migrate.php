@@ -5,31 +5,35 @@ class Migrate extends Controller
 	protected $model_name = "Databases";
 	protected $folderPath = '../app/database'; // Relative to root folder (public)
 
-	public function index()
-	{
-		if (ENV == 'Local') {
-			$data['files'] = [];
-
-			$files = scandir($this->folderPath);
-			if ($files) {
-				unset($files[0]);
-				unset($files[1]);
-
-				$data['files'] = array_values($files);
-			}
-
-			$data['tables'] = $this->model($this->model_name)->getAllTables();
-			array_unshift($data['tables'], [
-				'TABLE_NAME' => 'database', 
-				"TABLE_ROWS" => count($data['tables'])
-			]);
-
-			$this->view('templates/_migrate', $data);
-
-		} else {
-			header('Location: '. BASEURL .'/NotFound');
+	public function __construct() {
+		if (ENV != 'Local') {
+			header('Location: '. BASEURL .'/notfound');
 			exit;
 		}
+	}
+
+	public function index()
+	{
+		$data['files'] = [];
+
+		$files = scandir($this->folderPath);
+		if ($files) {
+			unset($files[0]);
+			unset($files[1]);
+
+			$data['files'] = array_values($files);
+		}
+
+		$data['tables'] = $this->model($this->model_name)->getAllTables();
+
+		if (!empty($data['tables'])) {
+			array_unshift($data['tables'], [
+				'name' => 'database', 
+				"rows" => count($data['tables'])
+			]);
+		}
+
+		$this->view('templates/_migrate', $data);
 	}
 
 	public function export($filename)
@@ -52,7 +56,7 @@ class Migrate extends Controller
 				Flasher::setFlash("<b>SUCCESS</b> to migrate table <i>". $table ."</i>", 'success');
 			}
 		} catch (Exception $e) {
-			Flasher::setFlash("Migration &nbsp<b>FAILED</b>! message: <pre>$e</pre>", 'danger');
+			Flasher::setFlash("Migration <b>FAILED</b>! message: <pre>$e</pre>", 'danger');
 		}
 		header('Location: '. BASEURL .'/migrate');
 		exit;
@@ -79,6 +83,61 @@ class Migrate extends Controller
 			}
 		} catch (Exception $e) {
 			Flasher::setFlash("Import <b>FAILED</b>! message: <pre>$e</pre>", 'danger');
+		}
+		header('Location: '. BASEURL .'/migrate');
+		exit;
+	}
+
+	public function delete($filename)
+	{
+		try {
+			$sqlFilePath = "{$this->folderPath}/{$filename}";
+			if (file_exists($sqlFilePath)) {
+				$restricted_file = ['table_template.sql', 'users.sql'];
+
+				if (!in_array($filename, $restricted_file)) {
+					unlink($sqlFilePath);
+					Flasher::setFlash("<b>SUCCESS</b> to delete {$filename}", 'success');
+				} else {
+					Flasher::setFlash("Cannot delete <b>table_template.sql</b> or <b>users.sql</b>!", 'warning');
+				}
+			} else {
+				Flasher::setFlash("File not exist!", 'warning');
+			}
+		} catch (Exception $e) {
+			Flasher::setFlash("<b>ERROR</b>! message: <pre>$e</pre>", 'danger');
+		}
+		header('Location: '. BASEURL .'/migrate');
+		exit;
+	}
+
+	public function drop($target)
+	{
+		try {
+			if ($target == "database") {
+				$tables = $this->model($this->model_name)->getAllTables();
+				echo '<pre>';
+				var_dump($tables); die;
+				foreach ($tables as $table) $this->model($this->model_name)->drop($table['TABLE_NAME']);
+				Flasher::setFlash("<b>SUCCESS</b> to drop all table", 'success');
+			} else {
+				$this->model($this->model_name)->drop($target);
+				Flasher::setFlash("<b>SUCCESS</b> to drop table <i>". $target ."</i>", 'success');
+			}
+		} catch (Exception $e) {
+			Flasher::setFlash("Drop <b>FAILED</b>! message: <pre>$e</pre>", 'danger');
+		}
+		header('Location: '. BASEURL .'/migrate');
+		exit;
+	}
+
+	public function empty($target)
+	{
+		try {
+			$this->model($this->model_name)->truncate($target);
+			Flasher::setFlash("<b>SUCCESS</b> to empty table <i>". $target ."</i>", 'success');
+		} catch (Exception $e) {
+			Flasher::setFlash("Drop <b>FAILED</b>! message: <pre>$e</pre>", 'danger');
 		}
 		header('Location: '. BASEURL .'/migrate');
 		exit;
