@@ -120,7 +120,7 @@ CREATE TABLE `shipment` (
 CREATE TABLE `stok_bahan` (
   `id` int NOT NULL,
   `uuid` char(36) NOT NULL,
-  `menu` text NOT NULL,
+  `deskripsi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `tanggal` date NOT NULL,
   `masuk` int NOT NULL,
   `stok` int NOT NULL,
@@ -138,6 +138,13 @@ CREATE TABLE `stok_bahan` (
   `is_restored` tinyint(1) NOT NULL,
   `status` tinyint(1) GENERATED ALWAYS AS ((case when ((`is_deleted` = 0) and (`is_restored` = 0)) then _utf8mb4'1' when ((`is_deleted` = 1) and (`is_restored` = 0)) then _utf8mb4'0' when ((`is_deleted` = 0) and (`is_restored` = 1)) then _utf8mb4'1' end)) STORED
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `stok_bahan`
+--
+
+INSERT INTO `stok_bahan` (`id`, `uuid`, `deskripsi`, `tanggal`, `masuk`, `stok`, `keluar`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES
+(1, 'f38be5eb-bca9-4e24-862a-a96a4dc245e9', 'oke', '2023-10-26', 12, 1, 1, '', '2023-10-25 09:23:36', 'admin', NULL, '', NULL, '', NULL, '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -188,7 +195,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`, `last_login_at`, `status`) VALUES
 (1, 'sando', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'masandofami@gmail.com', 'user', '2023-10-09 00:26:51', 0),
-(2, 'dimas ngent', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'kontol@gmail.com', 'user', '2023-10-25 08:36:29', 1);
+(2, 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'meylakusuma07@gmail.com', 'user', '2023-10-25 09:23:08', 1);
+(3, 'dimas ngent', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'kontol@gmail.com', 'user', '2023-10-25 08:36:29', 1);
+
 
 --
 -- Indexes for dumped tables
@@ -256,7 +265,7 @@ ALTER TABLE `shipment`
 -- AUTO_INCREMENT untuk tabel `stok_bahan`
 --
 ALTER TABLE `stok_bahan`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `supplier`
