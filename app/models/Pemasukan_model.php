@@ -127,4 +127,41 @@ class Pemasukan_model
 		$this->db->execute();
 		return $this->db->rowCount();
 	}
+
+	public function uploadFile($file, $type = [], $targetDir = 'upload/', $maxSize = 2*MB, $oldFileName = '')
+    {
+		if ($file['error'] !== 4) {
+			if (!empty($oldFileName)) 
+				$this->deleteFile($targetDir . '/' . $oldFileName);
+
+			$name = $file['name'];
+
+			if ($file["size"] > $maxSize)
+				return false;
+			
+			$imageFileType = explode('.', $name);
+			$imageFileType = strtolower(end($imageFileType));
+			if (!in_array($imageFileType, $type))
+				return false;
+
+			$fileName = uniqid() . "." . $imageFileType;
+			$targetDir .= $fileName;
+
+			try {
+				move_uploaded_file($file['tmp_name'], $targetDir);
+			} catch (Exception $e) {
+				echo $e; die;
+			}
+
+			return $fileName;
+		} else {
+			return empty($oldFileName) ? false : $oldFileName;
+		}
+    }
+
+    public function deleteFile($filepath)
+    {
+        if (file_exists($filepath)) 
+			unlink($filepath);
+    }
 }

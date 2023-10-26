@@ -11,14 +11,14 @@ class Databases
 	public function getAllTables()
 	{
 		$this->db->query(
-			"SELECT table_name FROM information_schema.tables 
+			"SELECT table_name, table_rows FROM information_schema.tables 
 				WHERE 
 			table_schema = :db_name AND
 			table_type = 'BASE TABLE'"
 		);
 
 		$this->db->bind('db_name', DB_NAME);
-		return $this->db->fetchAll(PDO::FETCH_COLUMN);
+		return $this->db->fetchAll();
 	}
 
 	public function drop($table_name)

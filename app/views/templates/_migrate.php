@@ -49,6 +49,8 @@
       <?php unset($_SESSION['flash']); ?>
     <?php endif; ?>
     <div class="container card p-3">
+      <h2>SQL Files</h2>  
+      <hr>
       <table id="table" class="table table-striped">
         <thead>
           <tr>
@@ -75,12 +77,51 @@
               <td>
                 <a 
                   class="btn btn-success submit"
-                  href="<?= BASEURL ?>/migrate/process/<?= $filename ?>"
+                  href="<?= BASEURL ?>/migrate/export/<?= $filename ?>"
                   data-message="<?= ($table == 'All') ? 
                     'This action will migrate all tables. Continue process?' : 
                     "Are you sure want to migrate table '{$table}'?" ?>"
                   onclick="return confirm(this.dataset.message)">
                   Migrate
+                </a>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+    </div>
+    <br>
+    <div class="container card p-3">
+      <h2>Available Tables</h2>  
+      <hr>
+      <table id="table" class="table table-striped">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Table Name</th>
+            <th>Data Count</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php $i = 1; ?>
+          <?php foreach($data['tables'] as $table) : ?>
+            <?php 
+              $database = ($table['TABLE_NAME'] == 'database') ? true : false;
+            ?>
+            <tr <?= ($database) ? 'id="all"' : '' ?>>
+              <td><?= $i++ ?></td>
+              <td><?= $table['TABLE_NAME'] ?></td>
+              <td><?= $table['TABLE_ROWS'] ?></td>
+              <td>
+                <a 
+                  class="btn btn-<?= (in_array($table['TABLE_NAME'] . '.sql', $data['files'])) ? 'primary' : 'secondary' ?> submit"
+                  href="<?= BASEURL ?>/migrate/import/<?= $table['TABLE_NAME'] ?>"
+                  data-message="<?= ($database) ? 
+                    'This action will import all tables to your project. Continue process?' : 
+                    "Are you sure want to import table ". $table['TABLE_NAME'] ." to your project?" ?>"
+                  onclick="return confirm(this.dataset.message)">
+                  <?= (in_array($table['TABLE_NAME'] . '.sql', $data['files'])) ? 'Update' : 'Import' ?>
                 </a>
               </td>
             </tr>
