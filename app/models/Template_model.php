@@ -18,7 +18,7 @@ class Template_model
 	public function getAllData()
 	{
 		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1");
-	return $this->db->fetchAll();
+		return $this->db->fetchAll();
 	}
 
 	public function getDataById($id)
@@ -54,11 +54,13 @@ class Template_model
 		$this->db->query(
 			"UPDATE {$this->table}
 				SET
-					{$fields_query}
-					modified_at = CURRENT_TIMESTAMP,
-					modified_by = :modified_by
+				{$fields_query}
+				modified_at = CURRENT_TIMESTAMP,
+				modified_by = :modified_by
 			WHERE id = :id"
 		);
+
+		$old = $this->getDataById($id);
 
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
 		$this->db->bind('id', $id);
@@ -97,4 +99,41 @@ class Template_model
 		$this->db->execute();
 		return $this->db->rowCount();
 	}
+
+	public function uploadFile($file, $type = [], $targetDir = 'upload/', $maxSize = 2*MB, $oldFileName = '')
+    {
+		if ($file['error'] !== 4) {
+			if (!empty($oldFileName)) 
+				$this->deleteFile($targetDir . '/' . $oldFileName);
+
+			$name = $file['name'];
+
+			if ($file["size"] > $maxSize)
+				return false;
+			
+			$imageFileType = explode('.', $name);
+			$imageFileType = strtolower(end($imageFileType));
+			if (!in_array($imageFileType, $type))
+				return false;
+
+			$fileName = uniqid() . "." . $imageFileType;
+			$targetDir .= $fileName;
+
+			try {
+				move_uploaded_file($file['tmp_name'], $targetDir);
+			} catch (Exception $e) {
+				echo $e; die;
+			}
+
+			return $fileName;
+		} else {
+			return empty($oldFileName) ? false : $oldFileName;
+		}
+    }
+
+    public function deleteFile($filepath)
+    {
+        if (file_exists($filepath)) 
+			unlink($filepath);
+    }
 }

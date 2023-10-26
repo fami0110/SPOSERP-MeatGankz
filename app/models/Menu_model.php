@@ -53,12 +53,11 @@ class Menu_model
 			(null, :uuid, :nama, :kategori, :harga, :foto, :jumlah, :tanggal, :bahan, '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
 		);
 
-		$foto = $this->uploadFile($_FILES['foto'], ['png', 'jpg', 'jpeg', 'gif'], 'img/datafoto/');
-		// if (!$foto) return 0;
-
-		$this->db->bind('foto', $foto);
-		$this->db->bind('uuid', Uuid::uuid4()->toString());
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
+		$this->db->bind('foto', 
+			$this->uploadFile($_FILES['foto'], ['png', 'jpg', 'jpeg', 'gif'], 'img/datafoto/'));
+
+		$this->db->bind('uuid', Uuid::uuid4()->toString());
 		$this->db->bind('created_by', $this->user);
 
 		$this->db->execute();
@@ -68,40 +67,27 @@ class Menu_model
 
 	public function update($id, $data)
 	{
-		// $fields_query = "
-		// 	nama = :nama,
-		// 	jumlah = :jumlah,
-		// 	bahan = :bahan,
-		// ";
+		$fields_query = "
+			nama = :nama,
+			jumlah = :jumlah,
+			bahan = :bahan,
+		";
 
 		$this->db->query(
 			"UPDATE {$this->table}
-			SET
-			nama = :nama,
-			harga = :harga,
-			foto = :foto,
-			jumlah = :jumlah,
-			bahan = :bahan,
-			modified_at = CURRENT_TIMESTAMP,
-			modified_by = :modified_by
+				SET
+				{$fields_query}
+				modified_at = CURRENT_TIMESTAMP,
+				modified_by = :modified_by
 			WHERE id = :id"
 		);
-		
-		if ($_FILES["foto"]["error"] === 4) {
-			$foto = $data['fotolama'];
-		} else {
-			if (!empty($data['fotolama'])) {
-				$this->deleteFile('img/datafoto/' . $data['foto_lama']);
-			}
-			
-			$foto = $this->uploadFile($_FILES["foto"], ['png', 'jpg', 'jpeg', 'gif'], 'img/datafoto/');
-		}
-		$this->db->bind('foto', $foto);
-		
-		foreach ($this->fields as $field) {
-			$this->db->bind($field, $data[$field]);
-		}
-		
+
+		$old = $this->getDataById($id);
+
+		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
+		$this->db->bind('foto', 
+			$this->uploadFile($_FILES["foto"], "png|jpg|jpeg|gif", 'img/datafoto/', $old['foto']));
+
 		$this->db->bind('id', $id);
 		$this->db->bind('modified_by', $this->user);
 		
@@ -141,42 +127,41 @@ class Menu_model
 		$this->db->execute();
 		return $this->db->rowCount();
 	}
-	public function uploadFile($file, $type = [], $targetDir = '/')
+
+	public function uploadFile($file, $mimes = '', $targetDir = 'upload/', $maxSize = 2*MB, $oldFileName = '')
     {
-        $name = $file['name'];
-        
-        // validasi ekstensi file
-        $imageFileType = explode('.', $name);
-        $imageFileType = strtolower(end($imageFileType));
-        if (!in_array($imageFileType, $type)) {
-            return false;
-        }
+		if ($file['error'] !== 4) {
+			if (!empty($oldFileName)) 
+				$this->deleteFile($targetDir . '/' . $oldFileName);
 
-        // validasi ukuran file
-        if ($_FILES["size"] > 20044070) {
-            return false;
-        }
+			$name = $file['name'];
 
-        $fileName = uniqid() . "." . $imageFileType;
-        $targetFile = $targetDir . $fileName; // nama file upload
+			if ($file["size"] > $maxSize)
+				return false;
+			
+			$imageFileType = explode('.', $name);
+			$imageFileType = strtolower(end($imageFileType));
+			if (!in_array($imageFileType, explode('|', $mimes)))
+				return false;
 
-        try {
-            move_uploaded_file($file['tmp_name'], $targetFile);
-        } catch (IOExceptionInterface $e) {
-            echo $e->getMessage();
-        }
+			$fileName = uniqid() . "." . $imageFileType;
+			$targetDir .= $fileName;
 
-        return $fileName;
+			try {
+				move_uploaded_file($file['tmp_name'], $targetDir);
+			} catch (Exception $e) {
+				echo $e; die;
+			}
+
+			return $fileName;
+		} else {
+			return empty($oldFileName) ? false : $oldFileName;
+		}
     }
 
-	public function deleteFile($filepath)
+    public function deleteFile($filepath)
     {
-        if (file_exists($filepath)) {
-            if (unlink($filepath)) {
-                return true;
-            } 
-        }
-
-        return false;
-	}
+        if (file_exists($filepath)) 
+			unlink($filepath);
+    }
 }

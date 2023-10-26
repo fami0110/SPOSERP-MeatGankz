@@ -265,7 +265,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="<?= BASEURL; ?>/laporanKeuangan">
+                                <a class="nav-link" href="<?= BASEURL; ?>/keuangan">
                                     <span class="sidenav-mini-icon"> K </span>
                                     <span class="sidenav-normal"> Keuangan</span>
                                 </a>
