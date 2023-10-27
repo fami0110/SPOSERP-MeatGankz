@@ -17,10 +17,16 @@
     #table td {
       vertical-align: middle;
     }
-    #all td {
+    .database td {
       background-color: #fff45e;
       font-weight: bold;
     }
+
+    #sql-files :is(.table_template, .users) td {
+      background-color: #ffbbb3;
+      font-style: italic;
+    }
+
     #details li {
       font-family: monospace;
       list-style: none;
@@ -48,7 +54,10 @@
       </div>
       <?php unset($_SESSION['flash']); ?>
     <?php endif; ?>
-    <div class="container card p-3">
+
+    <div id="sql-files" class="container card p-4">
+      <h2>SQL Files</h2>  
+      <hr>
       <table id="table" class="table table-striped">
         <thead>
           <tr>
@@ -63,24 +72,89 @@
           <?php foreach($data['files'] as $filename) : ?>
             <?php 
               if ($filename =='database.sql') {
-                $table = 'All';
+                $table_related = 'All';
               } else {
-                $table = explode('.', $filename)[0];
+                $table_related = explode('.', $filename)[0];
               }
             ?>
-            <tr <?= ($table == 'All') ? 'id="all"' : '' ?>>
+            <tr class="<?= explode('.', $filename)[0] ?>">
               <td><?= $i++ ?></td>
               <td><?= $filename ?></td>
-              <td><?= $table ?></td>
+              <td><?= $table_related ?></td>
               <td>
                 <a 
                   class="btn btn-success submit"
-                  href="<?= BASEURL ?>/migrate/process/<?= $filename ?>"
-                  data-message="<?= ($table == 'All') ? 
+                  href="<?= BASEURL ?>/migrate/export/<?= $filename ?>"
+                  data-message="<?= ($table_related == 'All') ? 
                     'This action will migrate all tables. Continue process?' : 
-                    "Are you sure want to migrate table '{$table}'?" ?>"
+                    "Are you sure want to migrate table '{$table_related}'?" ?>"
                   onclick="return confirm(this.dataset.message)">
                   Migrate
+                </a>
+                <a 
+                  class="btn btn-outline-danger"
+                  href="<?= BASEURL ?>/migrate/delete/<?= $filename ?>"
+                  data-message="Are you sure want to delete <?= $filename ?>?"
+                  onclick="return confirm(this.dataset.message)">
+                  Delete
+                </a>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+    </div>
+
+    <br>
+
+    <div id="available-tables" class="container card p-4">
+      <h2>Available Tables</h2>  
+      <hr>
+      <table id="table" class="table table-striped">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Table Name</th>
+            <th>Data Count</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php $i = 1; ?>
+          <?php foreach($data['tables'] as $table) : ?>
+            <?php 
+              $database = ($table['name'] == 'database') ? true : false;
+            ?>
+            <tr class="<?= $table['name'] ?>">
+              <td><?= $i++ ?></td>
+              <td><?= $table['name'] ?></td>
+              <td><?= $table['rows'] ?></td>
+              <td>
+                <?php $method = (in_array($table['name'] . '.sql', $data['files'])) ? 'Update' : 'Import' ?>
+                <a 
+                  class="btn btn-<?= (in_array($table['name'] . '.sql', $data['files'])) ? 'primary' : 'secondary' ?> submit"
+                  href="<?= BASEURL ?>/migrate/import/<?= $table['name'] ?>"
+                  data-message="Are you sure want to <?= strtolower($method) ?> <?= $table['name'] ?>.sql to your project?"
+                  onclick="return confirm(this.dataset.message)">
+                  <?= $method ?>
+                </a>
+                <?php if (!$database) : ?>
+                  <a 
+                    class="btn btn-warning"
+                    href="<?= BASEURL ?>/migrate/empty/<?= $table['name'] ?>"
+                    data-message="Are you sure want to empty table '<?= $table['name'] ?>'?"
+                    onclick="return confirm(this.dataset.message)">
+                    Empty
+                  </a>
+                <?php endif ?>
+                <a 
+                  class="btn btn-outline-danger"
+                  href="<?= BASEURL ?>/migrate/drop/<?= $table['name'] ?>"
+                  data-message="<?= ($table['name'] == 'database') ? 
+                    'This action will drop all tables. Continue process?' : 
+                    "Are you sure want to drop table '". $table['name'] ."'?" ?>"
+                  onclick="return confirm(this.dataset.message)">
+                  Drop
                 </a>
               </td>
             </tr>

@@ -94,32 +94,32 @@
                                         </td>
                                         <td class="align-middle text-center">
                                             <p class="text-sm font-weight-bold mb-0">
-                                                <?= $pemasukan['harga_exw']; ?>
+                                                Rp. <?= $pemasukan['harga_exw']; ?>
                                             </p>
                                         </td>
                                         <td class="align-middle text-center">
                                             <p class="text-sm font-weight-bold mb-0">
-                                                <?= $pemasukan['total_exw']; ?>
+                                                Rp. <?= $pemasukan['total_exw']; ?>
                                             </p>
                                         </td>
                                         <td class="align-middle text-center">
                                             <p class="text-sm font-weight-bold mb-0">
-                                                <?= $pemasukan['ongkir']; ?>
+                                                Rp. <?= $pemasukan['ongkir']; ?>
                                             </p>
                                         </td>
                                         <td class="align-middle text-center">
                                             <p class="text-sm font-weight-bold mb-0">
-                                                <?= $pemasukan['ice_pack']; ?>
+                                                Rp. <?= $pemasukan['ice_pack']; ?>
                                             </p>
                                         </td>
                                         <td class="align-middle text-center">
                                             <p class="text-sm font-weight-bold mb-0">
-                                                <?= $pemasukan['diskon']; ?>
+                                                Rp. <?= $pemasukan['diskon']; ?>
                                             </p>
                                         </td>
                                         <td class="align-middle text-center">
                                             <p class="text-sm font-weight-bold mb-0">
-                                                <?= $pemasukan['total']; ?>
+                                                Rp. <?= $pemasukan['total']; ?>
                                             </p>
                                         </td>
                                         <td class="align-middle text-center">

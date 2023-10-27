@@ -12,8 +12,12 @@ class Controller
         // Get user credential using jwt cookie
         $jwt = Cookie::get_jwt();
         if ($jwt) {
-            $user = $this->model("User_model")->getUser($jwt->name, $jwt->password);
-            $this->user = ($user) ? $user : null;
+            try {
+                $user = $this->model("User_model")->getUser($jwt->name, $jwt->password);
+                $this->user = ($user) ? $user : null;
+            } catch (Exception) {
+                $this->user = null;
+            }
         }
     }
 

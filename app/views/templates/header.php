@@ -24,6 +24,22 @@
         .async-hide {
             opacity: 0 !important
         }
+        .animation-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid rgba(0, 0, 0, 0.125);
+            border-radius: 1rem;
+            transition: transform 0.3s ease-in-out
+        }
+
+        .animation-card:hover {
+            transform: scale(1.03);
+        }
     </style>
     <script>
         (function (a, s, y, n, c, h, i, d, e) {
@@ -144,13 +160,30 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= BASEURL; ?>/menu">
+                    <a data-bs-toggle="collapse" href="#bbb" class="nav-link "
+                        aria-controls="applicationsExamples" role="button" aria-expanded="false">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center  me-2 d-flex align-items-center justify-content-center">
                             <div class="fa fa-utensils text-icon" style="width: 12px; height: 12px; font-size: 12px; color: #3a416d;"></div>
                         </div>
                         <span class="nav-link-text ms-1">Menu</span>
                     </a>
+                    <div class="collapse " id="bbb">
+                        <ul class="nav ms-4 ps-3">
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= BASEURL; ?>/kategori">
+                                    <span class="sidenav-mini-icon"> K </span>
+                                    <span class="sidenav-normal"> Kategori</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= BASEURL; ?>/menu">
+                                    <span class="sidenav-mini-icon"> M </span>
+                                    <span class="sidenav-normal"> Menu</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#applicationsExamples" class="nav-link "
@@ -232,7 +265,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="<?= BASEURL; ?>/laporanKeuangan">
+                                <a class="nav-link" href="<?= BASEURL; ?>/keuangan">
                                     <span class="sidenav-mini-icon"> K </span>
                                     <span class="sidenav-normal"> Keuangan</span>
                                 </a>
