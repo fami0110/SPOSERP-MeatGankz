@@ -6,7 +6,7 @@ class kelolaStok_model
 {
 	protected $table = "stok_bahan";
 	protected $fields = [
-        'menu',
+        'deskripsi',
         'tanggal',
         'masuk',
         'stok',
@@ -42,7 +42,7 @@ class kelolaStok_model
 
 	public function insert($data)
 	{
-		$fields_query = ":menu, :tanggal, :masuk, :stok, :keluar";
+		$fields_query = ":deskripsi, :tanggal, :masuk, :stok, :keluar";
 
 		$this->db->query(
             "INSERT INTO {$this->table} 
@@ -62,7 +62,7 @@ class kelolaStok_model
 	public function update($id, $data)
 	{
 		$fields_query = "
-            menu = :menu,
+            deskripsi = :deskripsi,
             tanggal = :tanggal,
             masuk = :masuk,
             stok = :stok,

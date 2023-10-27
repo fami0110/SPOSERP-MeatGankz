@@ -14,6 +14,8 @@ class kelolaStok extends Controller
 		$data['user'] = $this->user;
         $data['stok'] = $this->model('kelolaStok_model')->getAllData();
         $data['tanggal'] = $this->model('kelolaStok_model')->getTanggal();
+        $data['pemasukan'] = $this->model('Pemasukan_model')->getAllData();
+
 		
 		$this->view('kelolaStok', $data);
 	}

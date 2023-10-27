@@ -8,7 +8,7 @@ class Pemasukan_model
 	protected $fields = [
         'harga',
         'unit_harga',
-        'menu',
+        'deskripsi',
         'pesan',
         'unit_pesan',
         'berat',
@@ -36,6 +36,11 @@ class Pemasukan_model
 		return $this->db->fetchAll();
 	}
 
+	public function getDeskripsi()
+    {
+        $this->db->query("SELECT deskripsi from {$this->table} WHERE `status` = 1");
+        return $this->db->fetchAll();
+    }
 	public function getDataById($id)
 	{
 		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1 AND `id` = :id");
@@ -45,7 +50,7 @@ class Pemasukan_model
 
 	public function insert($data)
 	{
-		$fields_query = ":harga, :unit_harga, :menu, :pesan, :unit_pesan, :berat, :unit_berat, :harga_exw, :total_exw, :ongkir, :ice_pack, :diskon, :total, :keterangan";
+		$fields_query = ":harga, :unit_harga, :deskripsi, :pesan, :unit_pesan, :berat, :unit_berat, :harga_exw, :total_exw, :ongkir, :ice_pack, :diskon, :total, :keterangan";
 
 		$this->db->query(
 			"INSERT INTO {$this->table} 
@@ -67,7 +72,7 @@ class Pemasukan_model
 		$fields_query = "
             harga = :harga,
             unit_harga = :unit_harga,
-            menu = :menu,
+            deskripsi = :deskripsi,
             pesan = :pesan,
             unit_pesan = :unit_pesan,
             berat = :berat,
