@@ -2,7 +2,7 @@
 
 class Menu extends Controller
 {
-	protected $model = 'Menu_model';
+	protected $model_name = 'Menu_model';
 
 	public function index()
 	{
@@ -10,8 +10,7 @@ class Menu extends Controller
 
 		$data['title'] = 'Menu';
 		$data['user'] = $this->user;
-        $data['menu'] = $this->model('Menu_model')->getAllData();
-        $data['stok'] = $this->model('kelolaStok_model')->getAllData();
+        $data['menu'] = $this->model($this->model_name)->getAllData();
         $data['kategori'] = $this->model('Kategori_model')->getAllData();
 		
 		$this->view('menu', $data);
@@ -19,7 +18,7 @@ class Menu extends Controller
 
     public function insert()
     {
-        if ($this->model('Menu_model')->insert($_POST, false) > 0) {
+        if ($this->model($this->model_name)->insert($_POST) > 0) {
             Flasher::setFlash('Insert&nbsp<b>SUCCESS</b>', 'success');
 			header("Location: " . BASEURL . "/menu");
             exit;
@@ -32,12 +31,12 @@ class Menu extends Controller
 
     public function delete($id)
     {
-        if ($this->model('Menu_model')->delete($id) > 0) {
-            Flasher::setFlash('Delete <b>SUCCESS</b>', 'success');
+        if ($this->model($this->model_name)->delete($id) > 0) {
+            Flasher::setFlash('Deletet&nbsp<b>SUCCESS</b>', 'success');
             header('Location: ' . BASEURL . '/menu');
             exit;
         } else {
-            Flasher::setFlash('Delete <b>FAILED</b>', 'danger');
+            Flasher::setFlash('Deletet&nbsp<b>FAILED</b>', 'danger');
             header('Location: ' . BASEURL . '/menu');
             exit;
         }
@@ -47,13 +46,10 @@ class Menu extends Controller
 	{
 	}
 
-	public function update()
+	public function update($id)
 	{
-        $id = $_POST['id']; 
-        $data = $_POST; 
-
-        if ($this->model('Menu_model')->update($id, $data) > 0) {
-            Flasher::setFlash('Update&nbsp<b>SUCCESS</>', 'success');
+        if ($this->model($this->model_name)->update($id, $_POST) > 0) {
+            Flasher::setFlash('Update&nbsp<b>SUCCESS</b>', 'success');
             header('Location: ' . BASEURL . '/menu');
             exit;
         } else {
@@ -63,9 +59,22 @@ class Menu extends Controller
         }
 	}
 
-    public function getUbah()
+	public function updateStatusMenu($id, $status)
+	{
+        if ($this->model($this->model_name)->updateField($id, 'tersedia', $status) > 0) {
+            Flasher::setFlash('Update&nbsp<b>SUCCESS</b>', 'success');
+            header('Location: ' . BASEURL . '/menu');
+            exit;
+        } else {
+            Flasher::setFlash('Update&nbsp<b>FAILED</b>', 'danger');
+            header('Location: ' . BASEURL . '/menu');
+            exit;
+        }
+	}
+
+    public function getUbah($id)
     {
-        echo json_encode($this->model('Menu_model')->getDataById($_POST['id']));
+        echo json_encode($this->model($this->model_name)->getDataById($id));
     }
 
 	public function destroy()

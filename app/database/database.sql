@@ -48,7 +48,7 @@ CREATE TABLE `kategori` (
 
 LOCK TABLES `kategori` WRITE;
 /*!40000 ALTER TABLE `kategori` DISABLE KEYS */;
-INSERT INTO `kategori` (`id`, `uuid`, `nama`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'2f88208f-2ee2-4723-98af-f493b1e4e56a','Makanann','','2023-10-26 10:29:25','admin','2023-10-26 10:30:05','admin','2023-10-26 10:31:46','admin',NULL,'',1,0),(2,'128f1e20-9414-4e80-bda3-6052c71781df','Minuman','','2023-10-26 10:32:54','admin',NULL,'',NULL,'',NULL,'',0,0),(3,'81d28514-7d60-4e49-ab3e-9b296abfcdf0','Makanan','','2023-10-26 10:33:00','admin',NULL,'',NULL,'',NULL,'',0,0),(4,'1f8cb581-0f23-49bd-81bb-05f9defa2a05','Snack','','2023-10-26 10:33:06','admin',NULL,'',NULL,'',NULL,'',0,0),(5,'60204498-bb9e-425c-b055-1693c7dea549','Dessert','','2023-10-26 10:47:00','admin',NULL,'',NULL,'',NULL,'',0,0);
+INSERT INTO `kategori` (`id`, `uuid`, `nama`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (2,'128f1e20-9414-4e80-bda3-6052c71781df','Makanan','','2023-10-26 10:32:54','admin',NULL,'',NULL,'',NULL,'',0,0),(3,'81d28514-7d60-4e49-ab3e-9b296abfcdf0','Minuman','','2023-10-26 10:33:00','admin',NULL,'',NULL,'',NULL,'',0,0),(4,'1f8cb581-0f23-49bd-81bb-05f9defa2a05','Snack','','2023-10-26 10:33:06','admin',NULL,'',NULL,'',NULL,'',0,0),(5,'60204498-bb9e-425c-b055-1693c7dea549','Dessert','','2023-10-26 10:47:00','admin',NULL,'',NULL,'',NULL,'',0,0);
 /*!40000 ALTER TABLE `kategori` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,13 +100,11 @@ DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` varchar(36) NOT NULL,
-  `nama` text NOT NULL,
-  `kategori` varchar(30) NOT NULL,
+  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `kategori_id` int NOT NULL,
   `harga` int NOT NULL,
+  `tersedia` tinyint(1) NOT NULL DEFAULT '0',
   `foto` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `jumlah` text NOT NULL,
-  `tanggal` date DEFAULT NULL,
-  `bahan` text NOT NULL,
   `note` varchar(50) NOT NULL,
   `create_at` datetime DEFAULT NULL,
   `created_by` char(36) NOT NULL,
@@ -120,7 +118,7 @@ CREATE TABLE `menu` (
   `is_restored` tinyint(1) NOT NULL,
   `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,7 +127,7 @@ CREATE TABLE `menu` (
 
 LOCK TABLES `menu` WRITE;
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
-INSERT INTO `menu` VALUES (22,'d7b250a3-1f8d-40b8-aacd-2fdb9156b095','Australian Curried Sausages','Makanan',50000,'6539e285223b3.jpg','10','2023-10-26','Daging wagyu','','2023-10-26 10:52:37','admin',NULL,'',NULL,'',NULL,'',0,0,1),(23,'8a65c313-d53b-4472-a09d-78c32fe8bc72','Nasi Goreng Wagyu','Makanan',20000,'6539ec4c67a29.jpg','5','2023-10-26','Daging wagyu','','2023-10-26 11:34:20','admin',NULL,'',NULL,'',NULL,'',0,0,1);
+INSERT INTO `menu` VALUES (1,'d7b250a3-1f8d-40b8-aacd-2fdb9156b095','Australian Curried Sausages',2,50000,1,'6539e285223b3.jpg','','2023-10-26 10:52:37','admin','2023-10-27 14:16:51','sando',NULL,'',NULL,'',0,0,1),(2,'8a65c313-d53b-4472-a09d-78c32fe8bc72','Nasi Goreng Wagyu',3,20000,1,'6539ec4c67a29.jpg','','2023-10-26 11:34:20','admin','2023-10-27 14:24:03','sando',NULL,'',NULL,'',0,0,1),(3,'6629dff2-5061-45fa-b1ef-2b2749f24cc5','Spageti',2,16000,1,'653b65718c9fa.jpg','','2023-10-26 10:15:54','sando','2023-10-27 14:23:54','sando',NULL,'',NULL,'',0,0,1);
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -302,4 +300,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-26 14:48:23
+-- Dump completed on 2023-10-27 14:24:48

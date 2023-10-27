@@ -47,13 +47,13 @@ class Migrate extends Controller
 				foreach ($tables as $table) $this->model($this->model_name)->drop($table['TABLE_NAME']);
 				$this->model($this->model_name)->import($sqlQueries);
 
-				Flasher::setFlash('<b>SUCCESS</b> to migrate all table', 'success');
+				Flasher::setFlash('<b>SUCCESS</b> to migrate all table!', 'success');
 			} else {
 				$table = explode('.', $filename)[0];
 				$this->model($this->model_name)->drop($table);
 				$this->model($this->model_name)->import($sqlQueries);
 				
-				Flasher::setFlash("<b>SUCCESS</b> to migrate table <i>". $table ."</i>", 'success');
+				Flasher::setFlash("<b>SUCCESS</b> to migrate table <i>". $table ."</i>!", 'success');
 			}
 		} catch (Exception $e) {
 			Flasher::setFlash("Migration <b>FAILED</b>! message: <pre>$e</pre>", 'danger');
@@ -76,10 +76,10 @@ class Migrate extends Controller
 
 			if ($returnVar === 0) {
 				($target == 'database') ? 
-					Flasher::setFlash("<b>SUCCESS</b> to import all tables", 'success') :
-					Flasher::setFlash("<b>SUCCESS</b> to import table <i>". $target ."</i>", 'success');
+					Flasher::setFlash("<b>SUCCESS</b> to import all tables!", 'success') :
+					Flasher::setFlash("<b>SUCCESS</b> to import table <i>". $target ."</i>!", 'success');
 			} else {
-				throw new Exception("Error creating database backup. mess");
+				throw new Exception("Error creating database backup!");
 			}
 		} catch (Exception $e) {
 			Flasher::setFlash("Import <b>FAILED</b>! message: <pre>$e</pre>", 'danger');
@@ -97,7 +97,7 @@ class Migrate extends Controller
 
 				if (!in_array($filename, $restricted_file)) {
 					unlink($sqlFilePath);
-					Flasher::setFlash("<b>SUCCESS</b> to delete {$filename}", 'success');
+					Flasher::setFlash("<b>SUCCESS</b> to delete {$filename}!", 'success');
 				} else {
 					Flasher::setFlash("Cannot delete <b>table_template.sql</b> or <b>users.sql</b>!", 'warning');
 				}
@@ -116,13 +116,11 @@ class Migrate extends Controller
 		try {
 			if ($target == "database") {
 				$tables = $this->model($this->model_name)->getAllTables();
-				echo '<pre>';
-				var_dump($tables); die;
-				foreach ($tables as $table) $this->model($this->model_name)->drop($table['TABLE_NAME']);
-				Flasher::setFlash("<b>SUCCESS</b> to drop all table", 'success');
+				foreach ($tables as $table) $this->model($this->model_name)->drop($table['name']);
+				Flasher::setFlash("<b>SUCCESS</b> to drop all table!", 'success');
 			} else {
 				$this->model($this->model_name)->drop($target);
-				Flasher::setFlash("<b>SUCCESS</b> to drop table <i>". $target ."</i>", 'success');
+				Flasher::setFlash("<b>SUCCESS</b> to drop table <i>". $target ."</i>!", 'success');
 			}
 		} catch (Exception $e) {
 			Flasher::setFlash("Drop <b>FAILED</b>! message: <pre>$e</pre>", 'danger');
@@ -135,7 +133,7 @@ class Migrate extends Controller
 	{
 		try {
 			$this->model($this->model_name)->truncate($target);
-			Flasher::setFlash("<b>SUCCESS</b> to empty table <i>". $target ."</i>", 'success');
+			Flasher::setFlash("<b>SUCCESS</b> to empty table <i>". $target ."</i>!", 'success');
 		} catch (Exception $e) {
 			Flasher::setFlash("Drop <b>FAILED</b>! message: <pre>$e</pre>", 'danger');
 		}

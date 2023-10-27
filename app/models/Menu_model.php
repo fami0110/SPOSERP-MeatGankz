@@ -9,7 +9,7 @@ class Menu_model
 	protected $table = "menu";
 	protected $fields = [
 		'nama',
-		'kategori',
+		'kategori_id',
 		'harga',
 		'tersedia',
 	];
@@ -43,17 +43,17 @@ class Menu_model
 
 	public function insert($data)
 	{
-		$fields_query = ":nama, :foto, :jumlah, :bahan,";
+		$fields_query = ":nama, :kategori, :harga, :tersedia, :foto,";
 
 		$this->db->query(
 			"INSERT INTO {$this->table} 
 				VALUES
-			(null, :uuid, :nama, :kategori, :harga, :foto, :jumlah, :tanggal, :bahan, '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
+			(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
 		);
 
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
 		$this->db->bind('foto', 
-			$this->uploadFile($_FILES['foto'], 'png|jpg|jpeg|gif', 'img/datafoto/'));
+			$this->uploadFile($_FILES['foto'], 'png|jpg|jpeg|gif', 'img/datafoto/', 2*MB));
 
 		$this->db->bind('uuid', Uuid::uuid4()->toString());
 		$this->db->bind('created_by', $this->user);
@@ -67,9 +67,13 @@ class Menu_model
 	{
 		$fields_query = "
 			nama = :nama,
-			jumlah = :jumlah,
-			bahan = :bahan,
+			kategori_id = :kategori_id,
+			harga = :harga,
+			tersedia = :tersedia,
+			foto = :foto,
 		";
+
+		$old = $this->getDataById($id);
 
 		$this->db->query(
 			"UPDATE {$this->table}
@@ -80,19 +84,32 @@ class Menu_model
 			WHERE id = :id"
 		);
 
-		$old = $this->getDataById($id);
-
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
-		$this->db->bind('foto', 
-			$this->uploadFile($_FILES["foto"], "png|jpg|jpeg|gif", 'img/datafoto/', $old['foto']));
+		$this->db->bind('foto', $this->uploadFile($_FILES["foto"], "png|jpg|jpeg|gif", 'img/datafoto/', 2*MB, $old['foto']));
 
 		$this->db->bind('id', $id);
 		$this->db->bind('modified_by', $this->user);
 		
 		$this->db->execute();
-		
+		return $this->db->rowCount();
+	}
 
+	public function updateField($id, $field, $value)
+	{
+		$this->db->query(
+			"UPDATE {$this->table}
+				SET 
+				{$field} = :val,
+				modified_at = CURRENT_TIMESTAMP,
+				modified_by = :modified_by
+			WHERE id = :id"
+		);
 
+		$this->db->bind('val', $value);
+		$this->db->bind('id', $id);
+		$this->db->bind('modified_by', $this->user);
+
+		$this->db->execute();
 		return $this->db->rowCount();
 	}
 

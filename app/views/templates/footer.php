@@ -17,17 +17,17 @@
 </div>
 </main>
 
-<script src="<?= BASEURL; ?>/js/core/popper.min.js"></script>
-<script src="<?= BASEURL; ?>/js/core/bootstrap.min.js"></script>
-<script src="<?= BASEURL; ?>/js/plugins/perfect-scrollbar.min.js"></script>
-<script src="<?= BASEURL; ?>/js/plugins/smooth-scrollbar.min.js"></script>
+<script src="<?= BASEURL ?>/js/core/popper.min.js"></script>
+<script src="<?= BASEURL ?>/js/core/bootstrap.min.js"></script>
+<script src="<?= BASEURL ?>/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="<?= BASEURL ?>/js/plugins/smooth-scrollbar.min.js"></script>
 
-<script src="<?= BASEURL; ?>/js/plugins/dragula/dragula.min.js"></script>
-<script src="<?= BASEURL; ?>/js/plugins/jkanban/jkanban.js"></script>
-<script src="<?= BASEURL; ?>/js/plugins/chartjs.min.js"></script>
-<script src="<?= BASEURL; ?>/js/plugins/threejs.js"></script>
-<script src="<?= BASEURL; ?>/js/plugins/orbit-controls.js"></script>
-<script src="<?= BASEURL; ?>/js/script.js"></script>
+<script src="<?= BASEURL ?>/js/plugins/dragula/dragula.min.js"></script>
+<script src="<?= BASEURL ?>/js/plugins/jkanban/jkanban.js"></script>
+<script src="<?= BASEURL ?>/js/plugins/chartjs.min.js"></script>
+<script src="<?= BASEURL ?>/js/plugins/threejs.js"></script>
+<script src="<?= BASEURL ?>/js/plugins/orbit-controls.js"></script>
+<!-- <script src="<?= BASEURL; ?>/js/script.js"></script> -->
 <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {

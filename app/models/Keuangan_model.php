@@ -49,22 +49,20 @@ class Keuangan_model
     {
         $fields_query = ":tanggal, :menu, :quantity, :harga";
 
-            $this->db->query(
-                "INSERT INTO {$this->table} 
-                VALUES
-                (null, :uuid, {$fields_query}, '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
-            );
+		$this->db->query(
+			"INSERT INTO {$this->table} 
+			VALUES
+			(null, :uuid, {$fields_query}, '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
+		);
 
-			$this->db->bind('uuid', Uuid::uuid4()->toString());
-			foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
-			$this->db->bind('created_by', $this->user);
-	
-			$this->db->execute();
-	
-			return $this->db->rowCount();
-		}
-   
+		$this->db->bind('uuid', Uuid::uuid4()->toString());
+		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
+		$this->db->bind('created_by', $this->user);
 
+		$this->db->execute();
+
+		return $this->db->rowCount();
+	}
 
 	public function update($id, $data)
 	{
@@ -91,6 +89,25 @@ class Keuangan_model
 
 		$this->db->execute();
 
+		return $this->db->rowCount();
+	}
+
+	public function updateField($id, $field, $value)
+	{
+		$this->db->query(
+			"UPDATE {$this->table}
+				SET 
+				{$field} = :val,
+				modified_at = CURRENT_TIMESTAMP,
+				modified_by = :modified_by
+			WHERE id = :id"
+		);
+
+		$this->db->bind('val', $value);
+		$this->db->bind('id', $id);
+		$this->db->bind('modified_by', $this->user);
+
+		$this->db->execute();
 		return $this->db->rowCount();
 	}
 
