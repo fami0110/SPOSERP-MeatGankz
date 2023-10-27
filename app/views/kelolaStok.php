@@ -11,11 +11,11 @@
             <form class="row g-3 align-middle">
               <div class="col-md-3">
                 <label for="from_date" class="form-label">From</label>
-                <input type="text" name="from_date" value="2023-10-19" class="datepicker form-control" id="from_date" />
+                <input type="date " name="from_date" value="2023-10-19" class="datepicker form-control" id="from_date" />
               </div>
               <div class="col-md-3">
                 <label for="to_date" class="form-label">To</label>
-                <input type="text" name="to_date" value="2023-10-19" class="datepicker form-control" id="to_date" />
+                <input type="date " name="to_date" value="2023-10-19" class="datepicker form-control" id="to_date" />
               </div>
               <div class="col-md-2 pb-0 mt-5 d-flex flex-column">
                 <button type="button" class="btn bg-gradient-primary mb-0"><i class="fa fa-search-plus"
@@ -62,8 +62,8 @@
 
 
 
-  <!-- Tabel -->
-  <div class="container-fluid" id="dataDetailAbsen">
+    <!-- Tabel -->
+    <div class="container-fluid" id="dataDetailAbsen">
     <div class="row">
       <div class="col-lg-12">
         <div class="card mb-4">
@@ -84,22 +84,21 @@
           </div>
           <div class=" card-body px-0 pt-0 pb-3">
 
-          <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover">
-                                  <thead>
-
-    <tr align="center">
-                                        <th rowspan="3" class="align-middle">Menu</th>
-                                        <?php foreach ($data["stok"] as $stok): ?>
-                                        <th colspan="3"><?= $stok['tanggal']; ?></th>
-                                        <?php endforeach; ?>
-                                        
-                                    </tr>
-
-
-    
+            <div class="table-responsive">
+            <table class="table table-bordered" style="border-collapse: collapse;">
+    <thead>
+        <tr align="center">
+            <th rowspan="3" class="align-middle">Deskripsi</th>
+            <?php 
+              $dates = array_column($data["stok"], 'tanggal'); 
+              $uniqueDates = array_unique($dates);
+            ?>
+            <?php foreach ($uniqueDates as $date): ?>
+                <th colspan="3"><?= $date; ?></th>
+            <?php endforeach; ?>
+        </tr>
         <tr>
-            <?php foreach ($data["stok"] as $stok): ?>
+            <?php foreach ($uniqueDates as $date): ?>
                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                     Masuk
                 </th>
@@ -117,28 +116,42 @@
             <tr>
                 <td>
                     <p class="text-sm text-center font-weight-bold mb-0">
-                        <?= $stok['menu']; ?>
+                        <?= $stok['deskripsi']; ?>
                     </p>
                 </td>
-                <td class="align-middle text-center text-sm">
-                    <p class="text-sm font-weight-bold mb-0">
-                        <?= $stok['masuk']; ?>
-                    </p>
-                </td>
-                <td class="align-middle text-center">
-                    <p class="text-sm font-weight-bold mb-0">
-                        <?= $stok['stok']; ?>
-                    </p>
-                </td>
-                <td class="align-middle text-center">
-                    <p class="text-sm font-weight-bold mb-0">
-                        <?= $stok['keluar']; ?>
-                    </p>
-                </td> 
+                <?php foreach ($uniqueDates as $date): ?>
+                    <?php $dateData = array_filter($data["stok"], function($item) use ($date, $stok) {
+                        return $item['tanggal'] == $date && $item['deskripsi'] == $stok['deskripsi'];
+                    }); ?>
+                    <?php if (count($dateData) > 0): ?>
+                        <?php foreach ($dateData as $dateItem): ?>
+                            <td class="align-middle text-center text-sm">
+                                <p class="text-sm font-weight-bold mb-0"><?= $dateItem['masuk']; ?></p>
+                            </td>
+                            <td class="align-middle text-center">
+                                <p class="text-sm font-weight-bold mb-0"><?= $dateItem['stok']; ?></p>
+                            </td>
+                            <td class="align-middle text-center">
+                                <p class="text-sm font-weight-bold mb-0"><?= $dateItem['keluar']; ?></p>
+                            </td>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <td class="align-middle text-center text-sm">
+                            <p class="text-sm font-weight-bold mb-0">-</p>
+                        </td>
+                        <td class="align-middle text-center">
+                            <p class="text-sm font-weight-bold mb-0">-</p>
+                        </td>
+                        <td class="align-middle text-center">
+                            <p class="text-sm font-weight-bold mb-0">-</p>
+                        </td>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
+
 
             </div>
           </div>
@@ -161,13 +174,34 @@
           <form action="<?= BASEURL; ?>/kelolaStok/insert" method="post">
             <input type="hidden" name="id" id="id">
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Menu</label>
-              <input type="text" class="form-control" name="menu" id="menu">
+
+              <label for="exampleFormControlInput1" class="form-label">Deskripsi</label>
+
+              <div class="col-md-20 form-group">
+                <div class="form-group">
+                  <select class="choices form-select" name="deskripsi" id="deskripsi">
+
+                    <option>
+                      <?= $stok['deskripsi']; ?>
+                    </option>
+                  </select>
+                </div>
+              </div>
             </div>
+
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
-              <input type="date" class="form-control" name="tanggal" id="tanggal">
+              <div class="col-md-20 form-group">
+                <div class="form-group">
+                  <select class="choices form-select" name="tanggal" id="tanggal">
+                    <option>
+                      <?= $stok['tanggal']; ?>
+                    </option>
+                  </select>
+                </div>
+              </div>
             </div>
+
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">Masuk</label>
               <input type="number" class="form-control" name="masuk" id="masuk">

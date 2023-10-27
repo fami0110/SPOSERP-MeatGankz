@@ -74,12 +74,12 @@
                                         </td>
                                         <td>
                                             <p class="text-sm text-center font-weight-bold mb-0">
-                                                <?= 'Rp. ', $pemasukan['harga'], ' /', $pemasukan['unit_harga']; ?>
+                                                <?= 'Rp. ', $pemasukan['harga'], '/', $pemasukan['unit_harga']; ?>
                                             </p>
                                         </td>
                                         <td>
                                             <p class="text-sm text-center font-weight-bold mb-0">
-                                                <?= $pemasukan['menu']; ?>
+                                                <?= $pemasukan['deskripsi']; ?>
                                             </p>
                                         </td>
                                         <td class="align-middle text-center text-sm">
@@ -178,7 +178,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">Deskripsi</label>
-                                    <input type="text" class="form-control" name="menu" id="menu">
+                                    <input type="text" class="form-control" name="deskripsi" id="deskripsi">
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">Pesan</label>
