@@ -11,6 +11,7 @@ class Kasir extends Controller
 		$data['title'] = 'Menu';
 		$data['user'] = $this->user;
         $data['menu'] = $this->model('Menu_model')->getAllData();
+        $data['kategori'] = $this->model('Kategori_model')->getAllData();
 		
 		$this->view('kasir', $data);
 	}
@@ -19,26 +20,22 @@ class Kasir extends Controller
     {
         if ($this->model('Menu_model')->insert($_POST) > 0) {
             Flasher::setFlash('Insert&nbsp<b>SUCCESS</b>', 'success');
-			header("Location: " . BASEURL . "/menu");
-            exit;
         } else {
             Flasher::setFlash('Insert&nbsp<b>FAILED</b>', 'danger');
-            header('Location: ' . BASEURL . '/menu');
-            exit;
         }
+        header('Location: ' . BASEURL . '/menu');
+        exit;
     }
 
     public function delete($id)
     {
         if ($this->model('Menu_model')->delete($id) > 0) {
             Flasher::setFlash('Delete&nbsp<b>SUCCESS</b>', 'success');
-            header('Location: ' . BASEURL . '/menu');
-            exit;
         } else {
             Flasher::setFlash('Delete&nbsp<b>FAILED</b>', 'danger');
-            header('Location: ' . BASEURL . '/menu');
-            exit;
         }
+        header('Location: ' . BASEURL . '/menu');
+        exit;
     }
 
 	public function store()
@@ -49,13 +46,11 @@ class Kasir extends Controller
 	{
         if ($this->model('Menu_model')->update($_POST) > 0) {
             Flasher::setFlash('Update&nbsp<b>SUCCESS</>', 'success');
-            header('Location: ' . BASEURL . '/supplier');
-            exit;
         } else {
             Flasher::setFlash('Update&nbsp<b>FAILED</b>', 'danger');
-            header('Location: ' . BASEURL . '/supplier');
-            exit;
         }
+        header('Location: ' . BASEURL . '/supplier');
+        exit;
 	}
 
     public function getUbah()

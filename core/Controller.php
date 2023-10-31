@@ -21,12 +21,15 @@ class Controller
         }
     }
 
-    public function auth($status = 'both')
+    public function auth($status = 'both', $role = false)
     {
         switch ($status) {
             case 'user':
                 if (!$this->user) {
                     header('Location: '. BASEURL .'/login');
+                    exit;
+                } elseif ($role && $role != $this->user['role']) {
+                    header('Location: '. BASEURL .'/forbidden');
                     exit;
                 }
                 break;

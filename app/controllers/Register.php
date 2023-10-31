@@ -2,8 +2,6 @@
 
 class Register extends Controller
 {
-//   protected $model_name = "register";
-
   public function index()
   {
 		$this->auth('guest');
@@ -23,7 +21,6 @@ class Register extends Controller
 			Flasher::setFlash('Register&nbsp<b>FAILED</b>!', 'danger');
 			header("Location: " . BASEURL . "/register");
 		}
-
 		exit;
   }
 }

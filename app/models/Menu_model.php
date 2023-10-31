@@ -43,7 +43,7 @@ class Menu_model
 
 	public function insert($data)
 	{
-		$fields_query = ":nama, :kategori, :harga, :tersedia, :foto,";
+		$fields_query = ":nama, :kategori_id, :harga, :tersedia, :foto,";
 
 		$this->db->query(
 			"INSERT INTO {$this->table} 
