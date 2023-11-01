@@ -2,13 +2,15 @@
 
 class Setting extends Controller
 {
-	protected $model_name = 'Preferences_model';
+	protected $model_name = 'Preferences';
 
 	public function index()
 	{
         $this->auth('user', 'superadmin');
 
+        $data['title'] = 'Setting';
         $data['user'] = $this->user;
+        
         $data['preferences'] = $this->model($this->model_name)->getAllPreference();
         $data['categories'] = $this->model($this->model_name)->getALlCategories();
         

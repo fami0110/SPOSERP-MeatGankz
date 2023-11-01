@@ -1,6 +1,6 @@
 <?php
 
-class Preferences_model
+class Preferences
 {
 	protected $table = "preferences";
 	protected $db;
@@ -23,9 +23,9 @@ class Preferences_model
 
 	public function getPreference($name)
 	{
-		$this->db->query("SELECT * FROM {$this->table} WHERE `setting` = :setting");
+		$this->db->query("SELECT `value` FROM {$this->table} WHERE `setting` = :setting");
 		$this->db->bind('setting', $name);
-		return $this->db->fetch();
+		return $this->db->fetch(PDO::FETCH_COLUMN);
 	}
 
 	public function updatePreference($key, $val)

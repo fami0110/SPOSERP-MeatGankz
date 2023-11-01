@@ -25,6 +25,11 @@ DROP TABLE IF EXISTS `pembayaran`;
 CREATE TABLE `pembayaran` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` char(36) NOT NULL,
+  `pelanggan` varchar(20) NOT NULL,
+  `detail_pembayaran` json NOT NULL,
+  `total` int NOT NULL,
+  `bayar` int NOT NULL,
+  `kembali` int NOT NULL,
   `note` varchar(50) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` char(36) NOT NULL,
@@ -59,4 +64,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-31 10:27:20
+-- Dump completed on 2023-11-01  8:34:21

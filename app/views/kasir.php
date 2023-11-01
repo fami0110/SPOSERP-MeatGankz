@@ -77,6 +77,14 @@
         </div>
     </div> -->
     <div class="col-lg-6" style="max-height: calc(100vh - 100px); overflow-y: auto;">
+        <div class="container-fluid mb-4 border-bottom sticky-top bg-gray-100" style="white-space: nowrap; overflow-x: auto;">
+            <input type="radio" class="btn-check" name="kategori" autocomplete="off" checked>
+            <!-- <label class="btn btn-outline-primary rounded-pill" for="kategori">All</label> -->
+            <?php foreach ($data['kategori'] as $kategori) : ?>
+                <input type="radio" class="btn-check" name="kategori" autocomplete="off">
+                <!-- <label class="btn btn-outline-primary rounded-pill" for="kategori"><?= $kategori['nama'] ?></label> -->
+            <?php endforeach; ?>
+        </div>
         <?php foreach ($data['kategori'] as $kategori) : ?>
             <div class="container-fluid mb-3">
                 <h5 class="mb-4 align-bottom">
@@ -88,16 +96,20 @@
                 <div class="row">
                     <?php foreach ($data["menu"] as $menu) : ?>
                         <?php if ($menu['kategori_id'] !== $kategori['id']) continue ?>
-                        <div class="col-lg-4 mb-4" data-available="<?= ($menu['tersedia']) ? 'true' : 'false' ?>">
-                            <button class="card h-100 animation-card addProductSale p-0">
+                        <div class="col-sm-4 mb-4 menu" 
+                            data-tersedia="<?= ($menu['tersedia']) ? 'true' : 'false' ?>"
+                            data-nama="<?= $menu['nama'] ?>"
+                            data-harga="<?= $menu['harga'] ?>"
+                        >
+                            <button class="card w-100 h-100 animation-card addProductSale p-0">
                                 <img src="<?= BASEURL ?>/img/datafoto/<?= $menu['foto'] ?>" alt="img <?= $menu['foto'] ?>" class="card-img-top">
                                 <div class="card-body d-flex flex-column justify-content-between text-start pb-0">
-                                    <h7 class="nama-menu card-title"><?= $menu['nama']; ?></h7>
+                                    <h7 class="card-title"><?= $menu['nama']; ?></h7>
                                     <div>
-                                        <h6 class="harga-menu card-subtitle my-2 text-sm text-muted">
+                                        <h6 class="card-subtitle my-2 text-sm text-muted">
                                             Rp <?= number_format($menu['harga'], 0, '.', '.') ?>
                                         </h6>
-                                        <h6 class="nama-menu card-subtitle mb-3 text-md text-<?= ($menu['tersedia']) ? 'success' : 'danger' ?>">
+                                        <h6 class="card-subtitle mb-3 text-md text-<?= ($menu['tersedia']) ? 'success' : 'danger' ?>">
                                             <?= ($menu['tersedia']) ? 'Tersedia' : 'Habis' ?>
                                         </h6>
                                     </div>
@@ -114,7 +126,7 @@
     <div class="col-lg-6">
         <div class="card" style="height: calc(100vh - 120px); overflow-y: auto;">
             <div class="card-body">
-                <form>
+                <form action="<?= BASEURL ?>/kasir/insert" method="post">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">
                             <i class="fas fa-id-card-alt ps-2"></i>
@@ -128,63 +140,62 @@
                         <input type="text" class="form-control ps-2" value="Customer">
                     </div>
 
-                    <label class="col-lg-12 col-form-label">Daftar Belanja</label>
-                    <div id="daftar-belanja">
-                        <div class="row mb-1">
-                            <div class="col-lg-6 py-1 text-sm">
-                                Item
-                            </div>
-                            <div class="col-lg-2 py-1 ps-0 text-sm">
-                                Amount
-                            </div>
-                            <div class="col-lg-4 py-1 ps-0 text-sm">
-                                Total
-                            </div>
+                    <div class="d-flex justify-content-between border-top pt-3 mt-4">
+                        <label class="col-form-label">Daftar Belanja</label>
+                        <button type="button" class="btn btn-danger rounded-pill" id="clear">Clear All Items</button>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-sm-6 py-1 text-sm">
+                            Item
                         </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="input-group mb-3">
-                                    <button class="btn btn-danger m-0 removeProduct" type="button" id="button-addon1">
-                                        <i class="fa fa-xmark"></i>
-                                    </button>
-                                    <input type="text" class="form-control ps-3" value="Steak" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 ps-0">
-                                <input type="number" class="form-control ps-2" value="1" name="" id="">
-                            </div>
-                            <div class="col-lg-4 ps-0">
+                        <div class="col-sm-2 py-1 ps-0 text-sm">
+                            Amount
+                        </div>
+                        <div class="col-sm-4 py-1 ps-0 text-sm">
+                            Subtotal
+                        </div>
+                    </div>
+                    <div id="daftar-belanja" class="border-bottom pb-3 mb-2">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label for="idTransaksi" class="col-lg-12 col-form-label">Subtotal</label>
                                 <div class="input-group mb-3">
                                     <span class="input input-group-text" id="button-addon1">Rp. </span>
-                                    <input type="number" class="form-control ps-2" value="20000" readonly>
+                                    <input type="number" class="form-control ps-2" id="subtotal" name="subtotal" value="0" readonly>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-sm-4">
                             <div class="form-group">
-                                <label for="idTransaksi" class="col-lg-12 col-form-label">Pajak</label>
+                                <label for="idTransaksi" class="col-lg-12 col-form-label">
+                                    Pajak <span class="badge badge-warning">(<?= $data['pajak'] ?>%)</span>
+                                </label>
                                 <div class="input-group mb-3">
                                     <span class="input input-group-text" id="button-addon1">Rp. </span>
-                                    <input type="number" class="form-control ps-2" value="0" readonly>
+                                    <input type="number" class="form-control ps-2" id="pajak" name="pajak" value="0" data-pajak="<?= $data['pajak'] ?>" readonly>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-sm-8">
                             <div class="form-group">
                                 <label for="idTransaksi" class="col-lg-12 col-form-label">Total</label>
                                 <div class="input-group mb-3">
                                     <span class="input input-group-text" id="button-addon1">Rp. </span>
-                                    <input type="number" class="form-control ps-2" value="20000" readonly>
+                                    <input type="number" class="form-control ps-2"  id="total" name="total" value="0" readonly>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="" class="col-lg-12 col-form-label">Pembayaran</label>
                                 <select name="" id="pembayaran" class="form-control">
@@ -194,37 +205,78 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-4" id="bayar">
-                            <label for="" class="col-lg-12 col-form-label">Bayar</label>
-                            <div class="input-group mb-3">
-                                <span class="input input-group-text" id="button-addon1">Rp. </span>
-                                <input type="number" class="form-control ps-2" value="20000">
-                            </div>
-                        </div>
-                        <div class="col-lg-4" id="kembalian">
-                            <label for="" class="col-lg-12 col-form-label">Kembalian</label>
-                            <div class="input-group mb-3">
-                                <span class="input input-group-text" id="button-addon1">Rp. </span>
-                                <input type="number" class="form-control ps-2" value="20000" readonly>
-                            </div>
-                        </div>
-                        <div class="col-lg-8" id="kode_transaksi" style="display: none;">
+                        <div class="col-lg-6" style="display: none;">
                             <label for="" class="col-lg-12 col-form-label">Kode Transaksi</label>
                             <div class="input-group mb-3">
                                 <span class="input input-group-text" id="button-addon1">
                                     <i class="fa fa-lock ps-2"></i>
                                 </span>
-                                <input type="text" class="form-control ps-2" value="">
+                                <input type="text" class="form-control ps-2" id="kode_transaksi" name="kode_transaksi" value="">
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label for="" class="col-lg-12 col-form-label">Bayar</label>
+                            <div class="input-group mb-3">
+                                <span class="input input-group-text" id="button-addon1">Rp. </span>
+                                <input type="number" class="form-control ps-2" id="bayar" name="bayar" value="0" min="0">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="" class="col-lg-12 col-form-label">Kembalian</label>
+                            <div class="input-group mb-3">
+                                <span class="input input-group-text" id="button-addon1">Rp. </span>
+                                <input type="number" class="form-control ps-2" id="kembali" name="kembali" value="0" min="0" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-2" style="flex-wrap: wrap;">
+                        <div class="col-sm-3 px-1">
+                            <button type="button" 
+                                class="instant-pay w-100 btn btn-outline-success rounded-pill"
+                                data-value="pas">Uang Pas</button>
+                        </div>
+                        <div class="col-sm-3 px-1">
+                            <button type="button" 
+                                class="instant-pay w-100 btn btn-outline-secondary rounded-pill"
+                                data-value="10000">Rp. 10.000</button>
+                        </div>
+                        <div class="col-sm-3 px-1">
+                            <button type="button" 
+                                class="instant-pay w-100 btn btn-outline-secondary rounded-pill"
+                                data-value="20000">Rp. 20.000</button>
+                        </div>
+                        <div class="col-sm-3 px-1">
+                            <button type="button" 
+                                class="instant-pay w-100 btn btn-outline-secondary rounded-pill"
+                                data-value="50000">Rp. 50.000</button>
+                        </div>
+                        <div class="col-sm-3 px-1">
+                            <button type="button" 
+                                class="instant-pay w-100 btn btn-outline-secondary rounded-pill"
+                                data-value="100000">Rp. 100.000</button>
+                        </div>
+                        <div class="col-sm-3 px-1">
+                            <button type="button" 
+                                class="instant-pay w-100 btn btn-outline-secondary rounded-pill"
+                                data-value="200000">Rp. 200.000</button>
+                        </div>
+                        <div class="col-sm-3 px-1">
+                            <button type="button" 
+                                class="instant-pay w-100 btn btn-outline-secondary rounded-pill"
+                                data-value="500000">Rp. 500.000</button>
                         </div>
                     </div>
 
                     <div class="row mt-2">
                         <div class="col-lg-12 d-flex justify-content-end">
                             <!-- <a href="" class="btn btn-info me-2 mb-0">
-                            <i class="fa fa-print me-2"></i>
-                            Print
-                        </a> -->
+                                <i class="fa fa-print me-2"></i>
+                                Print
+                            </a> -->
                             <a href="" class="btn btn-primary mb-0">
                                 <i class="fa fa-save me-2"></i>
                                 Simpan
@@ -237,7 +289,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="myCalc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="myCalc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -271,15 +323,15 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
-<script src="<?= BASEURL ?>/js/datatables.js"></script>
+<script src="<?= BASEURL ?>/js/custom/kasir.js"></script>
+<!-- <script src="<?= BASEURL ?>/js/datatables.js"></script>
 <script>
     const dataTableSearch = new simpleDatatables.DataTable("#datatable-basic", {
         searchable: true,
         fixedHeight: true
     });
-</script>
-<script src="<?= BASEURL ?>/js/custom/kasir.js"></script>
+</script> -->
 
 <?php require_once "templates/footer.php" ?>

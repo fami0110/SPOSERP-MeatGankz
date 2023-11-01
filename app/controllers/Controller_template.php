@@ -1,19 +1,16 @@
-<?php
+<?php 
 
-class Kasir extends Controller
+class Controller_template extends Controller
 {
 	protected $model_name = 'Menu_model';
 
 	public function index()
 	{
-		$this->auth('user');
+		$this->auth('both');
 
-		$data['title'] = 'Kasir';
+		$data['title'] = 'Menu';
 		$data['user'] = $this->user;
-
-        $data['menu'] = $this->model($this->model_name)->getAllData();
-        $data['kategori'] = $this->model('Kategori_model')->getAllData();
-        $data['pajak'] = $this->model('Preferences')->getPreference('Besar_Pajak_(%)');
+        $data['data'] = $this->model($this->model_name)->getAllData();
 		
 		$this->view('kasir', $data);
 	}
@@ -25,7 +22,7 @@ class Kasir extends Controller
         } else {
             Flasher::setFlash('Insert&nbsp<b>FAILED</b>', 'danger');
         }
-        header('Location: ' . BASEURL . '/menu');
+        header('Location: ' . BASEURL . '/');
         exit;
     }
 
@@ -36,18 +33,18 @@ class Kasir extends Controller
         } else {
             Flasher::setFlash('Delete&nbsp<b>FAILED</b>', 'danger');
         }
-        header('Location: ' . BASEURL . '/menu');
+        header('Location: ' . BASEURL . '/');
         exit;
     }
 
-	public function update()
+	public function update($id)
 	{
-        if ($this->model($this->model_name)->update($_POST) > 0) {
+        if ($this->model($this->model_name)->update($id, $_POST) > 0) {
             Flasher::setFlash('Update&nbsp<b>SUCCESS</>', 'success');
         } else {
             Flasher::setFlash('Update&nbsp<b>FAILED</b>', 'danger');
         }
-        header('Location: ' . BASEURL . '/supplier');
+        header('Location: ' . BASEURL . '/');
         exit;
 	}
 
