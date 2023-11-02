@@ -26,6 +26,9 @@
                         <table class="table align-items-center mb-0" id="datatable-search">
                             <thead>
                                 <tr>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Aksi</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         No</th>
                                     <th
@@ -61,15 +64,23 @@
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Supplier</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i = 1; ?>
                                 <?php foreach ($data["pemasukan"] as $pemasukan): ?>
                                     <tr>
+                                        <td class="align-middle text-sm text-center font-weight-bold mb-0">
+                                            <a href="<?= BASEURL; ?>/pemasukan/update/<?= $pemasukan['id'] ?>"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                data-id="<?= $pemasukan['id']; ?>" class="btn bg-gradient-primary btn-md p-1 px-2 tampilModalUbah">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a href="<?= BASEURL; ?>/pemasukan/delete/<?= $pemasukan['id'] ?>"
+                                                onclick="return confirm ('yakin?')" class="btn bg-gradient-dark btn-md  p-1 px-2 align-middle acc-button">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </td>
                                         <td>
                                             <p class="text-sm text-center font-weight-bold mb-0">
                                                 <?= $i++; ?>
@@ -149,17 +160,6 @@
                                                 echo $kategori;
                                            ?>
                                             </p>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <a href="<?= BASEURL; ?>/pemasukan/update/<?= $pemasukan['id'] ?>"
-                                                data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                                data-id="<?= $pemasukan['id']; ?>" class="btn bg-gradient-primary tampilModalUbah">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                            <a href="<?= BASEURL; ?>/pemasukan/delete/<?= $pemasukan['id'] ?>"
-                                                onclick="return confirm ('yakin?')" class="btn bg-gradient-dark acc-button">
-                                                <i class="bi bi-trash"></i>
-                                            </a>
                                         </td>
                                     </tr>
                                 <?php endforeach ?>
