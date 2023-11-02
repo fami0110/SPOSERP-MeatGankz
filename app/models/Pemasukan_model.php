@@ -5,10 +5,11 @@ use Ramsey\Uuid\Uuid;
 class Pemasukan_model
 {
 	protected $table = "shipment";
+	protected $table_stok = "stok_bahan";
 	protected $fields = [
         'harga',
         'unit_harga',
-        'deskripsi',
+        'barang_id',
         'pesan',
         'unit_pesan',
         'berat',
@@ -19,7 +20,8 @@ class Pemasukan_model
         'ice_pack',
         'diskon',
         'total',
-        'keterangan'
+        'supplier_id',
+		'tanggal'
     ];
 	protected $user;
 	protected $db;
@@ -36,9 +38,9 @@ class Pemasukan_model
 		return $this->db->fetchAll();
 	}
 
-	public function getDeskripsi()
+	public function getbarang_id()
     {
-        $this->db->query("SELECT deskripsi from {$this->table} WHERE `status` = 1");
+        $this->db->query("SELECT barang_id from {$this->table} WHERE `status` = 1");
         return $this->db->fetchAll();
     }
 	public function getDataById($id)
@@ -50,29 +52,40 @@ class Pemasukan_model
 
 	public function insert($data)
 	{
-		$fields_query = ":harga, :unit_harga, :deskripsi, :pesan, :unit_pesan, :berat, :unit_berat, :harga_exw, :total_exw, :ongkir, :ice_pack, :diskon, :total, :keterangan";
+		$fields_query = ":harga, :unit_harga, :barang_id, :pesan, :unit_pesan, :berat, :unit_berat, :harga_exw, :total_exw, :ongkir, :ice_pack, :diskon, :total, :supplier_id, :tanggal";
 
-		$this->db->query(
-			"INSERT INTO {$this->table} 
-				VALUES
-      		(null, :uuid, {$fields_query}, '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, DEFAULT)"
-		);
+		$uuid = Uuid::uuid4()->toString();
+		$currentTimestamp = date("Y-m-d H:i:s");
+		$createdBy = $this->user;
+
+		$query1 = "INSERT INTO {$this->table} VALUES (null, :uuid, {$fields_query}, '', :currentTimestamp, :createdBy, null, '', null, '', null, '', 0, 0, DEFAULT)";
+		$query2 = "INSERT INTO {$this->table_stok} VALUES (null, :uuid, :barang_id, :tanggal, :pesan, null, null, '', :currentTimestamp, :createdBy, null, '', null, '', null, '', 0, 0, DEFAULT)";
+
+		$this->db->query($query1);
+		$this->db->query($query2);
 
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
-		$this->db->bind('uuid', Uuid::uuid4()->toString());
-		$this->db->bind('created_by', $this->user);
+		$this->db->bind('barang_id', $data['barang_id']);
+		$this->db->bind('tanggal', $data['tanggal']);
+		$this->db->bind('pesan', $data['pesan']);
+		// $this->db->bind('stok', $data['stok']);
+		// $this->db->bind('keluar', $data['keluar']);
+		$this->db->bind('uuid', $uuid);
+		$this->db->bind('createdBy', $createdBy);
+		$this->db->bind('currentTimestamp', $currentTimestamp);
 
 		$this->db->execute();
 
 		return $this->db->rowCount();
 	}
 
+
 	public function update($id, $data)
 	{
 		$fields_query = "
             harga = :harga,
             unit_harga = :unit_harga,
-            deskripsi = :deskripsi,
+            barang_id = :barang_id,
             pesan = :pesan,
             unit_pesan = :unit_pesan,
             berat = :berat,
@@ -83,7 +96,8 @@ class Pemasukan_model
             ice_pack = :ice_pack,
             diskon = :diskon,
             total = :total,
-            keterangan = :keterangan,
+            supplier_id = :supplier_id,
+            tanggal = :tanggal,
         ";
 
 		$this->db->query(
