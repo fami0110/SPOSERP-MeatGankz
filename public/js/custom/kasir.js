@@ -7,8 +7,9 @@ const totalDisplay = document.getElementById('total');
 const bayar = document.getElementById('bayar');
 const kembali = document.getElementById('kembali');
 const paymentMethodSelect = document.getElementById('pembayaran');
-const kode_transaksi = document.getElementById('kode_transaksi');
+const kode_transaksi = document.querySelector('.kode-transaksi');
 const daftar_belanja = document.getElementById('daftar-belanja');
+const kategori_menu = document.querySelectorAll('.kategori-menu');
 let selected_menu = {};
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -69,11 +70,52 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    document.querySelectorAll('.filter-kategori').forEach(btn => {
+        btn.addEventListener('change', () => {
+            if (btn.checked) {
+                let filter = btn.dataset.kategori;
+                switch (filter) {
+                    case 'all':
+                        kategori_menu.forEach(kategori => toggleDisplay(kategori, true));
+                        break;
+                    default:
+                        kategori_menu.forEach(kategori => toggleDisplay(kategori, false));
+                        toggleDisplay(document.querySelector(`.kategori-menu.${filter}`), true);
+                        break;
+                }
+            }
+        });
+    });
+
+    document.querySelector('.submit-form').addEventListener('click', () => {
+        if (document.querySelectorAll('.item').length) {
+            if (bayar.value == 0) {
+                alert('Nominal bayar tidak boleh kosong!')
+            } else if (confirm('Apakah anda yakin ingin memproses data ini?')) {
+                form.submit();
+            }
+        } else {
+            alert('Daftar belanja kosong!');
+        }
+    });
+
+    setTimeout(() => {
+        document.querySelector('a.nav-link.text-body.p-0').click(); // auto minimize the navbar
+    }, 500);
 });
+
+function toggleDisplay(element, bool) {
+    if (bool) {
+        element.style.display = 'block';
+    } else {
+        element.style.display = 'none';
+    }
+}
 
 function addList(nama, price) {
     let item = document.createElement('div');
-    item.classList.add('row');
+    item.setAttribute('class', 'row item');
     item.innerHTML = `
         <div class="col-sm-6">
             <div class="input-group mb-3">
@@ -89,7 +131,7 @@ function addList(nama, price) {
         <div class="col-sm-4 ps-0">
             <div class="input-group mb-3">
                 <span class="input input-group-text" id="button-addon1">Rp. </span>
-                <input type="number" class="subtotal form-control ps-2" name="subtotal[]" value="${price}" readonly>
+                <input type="number" class="subtotal form-control ps-2" name="item_subtotal[]" value="${price}" readonly>
             </div>
         </div>
     `;
@@ -114,7 +156,7 @@ function refreshAmountEvent() {
     const allAmountInput = document.querySelectorAll('.amount');
     const allDeleteBtn = document.querySelectorAll('.removeList');
 
-    if (allAmountInput.length) {
+    if (document.querySelectorAll('.item').length) {
         allAmountInput.forEach(amount => {
             amount.onchange = () => {
                 const subtotal = amount.parentElement.parentElement.querySelector('.subtotal');

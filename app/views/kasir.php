@@ -77,16 +77,27 @@
         </div>
     </div> -->
     <div class="col-lg-6" style="max-height: calc(100vh - 100px); overflow-y: auto;">
-        <div class="container-fluid mb-4 border-bottom sticky-top bg-gray-100" style="white-space: nowrap; overflow-x: auto;">
-            <input type="radio" class="btn-check" name="kategori" autocomplete="off" checked>
-            <!-- <label class="btn btn-outline-primary rounded-pill" for="kategori">All</label> -->
+        <div class="container-fluid pt-1 mb-4 border-bottom sticky-top bg-gray-100" style="white-space: nowrap; overflow-x: auto;">
+            <input type="radio" 
+                class="btn-check filter-kategori" 
+                data-kategori="all" 
+                name="kategori" id="kategori-all" checked>
+            <label class="btn btn-outline-primary rounded-pill" for="kategori-all">
+                All
+            </label>
             <?php foreach ($data['kategori'] as $kategori) : ?>
-                <input type="radio" class="btn-check" name="kategori" autocomplete="off">
-                <!-- <label class="btn btn-outline-primary rounded-pill" for="kategori"><?= $kategori['nama'] ?></label> -->
+            <input type="radio" 
+                class="btn-check filter-kategori" 
+                data-kategori="<?= strtolower($kategori['nama']) ?>" 
+                name="kategori" id="kategori-<?= $kategori['nama'] ?>">
+            <label class="btn btn-outline-primary rounded-pill" for="kategori-<?= $kategori['nama'] ?>">
+                <?= $kategori['nama'] ?>
+            </label>
             <?php endforeach; ?>
         </div>
+
         <?php foreach ($data['kategori'] as $kategori) : ?>
-            <div class="container-fluid mb-3">
+            <div class="container-fluid mb-3 kategori-menu <?= strtolower($kategori['nama']) ?>">
                 <h5 class="mb-4 align-bottom">
                     <svg class="mb-1 me-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="32">
                         <path d="M190.58-513.333q-40.385 0-68.41-28.308t-28.025-68.504V-769.42q0-40.385 28.025-68.598 28.025-28.214 68.41-28.214h159.652q39.819 0 68.127 28.214 28.308 28.213 28.308 68.598v159.275q0 40.196-28.308 68.504-28.308 28.308-68.127 28.308H190.58Zm0 419.188q-40.385 0-68.41-28.025t-28.025-68.41v-159.652q0-39.819 28.025-68.127 28.025-28.308 68.41-28.308h159.652q39.819 0 68.127 28.308 28.308 28.308 28.308 68.127v159.652q0 40.385-28.308 68.41t-68.127 28.025H190.58Zm419.565-419.188q-40.196 0-68.504-28.308-28.308-28.308-28.308-68.504V-769.42q0-40.385 28.308-68.598 28.308-28.214 68.504-28.214H769.42q40.385 0 68.598 28.214 28.214 28.213 28.214 68.598v159.275q0 40.196-28.214 68.504-28.213 28.308-68.598 28.308H610.145Zm0 419.188q-40.196 0-68.504-28.025-28.308-28.025-28.308-68.41v-159.652q0-39.819 28.308-68.127 28.308-28.308 68.504-28.308H769.42q40.385 0 68.598 28.308 28.214 28.308 28.214 68.127v159.652q0 40.385-28.214 68.41-28.213 28.025-68.598 28.025H610.145Z" />
@@ -131,13 +142,13 @@
                         <span class="input-group-text" id="basic-addon1">
                             <i class="fas fa-id-card-alt ps-2"></i>
                         </span>
-                        <input type="text" class="form-control ps-2" value="<?= $data['user']['username'] ?>" readonly>
+                        <input type="text" class="form-control ps-2" name="kasir" value="<?= $data['user']['username'] ?>" readonly>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">
                             <i class="fa fa-user ps-2"></i>
                         </span>
-                        <input type="text" class="form-control ps-2" value="Customer">
+                        <input type="text" class="form-control ps-2" name="pelanggan" value="Customer">
                     </div>
 
                     <div class="d-flex justify-content-between border-top pt-3 mt-4">
@@ -198,14 +209,14 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="" class="col-lg-12 col-form-label">Pembayaran</label>
-                                <select name="" id="pembayaran" class="form-control">
+                                <select name="metode_pembayaran" id="pembayaran" class="form-control">
                                     <option value="cash">Cash</option>
                                     <option value="debit">Debit</option>
                                     <option value="kredit">Kredit</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-6" style="display: none;">
+                        <div class="col-lg-6 kode-transaksi" style="display: none;">
                             <label for="" class="col-lg-12 col-form-label">Kode Transaksi</label>
                             <div class="input-group mb-3">
                                 <span class="input input-group-text" id="button-addon1">
@@ -236,37 +247,44 @@
                     <div class="row p-2" style="flex-wrap: wrap;">
                         <div class="col-sm-3 px-1">
                             <button type="button" 
-                                class="instant-pay w-100 btn btn-outline-success rounded-pill"
+                                class="instant-pay w-100 px-0 text-center btn btn-outline-success rounded-pill"
+                                style="white-space: nowrap"
                                 data-value="pas">Uang Pas</button>
                         </div>
                         <div class="col-sm-3 px-1">
                             <button type="button" 
-                                class="instant-pay w-100 btn btn-outline-secondary rounded-pill"
+                                class="instant-pay w-100 px-0 text-center btn btn-outline-secondary rounded-pill"
+                                style="white-space: nowrap"
                                 data-value="10000">Rp. 10.000</button>
                         </div>
                         <div class="col-sm-3 px-1">
                             <button type="button" 
-                                class="instant-pay w-100 btn btn-outline-secondary rounded-pill"
+                                class="instant-pay w-100 px-0 text-center btn btn-outline-secondary rounded-pill"
+                                style="white-space: nowrap"
                                 data-value="20000">Rp. 20.000</button>
                         </div>
                         <div class="col-sm-3 px-1">
                             <button type="button" 
-                                class="instant-pay w-100 btn btn-outline-secondary rounded-pill"
+                                class="instant-pay w-100 px-0 text-center btn btn-outline-secondary rounded-pill"
+                                style="white-space: nowrap"
                                 data-value="50000">Rp. 50.000</button>
                         </div>
                         <div class="col-sm-3 px-1">
                             <button type="button" 
-                                class="instant-pay w-100 btn btn-outline-secondary rounded-pill"
+                                class="instant-pay w-100 px-0 text-center btn btn-outline-secondary rounded-pill"
+                                style="white-space: nowrap"
                                 data-value="100000">Rp. 100.000</button>
                         </div>
                         <div class="col-sm-3 px-1">
                             <button type="button" 
-                                class="instant-pay w-100 btn btn-outline-secondary rounded-pill"
+                                class="instant-pay w-100 px-0 text-center btn btn-outline-secondary rounded-pill"
+                                style="white-space: nowrap"
                                 data-value="200000">Rp. 200.000</button>
                         </div>
                         <div class="col-sm-3 px-1">
                             <button type="button" 
-                                class="instant-pay w-100 btn btn-outline-secondary rounded-pill"
+                                class="instant-pay w-100 px-0 text-center btn btn-outline-secondary rounded-pill"
+                                style="white-space: nowrap"
                                 data-value="500000">Rp. 500.000</button>
                         </div>
                     </div>
@@ -277,10 +295,10 @@
                                 <i class="fa fa-print me-2"></i>
                                 Print
                             </a> -->
-                            <a href="" class="btn btn-primary mb-0">
+                            <button type="button" class="btn btn-primary mb-0 submit-form">
                                 <i class="fa fa-save me-2"></i>
                                 Simpan
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </form>

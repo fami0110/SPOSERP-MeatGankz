@@ -2,7 +2,7 @@
 
 class Kasir extends Controller
 {
-	protected $model_name = 'Menu_model';
+	protected $model_name = 'Pembayaran_model';
 
 	public function index()
 	{
@@ -11,7 +11,7 @@ class Kasir extends Controller
 		$data['title'] = 'Kasir';
 		$data['user'] = $this->user;
 
-        $data['menu'] = $this->model($this->model_name)->getAllData();
+        $data['menu'] = $this->model('Menu_model')->getAllData();
         $data['kategori'] = $this->model('Kategori_model')->getAllData();
         $data['pajak'] = $this->model('Preferences')->getPreference('Besar_Pajak_(%)');
 		
@@ -20,12 +20,23 @@ class Kasir extends Controller
 
     public function insert()
     {
+        $tmp = [];
+        foreach ($_POST['item'] as $i => $item) {
+            array_push($tmp, [
+                'item' => $item,
+                'amount' => $_POST['amount'][$i],
+                'subtotal' => $_POST['item_subtotal'][$i],
+            ]);
+        }
+        $_POST['detail_pembayaran'] = json_encode($tmp);
+        unset($_POST['item']); unset($_POST['amount']); unset($_POST['item_subtotal']);
+        
         if ($this->model($this->model_name)->insert($_POST) > 0) {
             Flasher::setFlash('Insert&nbsp<b>SUCCESS</b>', 'success');
         } else {
             Flasher::setFlash('Insert&nbsp<b>FAILED</b>', 'danger');
         }
-        header('Location: ' . BASEURL . '/menu');
+        header('Location: ' . BASEURL . '/kasir');
         exit;
     }
 
@@ -36,7 +47,7 @@ class Kasir extends Controller
         } else {
             Flasher::setFlash('Delete&nbsp<b>FAILED</b>', 'danger');
         }
-        header('Location: ' . BASEURL . '/menu');
+        header('Location: ' . BASEURL . '/kasir');
         exit;
     }
 
@@ -47,7 +58,7 @@ class Kasir extends Controller
         } else {
             Flasher::setFlash('Update&nbsp<b>FAILED</b>', 'danger');
         }
-        header('Location: ' . BASEURL . '/supplier');
+        header('Location: ' . BASEURL . '/kasir');
         exit;
 	}
 
