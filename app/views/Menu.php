@@ -117,17 +117,17 @@
                                     </td>
                                     <td>
                                         <p class="text-sm text-center font-weight-bold mb-0">
-                                           <?php 
+                                            <?php 
                                                 $kategori = '-';
                                                 
                                                 foreach ($data['kategori'] as $item) {
                                                     if ($item['id'] == $menu['kategori_id']) {
                                                         $kategori = $item['nama']; break;
-                                                    }
+                                                    }   
                                                 }
 
                                                 echo $kategori;
-                                           ?>
+                                            ?>
                                         </p>
                                     </td>
                                     <td>

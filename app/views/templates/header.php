@@ -197,6 +197,12 @@
                     <div class="collapse " id="applicationsExamples">
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item ">
+                                <a class="nav-link" href="<?=BASEURL; ?>/daftarBarang">
+                                    <span class="sidenav-mini-icon"> D </span>
+                                    <span class="sidenav-normal"> Daftar Barang</span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
                                 <a class="nav-link" href="<?=BASEURL; ?>/kelolaStok">
                                     <span class="sidenav-mini-icon"> K </span>
                                     <span class="sidenav-normal"> Kelola Stok</span>

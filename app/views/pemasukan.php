@@ -5,11 +5,14 @@
             <div class="card mb-4">
                 <div class="card-header pb-0">
                     <div class="row">
-                        <div class="col-lg-8">
+                        <div class="col-lg-6">
                             <h5 class="card-title">Pemasukan</h5>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="d-flex justify-content-end">
+                                <a href="<?= BASEURL; ?>/daftarBarang" class="btn bg-gradient-info d-lg-block me-2" type="button">
+                                    Daftar Barang
+                                </a>
                                 <button class="btn bg-gradient-primary d-lg-block" type="button" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal">
                                     Tambah Data Pemasukan
@@ -30,7 +33,7 @@
                                         Harga</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Deskripsi</th>
+                                        Barang</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Pesan</th>
@@ -74,57 +77,77 @@
                                         </td>
                                         <td>
                                             <p class="text-sm text-center font-weight-bold mb-0">
-                                                <?= 'Rp. ', $pemasukan['harga'], '/', $pemasukan['unit_harga']; ?>
+                                                <?= 'Rp ', number_format($pemasukan['harga'], 0, '.', '.'), ' /', $pemasukan['unit_harga']; ?>
                                             </p>
                                         </td>
                                         <td>
                                             <p class="text-sm text-center font-weight-bold mb-0">
-                                                <?= $pemasukan['deskripsi']; ?>
+                                                <?php 
+                                                $kategori = '-';
+                                                
+                                                foreach ($data['barang'] as $item) {
+                                                    if ($item['id'] == $pemasukan['barang_id']) {
+                                                        $kategori = $item['nama']; break;
+                                                    }   
+                                                }
+
+                                                echo $kategori;
+                                           ?>
                                             </p>
                                         </td>
                                         <td class="align-middle text-center text-sm">
                                             <p class="text-sm font-weight-bold mb-0">
-                                                <?= $pemasukan['pesan'], $pemasukan['unit_pesan']; ?>
+                                                <?= $pemasukan['pesan'], ' ', $pemasukan['unit_pesan']; ?>
                                             </p>
                                         </td>
                                         <td class="align-middle text-center text-sm">
                                             <p class="text-sm font-weight-bold mb-0">
-                                                <?= $pemasukan['berat'], $pemasukan['unit_berat']; ?>
+                                                <?= $pemasukan['berat'], ' ', $pemasukan['unit_berat']; ?>
                                             </p>
                                         </td>
                                         <td class="align-middle text-center">
                                             <p class="text-sm font-weight-bold mb-0">
-                                                Rp. <?= $pemasukan['harga_exw']; ?>
+                                                Rp <?= number_format($pemasukan['harga_exw'], 0, '.', '.') ?>
                                             </p>
                                         </td>
                                         <td class="align-middle text-center">
                                             <p class="text-sm font-weight-bold mb-0">
-                                                Rp. <?= $pemasukan['total_exw']; ?>
+                                                Rp <?= number_format($pemasukan['total_exw'], 0, '.', '.') ?>
                                             </p>
                                         </td>
                                         <td class="align-middle text-center">
                                             <p class="text-sm font-weight-bold mb-0">
-                                                Rp. <?= $pemasukan['ongkir']; ?>
+                                                Rp <?= number_format($pemasukan['ongkir'], 0, '.', '.') ?>
                                             </p>
                                         </td>
                                         <td class="align-middle text-center">
                                             <p class="text-sm font-weight-bold mb-0">
-                                                Rp. <?= $pemasukan['ice_pack']; ?>
+                                                Rp <?= number_format($pemasukan['ice_pack'], 0, '.', '.') ?>
                                             </p>
                                         </td>
                                         <td class="align-middle text-center">
                                             <p class="text-sm font-weight-bold mb-0">
-                                                Rp. <?= $pemasukan['diskon']; ?>
+                                                Rp <?= number_format($pemasukan['diskon'], 0, '.', '.') ?>
                                             </p>
                                         </td>
                                         <td class="align-middle text-center">
                                             <p class="text-sm font-weight-bold mb-0">
-                                                Rp. <?= $pemasukan['total']; ?>
+                                                Rp <?= number_format($pemasukan['total'], 0, '.', '.') ?>
                                             </p>
                                         </td>
                                         <td class="align-middle text-center">
                                             <p class="text-sm font-weight-bold mb-0">
-                                                <?= $pemasukan['keterangan']; ?>
+                                                <?php 
+                                                $kategori = '-';
+                                                
+                                                foreach ($data['supplier'] as $item) {
+                                                    if ($item['id'] == $pemasukan['supplier_id']) {
+                                                        $kategori = $item['nama']; break;
+                                                    }
+                                                }
+
+                                                echo $kategori;
+                                           ?>
                                             </p>
                                         </td>
                                         <td class="align-middle text-center">
@@ -153,7 +176,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="modalLabel">Tambah Data</h1>
-                    <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal" aria-label="Close">
                         <i class="fa fa-xmark"></i>
                     </button>
                 </div>
@@ -163,10 +186,19 @@
                             <div class="col-lg-6">
                                 <input type="hidden" name="id" id="id">
                                 <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Barang</label>
+                                    <select class="form-control" name="barang_id" id="barang_id">
+                                        <option value="">-- Pilih Barang --</option>
+                                        <?php foreach ($data['barang'] as $barang) : ?>
+                                        <option value="<?= $barang['id']; ?>" data-harga="<?= $barang['harga']; ?>" data-supplier="<?= $barang['supplier_id']; ?>"><?= $barang['nama']; ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">Harga</label>
                                     <div class="row">
                                         <div class="col-lg-9">
-                                            <input type="number" class="form-control" name="harga" id="harga">
+                                            <input type="number" class="form-control" name="harga" id="harga" value="">
                                         </div>
                                         <div class="col-lg-3">
                                             <select class="form-select" name="unit_harga" id="unit_harga">
@@ -177,17 +209,14 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Deskripsi</label>
-                                    <input type="text" class="form-control" name="deskripsi" id="deskripsi">
-                                </div>
-                                <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">Pesan</label>
                                     <div class="row">
                                         <div class="col-lg-9">
-                                            <input type="number" class="form-control" name="pesan" id="pesan">
+                                            <input type="number" class="form-control" name="pesan" id="pesan" oninput="convertToGrams()">
                                         </div>
                                         <div class="col-lg-3">
-                                            <select class="form-select" name="unit_pesan" id="unit_pesan">
+                                            <select class="form-select" name="unit_pesan" id="unit_pesan" onchange="checkUnit()">
+                                                <option value="">Unit</option>
                                                 <option value="Kg">Kg</option>
                                                 <option value="Pcs">Pcs</option>
                                             </select>
@@ -234,11 +263,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">Supplier</label>
-                                    <select class="form-select" name="keterangan" id="keterangan">
-                                        <?php foreach ($data['supplier'] as $supplier): ?>
-                                        <option value="1"><?= $supplier['nama']; ?></option>
-                                        <?php endforeach ?>
-                                    </select>
+                                    <input class="form-control" name="supplier_id" id="supplier_id" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
+                                    <input type="date" class="form-control" name="tanggal" id="tanggal">
                                 </div>
                             </div>
                     </div>
@@ -256,6 +285,43 @@
     <script src="<?= BASEURL; ?>/js/datatables.js"></script>
     <!-- Sweet Alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById('barang_id').addEventListener('change', function () {
+            var selectedOption = this.options[this.selectedIndex];
+            var harga = selectedOption.getAttribute('data-harga');
+            var supplier = selectedOption.getAttribute('data-supplier');
+            document.getElementById('harga').value = harga;
+            document.getElementById('supplier_id').value = supplier;
+        });
+    </script>
+    <script>
+        function convertToGrams() {
+            var unitPesan = document.getElementById("unit_pesan").value;
+            var pesanInput = document.getElementById("pesan");
+            var beratInput = document.getElementById("berat");
+
+            if (unitPesan === "Kg") {
+                var pesanValue = parseFloat(pesanInput.value) * 1000;
+                beratInput.value = pesanValue;
+                beratInput.readOnly = true; 
+            } else {
+                beratInput.readOnly = false; 
+            }
+        }
+
+        function checkUnit() {
+            var unitPesan = document.getElementById("unit_pesan").value;
+            var beratInput = document.getElementById("berat");
+            var pesanInput = document.getElementById("pesan");
+
+            if (unitPesan === "Pcs") {
+                beratInput.readOnly = false; 
+            } else if (unitPesan === "Kg") {
+                convertToGrams();
+                beratInput.readOnly = true; 
+            }
+        }
+    </script>
     <script>
     document.addEventListener("DOMContentLoaded", function () {
         const acceptButtons = document.querySelectorAll(".acc-button");
@@ -394,7 +460,8 @@
                         $('#ice_pack').val(data.ice_pack);
                         $('#diskon').val(data.diskon);
                         $('#total').val(data.total);
-                        $('#keterangan').val(data.keterangan);
+                        $('#supplier_id').val(data.supplier_id);
+                        $('#tanggal').val(data.tanggal);
                         $('#id').val(data.id);
                         console.log(data);
                     },

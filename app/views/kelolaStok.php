@@ -1,7 +1,7 @@
 <?php if ($data['user']): ?>
 
   <?php require_once "templates/header.php" ?>
-  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.7.0.js"></script> -->
   <!-- Filter -->
   <div class="container-fluid py-4">
     <div class="row">
@@ -11,11 +11,11 @@
             <form class="row g-3 align-middle">
               <div class="col-md-3">
                 <label for="from_date" class="form-label">From</label>
-                <input type="date " name="from_date" value="2023-10-19" class="datepicker form-control" id="from_date" />
+                <input type="text" name="from_date" value="2023-10-19" class="datepicker form-control" id="from_date" />
               </div>
               <div class="col-md-3">
                 <label for="to_date" class="form-label">To</label>
-                <input type="date " name="to_date" value="2023-10-19" class="datepicker form-control" id="to_date" />
+                <input type="text" name="to_date" value="2023-10-19" class="datepicker form-control" id="to_date" />
               </div>
               <div class="col-md-2 pb-0 mt-5 d-flex flex-column">
                 <button type="button" class="btn bg-gradient-primary mb-0"><i class="fa fa-search-plus"
@@ -62,8 +62,8 @@
 
 
 
-    <!-- Tabel -->
-    <div class="container-fluid" id="dataDetailAbsen">
+  <!-- Tabel -->
+  <div class="container-fluid" id="dataDetailAbsen">
     <div class="row">
       <div class="col-lg-12">
         <div class="card mb-4">
@@ -85,72 +85,74 @@
           <div class=" card-body px-0 pt-0 pb-3">
 
             <div class="table-responsive">
-            <table class="table table-bordered" style="border-collapse: collapse;">
-    <thead>
-        <tr align="center">
-            <th rowspan="3" class="align-middle">Deskripsi</th>
-            <?php 
-              $dates = array_column($data["stok"], 'tanggal'); 
-              $uniqueDates = array_unique($dates);
-            ?>
-            <?php foreach ($uniqueDates as $date): ?>
-                <th colspan="3"><?= $date; ?></th>
-            <?php endforeach; ?>
-        </tr>
-        <tr>
-            <?php foreach ($uniqueDates as $date): ?>
-                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
-                    Masuk
-                </th>
-                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
-                    Stok
-                </th>
-                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
-                    Keluar
-                </th>
-            <?php endforeach; ?>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($data["stok"] as $stok): ?>
-            <tr>
-                <td>
-                    <p class="text-sm text-center font-weight-bold mb-0">
-                        <?= $stok['deskripsi']; ?>
-                    </p>
-                </td>
-                <?php foreach ($uniqueDates as $date): ?>
-                    <?php $dateData = array_filter($data["stok"], function($item) use ($date, $stok) {
-                        return $item['tanggal'] == $date && $item['deskripsi'] == $stok['deskripsi'];
-                    }); ?>
-                    <?php if (count($dateData) > 0): ?>
-                        <?php foreach ($dateData as $dateItem): ?>
-                            <td class="align-middle text-center text-sm">
-                                <p class="text-sm font-weight-bold mb-0"><?= $dateItem['masuk']; ?></p>
-                            </td>
-                            <td class="align-middle text-center">
-                                <p class="text-sm font-weight-bold mb-0"><?= $dateItem['stok']; ?></p>
-                            </td>
-                            <td class="align-middle text-center">
-                                <p class="text-sm font-weight-bold mb-0"><?= $dateItem['keluar']; ?></p>
-                            </td>
+              <table class="table table-bordered" style="border-collapse: collapse;">
+                <thead>
+                  <tr align="center">
+                    <th rowspan="3" class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7 align-middle">Menu</th>
+                    <?php
+                    $dates = array_column($data["stok"], 'tanggal');
+                    $uniqueDates = array_unique($dates);
+                    sort($uniqueDates);
+                    ?>
+                    <?php foreach ($uniqueDates as $date): ?>
+                      <th colspan="3" class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                        <?= $date; ?>
+                      </th>
+                    <?php endforeach; ?>
+                  </tr>
+                  <tr>
+                    <?php foreach ($uniqueDates as $date): ?>
+                      <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                        Masuk
+                      </th>
+                      <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                        Stok
+                      </th>
+                      <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
+                        Keluar
+                      </th>
+                    <?php endforeach; ?>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($data["stok"] as $stok): ?>
+                    <tr>
+                      <td>
+                        <p class="text-sm text-center font-weight-bold mb-0">
+                          <?php 
+                              $nama_barang = '-';
+                              
+                              foreach ($data['barang'] as $barang) {
+                                  if ($barang['id'] == $stok['barang_id']) {
+                                      $nama_barang = $barang['nama']; break;
+                                  }   
+                              }
+
+                              echo $nama_barang;
+                          ?>
+                        </p>
+                      </td>
+                      <?php foreach ($uniqueDates as $date): ?>
+                              <td class="align-middle text-center text-sm">
+                                <p class="text-sm font-weight-bold mb-0">
+                                  <?= $stok['pesan']; ?>
+                                </p>
+                              </td>
+                              <td class="align-middle text-center">
+                                <p class="text-sm font-weight-bold mb-0">
+                                  <?= $stok['stok']; ?>
+                                </p>
+                              </td>
+                              <td class="align-middle text-center">
+                                <p class="text-sm font-weight-bold mb-0">
+                                  <?= $stok['keluar']; ?>
+                                </p>
+                              </td>
                         <?php endforeach; ?>
-                    <?php else: ?>
-                        <td class="align-middle text-center text-sm">
-                            <p class="text-sm font-weight-bold mb-0">-</p>
-                        </td>
-                        <td class="align-middle text-center">
-                            <p class="text-sm font-weight-bold mb-0">-</p>
-                        </td>
-                        <td class="align-middle text-center">
-                            <p class="text-sm font-weight-bold mb-0">-</p>
-                        </td>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+                    </tr>
+                  <?php endforeach; ?>
+                </tbody>
+              </table>
 
 
             </div>
@@ -174,34 +176,19 @@
           <form action="<?= BASEURL; ?>/kelolaStok/insert" method="post">
             <input type="hidden" name="id" id="id">
             <div class="mb-3">
-
-              <label for="exampleFormControlInput1" class="form-label">Deskripsi</label>
-
-              <div class="col-md-20 form-group">
-                <div class="form-group">
-                  <select class="choices form-select" name="deskripsi" id="deskripsi">
-
-                    <option>
-                      <?= $stok['deskripsi']; ?>
-                    </option>
-                  </select>
-                </div>
-              </div>
+              <label for="exampleFormControlInput1" class="form-label">Barang</label>
+              <select class="form-control" name="barang_id" id="barang_id">
+                <?php foreach ($data['barang'] as $barang): ?>
+                  <option value="<?= $barang['id']; ?>">
+                    <?= $barang['nama']; ?>
+                  </option>
+                <?php endforeach; ?>
+              </select>
             </div>
-
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
-              <div class="col-md-20 form-group">
-                <div class="form-group">
-                  <select class="choices form-select" name="tanggal" id="tanggal">
-                    <option>
-                      <?= $stok['tanggal']; ?>
-                    </option>
-                  </select>
-                </div>
-              </div>
+              <input type="date" class="form-control" name="tanggal" id="tanggal">
             </div>
-
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">Masuk</label>
               <input type="number" class="form-control" name="masuk" id="masuk">
@@ -234,13 +221,20 @@
 
 
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-  <script src="<?= BASEURL; ?>/js/datatables.js"></script>
+  <script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
   <script>
-    const dataTableSearch = new simpleDatatables.DataTable("#datatable-basic", {
-      searchable: true,
-      fixedHeight: true
+    new DataTable('.table', {
+      fixedColumns: {
+        left: 1,
+        right: 0
+      },
+      paging: false,
+      scrollCollapse: true,
+      scrollX: true,
+      scrollY: 300
     });
   </script>
+
   <script>
     $(function () {
       const BASEURL = window.location.href;
@@ -255,20 +249,20 @@
         $("#modal").addClass("edit");
         $("#modalLabel").html("Ubah Data");
         $(".modal-footer button[type=submit]").html("Ubah Data");
-        $(".modal-body form").attr("action", `${BASEURL}/update`);
+        $(".modal-body form").attr("action", ${ BASEURL } / update);
 
         const id = $(this).data("id");
         console.log(id);
 
         $.ajax({
-          url: `${BASEURL}/getubah`,
+          url: ${ BASEURL } / getubah,
           data: {
-            id: id
-          },
+          id: id
+        },
           method: "post",
           dataType: "json",
           success: function (data) {
-            $('#menu').val(data.menu);
+            $('#barang_id').val(data.barang_id);
             $("#tanggal").val(data.tanggal);
             $('#masuk').val(data.masuk);
             $('#stok').val(data.stok);
@@ -277,7 +271,7 @@
             console.log(data);
           },
         })
-      })
+    })
     });
   </script>
   <?php require_once "templates/footer.php" ?>

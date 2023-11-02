@@ -1,6 +1,6 @@
 <?php
 
-class Pemasukan extends Controller
+class Pengeluaran extends Controller
 {
 	protected $model = 'Pemasukan_model';
 
@@ -8,14 +8,14 @@ class Pemasukan extends Controller
 	{
 		$this->auth('user');
 
-		$data['title'] = 'Home';
+		$data['title'] = 'Pengeluaran';
 		$data['user'] = $this->user;
         $data['pemasukan'] = $this->model('Pemasukan_model')->getAllData();
         $data['supplier'] = $this->model('Supplier_model')->getAllData();
         $data['barang'] = $this->model('daftarBarang_model')->getAllData();
 
 		
-		$this->view('pemasukan', $data);
+		$this->view('pengeluaran', $data);
 	}
 
     public function insert()
