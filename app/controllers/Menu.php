@@ -42,10 +42,6 @@ class Menu extends Controller
         }
     }
 
-	public function store()
-	{
-	}
-
 	public function update($id)
 	{
         if ($this->model($this->model_name)->update($id, $_POST) > 0) {

@@ -339,6 +339,7 @@
                         </ul>
                     </div>
                 </li>
+                <?php if ($data['user']['role'] == 'superadmin') : ?>
                 <li class="nav-item">
                     <a class="nav-link"
                         href="<?= BASEURL; ?>/setting">
@@ -370,6 +371,7 @@
                         <span class="nav-link-text ms-1">Pengaturan</span>
                     </a>
                 </li>
+                <?php endif; ?>
             </ul>
         </div>
         <!-- <div class="sidenav-footer mx-3 mt-3 pt-3">

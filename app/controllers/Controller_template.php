@@ -1,42 +1,28 @@
-<?php
+<?php 
 
-class Kasir extends Controller
+class Controller_template extends Controller
 {
-	protected $model_name = 'Pembayaran_model';
+	protected $model_name = 'Menu_model';
 
 	public function index()
 	{
-		$this->auth('user');
+		$this->auth('both');
 
-		$data['title'] = 'Kasir';
+		$data['title'] = 'Menu';
 		$data['user'] = $this->user;
-
-        $data['menu'] = $this->model('Menu_model')->getAllData();
-        $data['kategori'] = $this->model('Kategori_model')->getAllData();
-        $data['pajak'] = $this->model('Preferences')->getPreference('Besar_Pajak_(%)');
+        $data['data'] = $this->model($this->model_name)->getAllData();
 		
 		$this->view('kasir', $data);
 	}
 
     public function insert()
     {
-        $tmp = [];
-        foreach ($_POST['item'] as $i => $item) {
-            array_push($tmp, [
-                'item' => $item,
-                'amount' => $_POST['amount'][$i],
-                'subtotal' => $_POST['item_subtotal'][$i],
-            ]);
-        }
-        $_POST['detail_pembayaran'] = json_encode($tmp);
-        unset($_POST['item']); unset($_POST['amount']); unset($_POST['item_subtotal']);
-        
         if ($this->model($this->model_name)->insert($_POST) > 0) {
             Flasher::setFlash('Insert&nbsp<b>SUCCESS</b>', 'success');
         } else {
             Flasher::setFlash('Insert&nbsp<b>FAILED</b>', 'danger');
         }
-        header('Location: ' . BASEURL . '/kasir');
+        header('Location: ' . BASEURL . '/');
         exit;
     }
 
@@ -47,18 +33,18 @@ class Kasir extends Controller
         } else {
             Flasher::setFlash('Delete&nbsp<b>FAILED</b>', 'danger');
         }
-        header('Location: ' . BASEURL . '/kasir');
+        header('Location: ' . BASEURL . '/');
         exit;
     }
 
-	public function update()
+	public function update($id)
 	{
-        if ($this->model($this->model_name)->update($_POST) > 0) {
+        if ($this->model($this->model_name)->update($id, $_POST) > 0) {
             Flasher::setFlash('Update&nbsp<b>SUCCESS</>', 'success');
         } else {
             Flasher::setFlash('Update&nbsp<b>FAILED</b>', 'danger');
         }
-        header('Location: ' . BASEURL . '/kasir');
+        header('Location: ' . BASEURL . '/');
         exit;
 	}
 

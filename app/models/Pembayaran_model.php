@@ -1,17 +1,21 @@
 <?php
 
-
 use Ramsey\Uuid\Uuid;
-use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
-class Menu_model
+class Pembayaran_model
 {
-	protected $table = "menu";
+	protected $table = "Pembayaran";
 	protected $fields = [
-		'nama',
-		'kategori_id',
-		'harga',
-		'tersedia'
+		'kasir',
+		'pelanggan',
+		'detail_pembayaran',
+		'subtotal',
+		'pajak',
+		'total',
+		'metode_pembayaran',
+		'kode_transaksi',
+		'bayar',
+		'kembali',
 	];
 	protected $user;
 	protected $db;
@@ -28,12 +32,6 @@ class Menu_model
 		return $this->db->fetchAll();
 	}
 
-	public function getJmlData()
-	{
-		$this->db->query("SELECT COUNT(*) AS count FROM {$this->table} WHERE `status` = 1");
-		return $this->db->fetch();
-	}
-
 	public function getDataById($id)
 	{
 		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1 AND `id` = :id");
@@ -43,18 +41,15 @@ class Menu_model
 
 	public function insert($data)
 	{
-		$fields_query = ":nama, :kategori_id, :harga, :tersedia, :foto,";
+		$fields_query = ":kasir, :pelanggan, :detail_pembayaran, :subtotal, :pajak, :total, :metode_pembayaran, :kode_transaksi, :bayar, :kembali,";
 
 		$this->db->query(
 			"INSERT INTO {$this->table} 
 				VALUES
-			(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
+      		(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, DEFAULT)"
 		);
 
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
-		$this->db->bind('foto', 
-			$this->uploadFile($_FILES['foto'], 'png|jpg|jpeg|gif', 'img/datafoto/', 2*MB));
-
 		$this->db->bind('uuid', Uuid::uuid4()->toString());
 		$this->db->bind('created_by', $this->user);
 
@@ -66,14 +61,17 @@ class Menu_model
 	public function update($id, $data)
 	{
 		$fields_query = "
-			nama = :nama,
-			kategori_id = :kategori_id,
-			harga = :harga,
-			tersedia = :tersedia,
-			foto = :foto,
+			kasir = :kasir,
+			pelanggan = :pelanggan,
+			detail_pembayaran = :detail_pembayaran,
+			subtotal = :subtotal,
+			pajak = :pajak,
+			total = :total,
+			metode_pembayaran = :metode_pembayaran,
+			kode_transaksi = :kode_transaksi,
+			bayar = :bayar,
+			kembali = :kembali,
 		";
-
-		$old = $this->getDataById($id);
 
 		$this->db->query(
 			"UPDATE {$this->table}
@@ -84,13 +82,14 @@ class Menu_model
 			WHERE id = :id"
 		);
 
-		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
-		$this->db->bind('foto', $this->uploadFile($_FILES["foto"], "png|jpg|jpeg|gif", 'img/datafoto/', 2*MB, $old['foto']));
+		$old = $this->getDataById($id);
 
+		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
 		$this->db->bind('id', $id);
 		$this->db->bind('modified_by', $this->user);
-		
+
 		$this->db->execute();
+
 		return $this->db->rowCount();
 	}
 
@@ -122,7 +121,6 @@ class Menu_model
 				`deleted_by` = :deleted_by,
 				`is_deleted` = 1,
 				`is_restored` = 0,
-				`status` = 0
 			WHERE id = :id"
 		);
 
@@ -135,7 +133,7 @@ class Menu_model
 
 	public function destroy($id)
 	{
-		$this->db->query("DELETE FROM {$this->table} WHERE");
+		$this->db->query("DELETE FROM {$this->table} WHERE id = :id");
 
 		$this->db->bind('id', $id);
 
@@ -143,7 +141,7 @@ class Menu_model
 		return $this->db->rowCount();
 	}
 
-	public function uploadFile($file, $mimes = '', $targetDir = 'upload/', $maxSize = 2*MB, $oldFileName = '')
+	public function uploadFile($file, $type = [], $targetDir = 'upload/', $maxSize = 2*MB, $oldFileName = '')
     {
 		if ($file['error'] !== 4) {
 			if (!empty($oldFileName)) 
@@ -156,7 +154,7 @@ class Menu_model
 			
 			$imageFileType = explode('.', $name);
 			$imageFileType = strtolower(end($imageFileType));
-			if (!in_array($imageFileType, explode('|', $mimes)))
+			if (!in_array($imageFileType, $type))
 				return false;
 
 			$fileName = uniqid() . "." . $imageFileType;
