@@ -55,4 +55,25 @@ class User_model
 
 		$this->db->rowCount(); 
 	}
+
+	public function password($id, $password)
+	{
+		$fields_query = "
+			password = :password
+		";
+
+		$this->db->query(
+      		"UPDATE {$this->table}
+				SET
+				{$fields_query}
+			WHERE id = :id"
+		);
+
+		$this->db->bind('password', hash('sha256', $password));
+		$this->db->bind('id', $id);
+
+		$this->db->execute();
+
+		return $this->db->rowCount();
+	}
 }
