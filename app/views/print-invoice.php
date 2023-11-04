@@ -39,6 +39,14 @@
             font-family: 'Merchant Copy';
         }
 
+        page[size="thermal"] .text-wrap {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
         .page-break {
             display: block;
             page-break-before: always;
@@ -126,28 +134,61 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="float-start pt-2">
+                                        <td class="pt-2 row">
+                                            <div class="col-2">
+                                                1
+                                            </div>
+                                            <div class="col-6">
+                                                Steak Ayam
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                35.000
+                                            </div>
+                                        </td>
+                                        <!-- <td class="float-start pt-2">
                                             <center>1 Steak Ayam</center>
                                         </td>
                                         <td class="float-end pt-2">
-                                            <center>35.000</center>
+                                            <center>35.000</center> -->
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="float-start pt-2">
-                                            <center>1 Australian Curry Sausages</center>
+                                        <!-- <td class="float-start pt-2 text-wrap">
+                                            <center>1 Australian Curry Sausagessssssssssssssssssssssssssssssssssssssssssssss</center>
                                         </td>
                                         <td class="float-end pt-2">
                                             <center>45.000</center>
+                                        </td> -->
+                                        <td class="pt-2 row">
+                                            <div class="col-2">
+                                                1
+                                            </div>
+                                            <div class="col-6 pe-0">
+                                                Australian Curry Sausages
+                                            </div>
+                                            <div class="col-4 text-end ps-0">
+                                                45.000
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="float-start pt-2">
+                                        <td class="pt-2 row">
+                                            <div class="col-2">
+                                                2
+                                            </div>
+                                            <div class="col-6">
+                                                Oreo Milkshake
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                50.000
+                                            </div>
+                                        </td>
+                                        <!-- <td class="float-start pt-2">
                                             <center>2 Oreo Milkshake</center>
                                         </td>
                                         <td class="float-end pt-2">
                                             <center>50.000</center>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                     <tr>
                                         <td class="pt-2 text-center">
