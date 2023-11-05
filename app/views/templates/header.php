@@ -133,7 +133,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= BASEURL; ?>/kasir">
+                    <a data-bs-toggle="collapse" href="#kasir-nav" class="nav-link "
+                        aria-controls="applicationsExamples" role="button" aria-expanded="false">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                             <svg class="text-dark" width="12px" height="12px" viewBox="0 0 42 44" version="1.1"
@@ -156,8 +157,24 @@
                                 </g>
                             </svg>
                         </div>
-                        <span class="nav-link-text ms-1">Kasir</span>
+                        <span class="nav-link-text ms-1">Penjualan</span>
                     </a>
+                    <div class="collapse" id="kasir-nav">
+                        <ul class="nav ms-4 ps-3">
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= BASEURL; ?>/pesanan/kasir">
+                                    <span class="sidenav-mini-icon"> K </span>
+                                    <span class="sidenav-normal"> Kasir</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= BASEURL; ?>/pesanan">
+                                    <span class="sidenav-mini-icon"> P </span>
+                                    <span class="sidenav-normal"> Pesanan</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#bbb" class="nav-link "

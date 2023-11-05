@@ -11,7 +11,7 @@ class Profile extends Controller
 		$data['title'] = 'Perpustakaan - Profile';
 		$data['user'] = $this->user;
 
-		$this->view('profile', $data);
+		$this->view('auth/profile', $data);
 	}
 }
 

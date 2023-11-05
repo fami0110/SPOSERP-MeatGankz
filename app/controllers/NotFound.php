@@ -9,6 +9,6 @@ class NotFound extends Controller
         $data['title'] = 'NotFound';
         $data['user'] = $this->user;
 
-        $this->view('notfound', $data);
+        $this->view('http/notfound', $data);
     }
 }

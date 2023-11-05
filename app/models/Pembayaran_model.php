@@ -17,6 +17,7 @@ class Pembayaran_model
 		'kode_transaksi',
 		'bayar',
 		'kembali',
+		'status_order',
 	];
 	protected $user;
 	protected $db;
@@ -42,7 +43,7 @@ class Pembayaran_model
 
 	public function insert($data)
 	{
-		$fields_query = ":kasir, :pelanggan, :nomor_telp, :detail_pembayaran, :subtotal, :pajak, :total, :metode_pembayaran, :kode_transaksi, :bayar, :kembali,";
+		$fields_query = ":kasir, :pelanggan, :nomor_telp, :detail_pembayaran, :subtotal, :pajak, :total, :metode_pembayaran, :kode_transaksi, :bayar, :kembali, :status_order,";
 
 		$this->db->query(
 			"INSERT INTO {$this->table} 
@@ -64,7 +65,7 @@ class Pembayaran_model
 		$fields_query = "
 			kasir = :kasir,
 			pelanggan = :pelanggan,
-			nomor_telp = :nomor_telp
+			nomor_telp = :nomor_telp,
 			detail_pembayaran = :detail_pembayaran,
 			subtotal = :subtotal,
 			pajak = :pajak,
@@ -73,6 +74,7 @@ class Pembayaran_model
 			kode_transaksi = :kode_transaksi,
 			bayar = :bayar,
 			kembali = :kembali,
+			status_order = :status_order,
 		";
 
 		$this->db->query(
@@ -122,7 +124,7 @@ class Pembayaran_model
 				`deleted_at` = CURRENT_TIMESTAMP,
 				`deleted_by` = :deleted_by,
 				`is_deleted` = 1,
-				`is_restored` = 0,
+				`is_restored` = 0
 			WHERE id = :id"
 		);
 

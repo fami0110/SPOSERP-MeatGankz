@@ -1,4 +1,5 @@
-<?php require_once "templates/header.php" ?>
+
+<?php Get::view('templates/header', $data) ?>
 
 <style>
     .card-img-top {
@@ -137,7 +138,7 @@
     <div class="col-lg-6">
         <div class="card" style="height: calc(100vh - 120px); overflow-y: auto;">
             <div class="card-body">
-                <form action="<?= BASEURL ?>/kasir/insert" method="post">
+                <form action="<?= BASEURL ?>/pesanan/insert" method="post">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">
                             <i class="fas fa-id-card-alt ps-2"></i>
@@ -358,4 +359,4 @@
     });
 </script> -->
 
-<?php require_once "templates/footer.php" ?>
+<?php Get::view('templates/footer', $data) ?>

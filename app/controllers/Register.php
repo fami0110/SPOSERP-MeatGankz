@@ -8,7 +8,7 @@ class Register extends Controller
 		
 		$data['title'] = 'Sign Up';
 
-		$this->view('register', $data);
+		$this->view('auth/register', $data);
   }
 
   public function process()

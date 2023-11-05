@@ -96,7 +96,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             <?php $i = 1; ?>
                             <?php foreach ($data["menu"] as $menu): ?>
                                 <tr>
@@ -151,7 +150,6 @@
                                                 Habis
                                             </a>
                                         <?php endif ?>
-                                        
                                     </td>
                                     <td class="align-middle text-center">
                                         <a 

@@ -10,7 +10,7 @@ class Login extends Controller
 
 		$data['title'] = 'Sign In';
 
-		$this->view('login', $data);
+		$this->view('auth/login', $data);
 	}
 
 	public function process()
