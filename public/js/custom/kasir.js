@@ -90,8 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector('.submit-form').addEventListener('click', () => {
         if (document.querySelectorAll('.item').length) {
-            if (bayar.value == 0) {
-                alert('Nominal bayar tidak boleh kosong!')
+            if (bayar.value == 0 || !form.checkValidity()) {
+                alert('Silahkan cek kembali!');
             } else if (confirm('Apakah anda yakin ingin memproses data ini?')) {
                 form.submit();
             }

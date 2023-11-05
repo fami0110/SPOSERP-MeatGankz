@@ -8,6 +8,7 @@ class Pembayaran_model
 	protected $fields = [
 		'kasir',
 		'pelanggan',
+		'nomor_telp',
 		'detail_pembayaran',
 		'subtotal',
 		'pajak',
@@ -41,7 +42,7 @@ class Pembayaran_model
 
 	public function insert($data)
 	{
-		$fields_query = ":kasir, :pelanggan, :detail_pembayaran, :subtotal, :pajak, :total, :metode_pembayaran, :kode_transaksi, :bayar, :kembali,";
+		$fields_query = ":kasir, :pelanggan, :nomor_telp, :detail_pembayaran, :subtotal, :pajak, :total, :metode_pembayaran, :kode_transaksi, :bayar, :kembali,";
 
 		$this->db->query(
 			"INSERT INTO {$this->table} 
@@ -63,6 +64,7 @@ class Pembayaran_model
 		$fields_query = "
 			kasir = :kasir,
 			pelanggan = :pelanggan,
+			nomor_telp = :nomor_telp
 			detail_pembayaran = :detail_pembayaran,
 			subtotal = :subtotal,
 			pajak = :pajak,

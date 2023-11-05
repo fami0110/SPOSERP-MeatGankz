@@ -1,6 +1,6 @@
 <?php require_once "templates/header.php" ?>
 
-<form class="container-md overflow-hidden" action="<?= BASEURL ?>/setting/update" method="post">
+<form class="container-md overflow-hidden" action="<?= BASEURL ?>/settings/update" method="post">
     <?php foreach ($data['categories'] as $category) : ?>
         <h2 class="border-bottom py-3 mb-3"><?= $category ?> Settings</h2>
 

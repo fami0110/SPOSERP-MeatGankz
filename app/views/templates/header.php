@@ -116,8 +116,8 @@
             <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
                 aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand m-0" href="<?= BASEURL; ?>">
-                <img src="<?= BASEURL; ?>\img\logos\meatGenkz.jpg" class="navbar-brand-img h-100" alt="main_logo">
-                <span class="ms-1 font-weight-bold">MeatGenkz</span>
+                <img src="<?= Get::model('Preferences')->getPreference('Direktori_Logo') ?>" class="navbar-brand-img h-100" alt="main_logo">
+                <span class="ms-1 font-weight-bold"><?= Get::model('Preferences')->getPreference('Nama_Perusahaan') ?></span>
             </a>
         </div>
         <hr class="horizontal dark mt-0">
@@ -342,7 +342,7 @@
                 <?php if ($data['user']['role'] == 'superadmin') : ?>
                 <li class="nav-item">
                     <a class="nav-link"
-                        href="<?= BASEURL; ?>/setting">
+                        href="<?= BASEURL; ?>/settings">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                             <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1"
@@ -368,7 +368,7 @@
                                 </g>
                             </svg>
                         </div>
-                        <span class="nav-link-text ms-1">Pengaturan</span>
+                        <span class="nav-link-text ms-1">Settings</span>
                     </a>
                 </li>
                 <?php endif; ?>

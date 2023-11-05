@@ -30,6 +30,9 @@ class Kasir extends Controller
         }
         $_POST['detail_pembayaran'] = json_encode($tmp);
         unset($_POST['item']); unset($_POST['amount']); unset($_POST['item_subtotal']);
+
+        echo '<pre>';
+        print_r($_POST); die;
         
         if ($this->model($this->model_name)->insert($_POST) > 0) {
             Flasher::setFlash('Insert&nbsp<b>SUCCESS</b>', 'success');

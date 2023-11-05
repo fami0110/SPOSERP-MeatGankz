@@ -142,13 +142,19 @@
                         <span class="input-group-text" id="basic-addon1">
                             <i class="fas fa-id-card-alt ps-2"></i>
                         </span>
-                        <input type="text" class="form-control ps-2" name="kasir" value="<?= $data['user']['username'] ?>" readonly>
+                        <input type="text" class="form-control ps-2" name="kasir" value="<?= $data['user']['username'] ?>" required readonly>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">
                             <i class="fa fa-user ps-2"></i>
                         </span>
-                        <input type="text" class="form-control ps-2" name="pelanggan" value="Customer">
+                        <input type="text" class="form-control ps-2" name="pelanggan" value="Customer" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+                            <i class="fa fa-phone ps-2"></i>
+                        </span>
+                        <input type="text" class="form-control ps-2" name="nomor_telp" value="" placeholder="08xxx" required>
                     </div>
 
                     <div class="d-flex justify-content-between border-top pt-3 mt-4">

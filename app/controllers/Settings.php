@@ -1,6 +1,6 @@
 <?php
 
-class Setting extends Controller
+class Settings extends Controller
 {
 	protected $model_name = 'Preferences';
 
@@ -14,7 +14,7 @@ class Setting extends Controller
         $data['preferences'] = $this->model($this->model_name)->getAllPreference();
         $data['categories'] = $this->model($this->model_name)->getALlCategories();
         
-        $this->view('setting', $data);
+        $this->view('settings', $data);
     }
 
     public function update()
@@ -27,7 +27,7 @@ class Setting extends Controller
         } catch (Exception $e) {
             Flasher::setFlash('Update&nbsp<b>FAILED</b>!', 'danger');
         }
-        header('Location: ' . BASEURL . '/setting');
+        header('Location: ' . BASEURL . '/settings');
         exit;
     }
 }
