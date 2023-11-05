@@ -104,13 +104,13 @@
     <script defer data-site="demos.creative-tim.com" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 </head>
 
-<body class="g-sidenav-show  bg-gray-100">
+<body class="g-sidenav-show bg-gray-100">
 
 
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
 
-    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
+    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 no-print"
         id="sidenav-main">
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
@@ -273,7 +273,7 @@
                         </div>
                         <span class="nav-link-text ms-1">Laporan</span>
                     </a>
-                    <div class="collapse " id="ecommerceExamples">
+                    <div class="collapse" id="ecommerceExamples">
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item">
                                 <a class="nav-link" href="<?= BASEURL; ?>/penjualan">
@@ -327,31 +327,21 @@
                                 </g>
                             </svg>
                         </div>
-                        <span class="nav-link-text ms-1">ERP</span>
+                        <span class="nav-link-text ms-1">HR</span>
                     </a>
                     <div class="collapse " id="authExamples">
                         <ul class="nav ms-4 ps-3">
-                            <li class="nav-item ">
-                                <a class="nav-link " aria-expanded="false" href="#signinExample">
-                                    <span class="sidenav-mini-icon"> A </span>
-                                    <span class="sidenav-normal"> Akuntansi <b class="caret"></b></span>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= BASEURL; ?>/suratPeringatan">
+                                    <span class="sidenav-mini-icon"> M </span>
+                                    <span class="sidenav-normal">Manage Karyawan</span>
                                 </a>
-                                <div class="collapse " id="signinExample">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link " href="../pages/authentication/signin/basic.html">
-                                                <span class="sidenav-mini-icon text-xs"> M </span>
-                                                <span class="sidenav-normal"> Manajemen SDM </span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link " href="../pages/authentication/signin/cover.html">
-                                                <span class="sidenav-mini-icon text-xs"> M </span>
-                                                <span class="sidenav-normal"> Manajemen Operasional </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= BASEURL; ?>/suratPeringatan">
+                                    <span class="sidenav-mini-icon"> S </span>
+                                    <span class="sidenav-normal">Surat Peringatan</span>
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -396,7 +386,7 @@
         </div> -->
     </aside>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-        <nav class="navbar navbar-main navbar-expand-lg position-sticky mt-4 top-1 px-0 mx-4 shadow-none border-radius-xl z-index-sticky"
+        <nav class="navbar navbar-main navbar-expand-lg position-sticky mt-4 top-1 px-0 mx-4 shadow-none border-radius-xl z-index-sticky no-print"
             id="navbarBlur" data-scroll="true">
             <div class="container-fluid py-1 px-3">
                 <!-- <nav aria-label="breadcrumb">

@@ -1,4 +1,4 @@
-<footer class="footer pt-3  ">
+<footer class="footer pt-3 no-print">
     <div class="container-fluid">
         <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-12 mb-lg-0 mb-4">
@@ -27,6 +27,7 @@
 <script src="<?= BASEURL ?>/js/plugins/chartjs.min.js"></script>
 <script src="<?= BASEURL ?>/js/plugins/threejs.js"></script>
 <script src="<?= BASEURL ?>/js/plugins/orbit-controls.js"></script>
+<script src="<?= BASEURL ?>/js/plugins/sweetalert.min.js"></script>
 <!-- <script src="<?= BASEURL; ?>/js/script.js"></script> -->
 <script>
     var win = navigator.platform.indexOf('Win') > -1;
@@ -47,7 +48,6 @@
             searchable: true,
             fixedHeight: true
         });
-    </script>
 <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
 

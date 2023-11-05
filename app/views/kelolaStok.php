@@ -69,15 +69,21 @@
         <div class="card mb-4">
           <div class="card-header pb-0">
             <div class="row">
-              <div class="col-lg-8">
+              <div class="col-lg-6">
                 <h5 class="card-title">Kelola Stok</h5>
               </div>
-              <div class="col-lg-4">
-                <div class="d-flex justify-content-end">
-                  <button class="btn bg-gradient-primary d-lg-block" type="button" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal">
-                    Tambah Data
-                  </button>
+              <div class="col-lg-6 d-flex justify-content-end flex-column">
+                <div class="row d-flex justify-content-end">
+                  <div class="col-lg-6">
+                    <a href="<?= BASEURL; ?>/pemasukan" class="btn bg-gradient-primary d-lg-block" type="button">
+                      Barang Masuk
+                    </a>
+                  </div>
+                  <div class="col-lg-6">
+                    <a href="<?= BASEURL; ?>/laporanPengeluaran" class="btn bg-gradient-info d-lg-block" type="button">
+                      Barang Keluar
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -88,9 +94,9 @@
               <table class="table table-bordered" style="border-collapse: collapse;">
                 <thead>
                   <tr align="center">
-                    <th rowspan="3" class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7 align-middle">Menu</th>
+                    <th rowspan="3" class="text-center text-uppercase text-secondary text-sm font-weight-bolder opacity-7 align-middle">Barang</th>
                     <?php
-                    $dates = array_column($data["stok"], 'tanggal');
+                    $dates = array_column($data["pemasukan"], 'tanggal');
                     $uniqueDates = array_unique($dates);
                     sort($uniqueDates);
                     ?>
@@ -115,40 +121,61 @@
                   </tr>
                 </thead>
                 <tbody>
+                <?php $prevBarangId = null; ?>
                   <?php foreach ($data["stok"] as $stok): ?>
+                    <?php if ($stok['barang_id'] !== $prevBarangId): ?>
                     <tr>
                       <td>
                         <p class="text-sm text-center font-weight-bold mb-0">
                           <?php 
-                              $nama_barang = '-';
+                              $dbarang = '-';
                               
                               foreach ($data['barang'] as $barang) {
                                   if ($barang['id'] == $stok['barang_id']) {
-                                      $nama_barang = $barang['nama']; break;
+                                      $dbarang = $barang['nama']; break;
                                   }   
                               }
 
-                              echo $nama_barang;
+                              echo $dbarang;
                           ?>
                         </p>
                       </td>
+                      <?php $prevBarangId = $stok['barang_id']; ?>
                       <?php foreach ($uniqueDates as $date): ?>
+                          <?php $dateData = array_filter($data["stok"], function ($item) use ($date, $stok) {
+                            return $item['tanggal'] == $date;
+                          }); ?>
+                          <?php if (count($dateData) > 0): ?>
+                            <?php foreach ($dateData as $dateItem): ?>
                               <td class="align-middle text-center text-sm">
                                 <p class="text-sm font-weight-bold mb-0">
-                                  <?= $stok['pesan']; ?>
+                                  <?= number_format($dateItem['pesan'], 0, '.', '.'), ' ', $dateItem['unit_pesan']; ?>
                                 </p>
                               </td>
                               <td class="align-middle text-center">
                                 <p class="text-sm font-weight-bold mb-0">
-                                  <?= $stok['stok']; ?>
+                                  <?= $dateItem['stok']; ?>
                                 </p>
                               </td>
                               <td class="align-middle text-center">
                                 <p class="text-sm font-weight-bold mb-0">
-                                  <?= $stok['keluar']; ?>
+                                  <?= $dateItem['keluar']; ?>
                                 </p>
                               </td>
-                        <?php endforeach; ?>
+                            <?php endforeach; ?>
+                          <?php else: ?>
+                            <td class="align-middle text-center text-sm">
+                              <p class="text-sm font-weight-bold mb-0">-</p>
+                            </td>
+                            <td class="align-middle text-center">
+                              <p class="text-sm font-weight-bold mb-0">-</p>
+                            </td>
+                            <td class="align-middle text-center">
+                              <p class="text-sm font-weight-bold mb-0">-</p>
+                            </td>
+                          <?php endif; ?>
+                      <?php endforeach; ?>
+                      <?php endif; ?>
                     </tr>
                   <?php endforeach; ?>
                 </tbody>
