@@ -57,7 +57,7 @@
                                         </td>
                                         <td>
                                             <p class="text-sm text-center font-weight-bold mb-0">
-                                                <?= number_format($barang['harga'], 0, '.', '.'), ' /', $barang['unit_harga']; ?>
+                                                <?= number_format($barang['harga'], 0, '.', '.'), ' /', $barang['harga_unit']; ?>
                                             </p>
                                         </td>
                                         <td>
@@ -81,7 +81,7 @@
                                                 <i class="bi bi-pencil"></i>
                                             </a>
                                             <a href="<?= BASEURL; ?>/daftarBarang/delete/<?= $barang['id'] ?>"
-                                                onclick="return confirm ('Hapus data?')" class="btn bg-gradient-dark">
+                                            onclick="return confirm ('Hapus data?')" class="btn bg-gradient-dark">
                                                 <i class="bi bi-trash"></i>
                                             </a>
                                         </td>
@@ -118,7 +118,7 @@
                                     <input type="number" class="form-control" name="harga" id="harga">
                                 </div>
                                 <div class="col-lg-3">
-                                    <select class="form-select" name="unit_harga" id="unit_harga">
+                                    <select class="form-select" name="harga_unit" id="harga_unit">
                                         <option value="Kg">Kg</option>
                                         <option value="Pack">Pack</option>
                                     </select>
