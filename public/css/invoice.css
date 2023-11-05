@@ -7,11 +7,7 @@
         height: 297mm;
     }
 
-    * {
-        font-family: 'Merchant Copy', sans-serif;
-    }
-
-    body,
+    table,
     td,
     th {
         font-size: 12px;
