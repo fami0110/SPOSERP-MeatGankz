@@ -9,7 +9,7 @@ class daftarBarang_model
         'nama',
 		'supplier_id',
 		'harga',
-		'unit_harga'
+		'harga_unit'
     ];
 	protected $user;
 	protected $db;
@@ -35,7 +35,7 @@ class daftarBarang_model
 
 	public function insert($data)
 	{
-		$fields_query = ":nama, :supplier_id, :harga, :unit_harga";
+		$fields_query = ":nama, :supplier_id, :harga, :harga_unit";
 
 		$this->db->query(
 			"INSERT INTO {$this->table} 

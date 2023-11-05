@@ -26,7 +26,7 @@
               </h1>
               <h2 class="fadeIn3 fadeInBottom opacity-8">Forbidden</h2>
               <p class="lead opacity-6 fadeIn2 fadeInBottom">The page you're looking are forbidden</p>
-              <a href="<?= BASEURL ?>/login" class="btn bg-gradient-warning mt-4 fadeIn2 fadeInBottom">Login</a>
+              <a href="<?= BASEURL ?>" class="btn bg-gradient-warning mt-4 fadeIn2 fadeInBottom">Back to Homepage</a>
             </div>
             <div class="col-lg-7 my-auto">
               <img class="w-100 fadeIn1 fadeInBottom" src="<?= BASEURL ?>/img/illustrations/error-500.png" alt="500-error">

@@ -282,7 +282,7 @@
                 success: function (data) {
                     $('#nama').val(data.nama);
                     $('#harga').val(data.harga);
-                    $("#kategori").val(data.kategori_id);
+                    $("#kategori_id").val(data.kategori_id);
                     $('#tersedia').val(data.tersedia);
                     console.log(data);
                 },

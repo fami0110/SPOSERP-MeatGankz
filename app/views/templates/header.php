@@ -256,7 +256,7 @@
                         </div>
                         <span class="nav-link-text ms-1">Laporan</span>
                     </a>
-                    <div class="collapse " id="ecommerceExamples">
+                    <div class="collapse" id="ecommerceExamples">
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item">
                                 <a class="nav-link" href="<?= BASEURL; ?>/penjualan">
@@ -310,35 +310,26 @@
                                 </g>
                             </svg>
                         </div>
-                        <span class="nav-link-text ms-1">ERP</span>
+                        <span class="nav-link-text ms-1">HR</span>
                     </a>
                     <div class="collapse " id="authExamples">
                         <ul class="nav ms-4 ps-3">
-                            <li class="nav-item ">
-                                <a class="nav-link " aria-expanded="false" href="#signinExample">
-                                    <span class="sidenav-mini-icon"> A </span>
-                                    <span class="sidenav-normal"> Akuntansi <b class="caret"></b></span>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= BASEURL; ?>/suratPeringatan">
+                                    <span class="sidenav-mini-icon"> M </span>
+                                    <span class="sidenav-normal">Manage Karyawan</span>
                                 </a>
-                                <div class="collapse " id="signinExample">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link " href="../pages/authentication/signin/basic.html">
-                                                <span class="sidenav-mini-icon text-xs"> M </span>
-                                                <span class="sidenav-normal"> Manajemen SDM </span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link " href="../pages/authentication/signin/cover.html">
-                                                <span class="sidenav-mini-icon text-xs"> M </span>
-                                                <span class="sidenav-normal"> Manajemen Operasional </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= BASEURL; ?>/suratPeringatan">
+                                    <span class="sidenav-mini-icon"> S </span>
+                                    <span class="sidenav-normal">Surat Peringatan</span>
+                                </a>
                             </li>
                         </ul>
                     </div>
                 </li>
+                <?php if ($data['user']['role'] == 'superadmin') : ?>
                 <li class="nav-item">
                     <a class="nav-link"
                         href="<?= BASEURL; ?>/setting">
@@ -370,6 +361,7 @@
                         <span class="nav-link-text ms-1">Pengaturan</span>
                     </a>
                 </li>
+                <?php endif; ?>
             </ul>
         </div>
         <!-- <div class="sidenav-footer mx-3 mt-3 pt-3">
