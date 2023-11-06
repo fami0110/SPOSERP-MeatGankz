@@ -28,7 +28,7 @@
 <script src="<?= BASEURL ?>/js/plugins/threejs.js"></script>
 <script src="<?= BASEURL ?>/js/plugins/orbit-controls.js"></script>
 <script src="<?= BASEURL ?>/js/plugins/sweetalert.min.js"></script>
-<!-- <script src="<?= BASEURL; ?>/js/script.js"></script> -->
+<!-- <script src="<?= BASEURL ?>/js/script.js"></script> -->
 <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -39,15 +39,13 @@
     }
 </script>
 <script>
-        const dataTableBasic = new simpleDatatables.DataTable(".datatable-basic", {
-            searchable: false,
-            fixedHeight: true
-        });
-
-        const dataTableSearch = new simpleDatatables.DataTable(".datatable-search", {
-            searchable: true,
-            fixedHeight: true
-        });
+    let table = document.getElementById('datatable');
+        
+    const dataTable = new simpleDatatables.DataTable("#datatable", {
+        searchable: table.classList.contains('search'),
+        fixedHeight: true
+    });
+</script>
 <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
 

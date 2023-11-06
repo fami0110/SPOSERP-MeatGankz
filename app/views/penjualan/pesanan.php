@@ -13,7 +13,7 @@
             </div>
             <div class=" card-body px-0 pt-0 pb-3">
                 <div class="table-responsive p-0">
-                    <table class="table align-items-center mb-0 datatable-basic">
+                    <table class="table align-items-center mb-0 search" id="datatable">
                         <thead>
                             <tr>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -65,7 +65,7 @@
                                         <?php endif ?>
                                     </td>
                                     <td class="text-sm text-center font-weight-bold mb-0">
-                                        <?= date('d/m/Y', strtotime($pembayaran['created_at'])) ?>
+                                        <?= date('d/m/Y  H.m', strtotime($pembayaran['created_at'])) ?>
                                     </td>
                                     <td class="align-middle text-center">
                                         <a class="btn btn-dark m-0" 

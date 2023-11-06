@@ -30,8 +30,14 @@ class Pembayaran_model
 
 	public function getAllData()
 	{
-		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1");
+		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1 ORDER BY `created_at` DESC, `status_order` ASC");
 		return $this->db->fetchAll();
+	}
+
+	public function getLatestData()
+	{
+		$this->db->query("SELECT * FROM {$this->table} ORDER BY `created_at` DESC LIMIT 1");
+		return $this->db->fetch();
 	}
 
 	public function getDataById($id)

@@ -29,6 +29,21 @@ class Pesanan extends Controller
 		$this->view('penjualan/kasir', $data);
 	}
 
+    public function invoice($id = null)
+	{
+		$this->auth('user');
+
+		$data['title'] = 'Invoice';
+		$data['user'] = $this->user;
+        
+        $data['pembayaran'] = ($id) ?
+            $this->model($this->model_name)->getDataById($id) :
+            $this->model($this->model_name)->getLatestData();
+        $data['pajak'] = $this->model('Preferences')->getPreference('Besar_Pajak_(%)');
+
+		$this->view('penjualan/invoice', $data);
+	}
+
     public function insert()
     {
         $tmp = [];
@@ -49,7 +64,7 @@ class Pesanan extends Controller
         } else {
             Flasher::setFlash('Insert&nbsp<b>FAILED</b>', 'danger');
         }
-        header('Location: ' . BASEURL . '/pesanan/kasir');
+        header('Location: ' . BASEURL . '/pesanan/invoice');
         exit;
     }
 

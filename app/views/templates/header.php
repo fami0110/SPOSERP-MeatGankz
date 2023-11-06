@@ -188,15 +188,15 @@
                     <div class="collapse " id="bbb">
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item">
-                                <a class="nav-link" href="<?= BASEURL; ?>/kategori">
-                                    <span class="sidenav-mini-icon"> K </span>
-                                    <span class="sidenav-normal"> Kategori</span>
+                                <a class="nav-link" href="<?= BASEURL; ?>/menu">
+                                    <span class="sidenav-mini-icon"> D </span>
+                                    <span class="sidenav-normal"> Daftar Menu</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="<?= BASEURL; ?>/menu">
-                                    <span class="sidenav-mini-icon"> M </span>
-                                    <span class="sidenav-normal"> Menu</span>
+                                <a class="nav-link" href="<?= BASEURL; ?>/kategori">
+                                    <span class="sidenav-mini-icon"> K </span>
+                                    <span class="sidenav-normal"> Kategori</span>
                                 </a>
                             </li>
                         </ul>
