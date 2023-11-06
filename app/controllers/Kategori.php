@@ -8,11 +8,11 @@ class Kategori extends Controller
 	{
 		$this->auth('user');
 
-		$data['title'] = 'Home';
+		$data['title'] = 'Kategori Menu';
 		$data['user'] = $this->user;
         $data['kategori'] = $this->model('Kategori_model')->getAllData();
 		
-		$this->view('kategori', $data);
+		$this->view('menu/kategori', $data);
 	}
 
     public function insert()
@@ -40,10 +40,6 @@ class Kategori extends Controller
             exit;
         }
     }
-
-	public function store()
-	{
-	}
 
 	public function update()
     {

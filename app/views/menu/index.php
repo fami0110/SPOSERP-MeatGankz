@@ -1,4 +1,4 @@
-<?php require_once "templates/header.php" ?>
+<?php Get::view('templates/header', $data) ?>
 
 <style>
     body {
@@ -289,4 +289,4 @@
     });
 </script>
 
-<?php require_once "templates/footer.php" ?>
+<?php Get::view('templates/footer', $data) ?>

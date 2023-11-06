@@ -13,7 +13,7 @@ class Menu extends Controller
         $data['menu'] = $this->model($this->model_name)->getAllData();
         $data['kategori'] = $this->model('Kategori_model')->getAllData();
 		
-		$this->view('menu', $data);
+		$this->view('menu/index', $data);
 	}
 
     public function insert()
