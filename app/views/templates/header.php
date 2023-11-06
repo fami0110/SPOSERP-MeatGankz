@@ -276,7 +276,7 @@
                     <div class="collapse" id="ecommerceExamples">
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item">
-                                <a class="nav-link" href="<?= BASEURL; ?>/penjualan">
+                                <a class="nav-link" href="<?= BASEURL; ?>/laporanPenjualan">
                                     <span class="sidenav-mini-icon"> P </span>
                                     <span class="sidenav-normal"> Penjualan Harian</span>
                                 </a>
