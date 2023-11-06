@@ -102,17 +102,14 @@
                     <?= $data['surat']['alamat'] ?>
                 </p>
                 <p class="mb-3" style="text-align: justify;">
-                    Kami ingin menegaskan bahwa tindakan ini melanggar kebijakan perusahaan dan berpotensi mengakibatkan
+                    Kami ingin menegaskan bahwa tindakan ini melanggar kebijakan perusahaan, yaitu <strong><?= $data['surat']['kesalahan']; ?></strong> dan berpotensi mengakibatkan
                     tindakan disiplin yang lebih lanjut. Kami mengharapkan Anda untuk segera memperbaiki perilaku Anda
-                    guna
-                    menghindari tindakan lebih lanjut yang mungkin diperlukan. Sesuai dengan peraturan perusahaan yang
-                    berlaku, kami akan menerapkan sanksi berupa pemotongan gaji sebesar 30% dari gaji pokok Anda untuk
-                    periode bulan September 2020. Dengan pemberlakuan sanksi ini, kami berharap agar Saudara
+                    guna menghindari tindakan lebih lanjut yang mungkin diperlukan. Sesuai dengan peraturan perusahaan yang
+                    berlaku, kami akan menerapkan sanksi berupa <strong><?= $data['surat']['sanksi']; ?></strong>. Dengan pemberlakuan sanksi ini, kami berharap agar Saudara
                     <?= $data['surat']['nama'] ?> dapat menghindari tindakan yang serupa di masa depan.
-                </p>
-                <p class="mb-5">Demikian surat peringatan ini dibuat untuk dijadikan bahan introspeksi. Atas
-                    perhatiannya,
-                    kami
+                </p>    
+                <p class="mb-5">
+                    Demikian surat peringatan ini dibuat untuk dijadikan bahan introspeksi. Atas perhatiannya, kami
                     mengucapkan terima kasih.
                 </p>
                 <p class="mb-0">Malang,

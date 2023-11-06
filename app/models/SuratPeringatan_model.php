@@ -1,118 +1,177 @@
 <?php
-    class SuratPeringatan_model {
 
-        private $table = 'suratperingatan';
-        private $db;
+use Ramsey\Uuid\Uuid;
 
-        public function __construct(){
-            $this -> db = new Database;
-        }
+class SuratPeringatan_model
+{
+	protected $table = "suratperingatan";
+	protected $fields = [
+        'nama',
+        'email',
+        'jabatan',
+        'alamat',
+        'kesalahan',
+        'sanksi'
+    ];
+	protected $user;
+	protected $db;
 
-        public function getAllData(){
-            $this->db->query('SELECT * FROM ' . $this->table);
-            return $this->db->fetchAll();
-        }
+	public function __construct()
+	{
+		$this->db = new Database();
+		$this->user = Cookie::get_jwt()->name;
+	}
 
-        public function getDataById($id){
-            $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id=:id');
-            $this->db->bind('id', $id);
-            return $this->db->fetch();
-        }
-       
+	public function getAllData()
+	{
+		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1");
+		return $this->db->fetchAll();
+	}
 
-        public function tambahDataSurat($data){
+	public function getJmlData()
+	{
+		$this->db->query("SELECT COUNT(*) AS count FROM {$this->table} WHERE `status` = 1");
+		return $this->db->fetch();
+	}
 
-           
+	public function getDataById($id)
+	{
+		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1 AND `id` = :id");
+		$this->db->bind('id', $id);
+		return $this->db->fetch();
+	}
+
+	public function insert($data)
+	{
+		$fields_query = ":nama, :email, :jabatan, :alamat, :kesalahan, :sanksi,";
+
 		$this->db->query(
-			"INSERT INTO {$this->table} 
-				VALUES
-			(null, :nama, :email, :jabatan, :alamat, :kesalahan)"
+				"INSERT INTO {$this->table} 
+					VALUES
+				(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, DEFAULT)"
 		);
-            //binding
-            
-            $this->db->bind('nama', $data['nama']);
-            $this->db->bind('email', $data['email']);
-            $this->db->bind('jabatan', $data['jabatan']);
-            $this->db->bind('alamat', $data['alamat']);
-            $this->db->bind('kesalahan', $data['kesalahan']);
-            $this->db->execute();
 
-            //mengembalikan nilai angka
-            return $this->db->rowCount();
-        }
+		$this->db->bind('uuid', Uuid::uuid4()->toString());
+		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
+		$this->db->bind('created_by', $this->user);
 
-        public function hapusDataSurat($id){
-        $query = "DELETE FROM suratperingatan WHERE id = :id";
-        
-        $this->db->query($query);
-        $this->db->bind('id', $id);
+		$this->db->execute();
 
-        $this->db->execute();
+		return $this->db->rowCount();
+	}
 
-        return $this->db->rowCount();
-    }
+	public function update($id, $data)
+	{
+		$fields_query = "
+			nama = :nama,
+			email = :email,
+			jabatan = :jabatan,
+			alamat = :alamat,
+			kesalahan = :kesalahan,
+			sanksi = :sanksi,
+		";
 
-    public function ubahDataSurat($data)
+		$this->db->query(
+      		"UPDATE {$this->table}
+				SET
+				{$fields_query}
+				modified_at = CURRENT_TIMESTAMP,
+				modified_by = :modified_by
+			WHERE id = :id"
+		);
+
+		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
+		$this->db->bind('id', $id);
+		$this->db->bind('modified_by', $this->user);
+
+		$this->db->execute();
+
+		return $this->db->rowCount();
+	}
+
+	public function updateField($id, $field, $value)
+	{
+		$this->db->query(
+			"UPDATE {$this->table}
+				SET 
+				{$field} = :val,
+				modified_at = CURRENT_TIMESTAMP,
+				modified_by = :modified_by
+			WHERE id = :id"
+		);
+
+		$this->db->bind('val', $value);
+		$this->db->bind('id', $id);
+		$this->db->bind('modified_by', $this->user);
+
+		$this->db->execute();
+		return $this->db->rowCount();
+	}
+
+	public function delete($id)
+	{
+		$this->db->query(
+			"UPDATE {$this->table}  
+				SET 
+				`deleted_at` = CURRENT_TIMESTAMP,
+				`deleted_by` = :deleted_by,
+				`is_deleted` = 1,
+				`is_restored` = 0,
+				`status` = DEFAULT
+			WHERE id = :id"
+    	);
+
+		$this->db->bind('deleted_by', $this->user);
+		$this->db->bind('id', $id);
+
+		$this->db->execute();
+		return $this->db->rowCount();
+	}
+
+	public function destroy($id)
+	{
+		$this->db->query("DELETE FROM {$this->table} WHERE");
+		
+		$this->db->bind('id', $id);
+
+		$this->db->execute();
+		return $this->db->rowCount();
+	}
+
+	public function uploadFile($file, $type = [], $targetDir = 'upload/', $maxSize = 2*MB, $oldFileName = '')
     {
-        $query = "UPDATE {$this->table} SET
-                    nama = :nama,
-                    email = :email,
-                    jabatan = :jabatan,
-                    alamat = :alamat,
-                    kesalahan = :kesalahan
-                  WHERE id = :id";
-        $this->db->query($query);
-        $this->db->bind('nama', $data['nama']);
-        $this->db->bind('email', $data['email']);
-        $this->db->bind('jabatan', $data['jabatan']);
-        $this->db->bind('alamat', $data['alamat']);
-        $this->db->bind('kesalahan', $data['kesalahan']);
-        $this->db->bind('id', $data['id']);
+		if ($file['error'] !== 4) {
+			if (!empty($oldFileName)) 
+				$this->deleteFile($targetDir . '/' . $oldFileName);
 
-        $this->db->execute();
+			$name = $file['name'];
 
-        return $this->db->rowCount();
+			if ($file["size"] > $maxSize)
+				return false;
+			
+			$imageFileType = explode('.', $name);
+			$imageFileType = strtolower(end($imageFileType));
+			if (!in_array($imageFileType, $type))
+				return false;
+
+			$fileName = uniqid() . "." . $imageFileType;
+			$targetDir .= $fileName;
+
+			try {
+				move_uploaded_file($file['tmp_name'], $targetDir);
+			} catch (Exception $e) {
+				echo $e; die;
+			}
+
+			return $fileName;
+		} else {
+			return empty($oldFileName) ? false : $oldFileName;
+		}
     }
 
-    public function filterDataJurnal($keyword, $from, $to)
-    {   
-        $query = "SELECT * FROM tabel_jurnal";
-
-        if ($keyword || ($from && $to)) {
-            $query .= " WHERE ";
-
-            $params = [];
-
-            if ($keyword) array_push($params, "ruangan = :keyword");
-            if ($from && $to) array_push($params, "tanggal >= :from AND tanggal <= :to");
-
-            $params = join(" AND ", $params);
-            
-            $query .= $params;
-
-            $this->db->query($query);
-
-            if ($keyword) {
-                $this->db->bind('keyword', $keyword);
-            }
-            if ($from && $to) {
-                $this->db->bind('from', $from);
-                $this->db->bind('to', $to);
-            }
-
-        } else {
-            $this->db->query($query);
-        }
-
-        // return $this->db->fetchAll();
-    }
-
-    public function cariDataSurat(){
-        $keyword = $_POST['keyword'];
-        $query = "SELECT * FROM suratperingatan WHERE nama LIKE :keyword";
-        $this->db->query($query);
-        $this->db->bind('keyword', "%$keyword%");
-        return $this->db->fetchAll();  
+    public function deleteFile($filepath)
+    {
+        if (file_exists($filepath)) 
+			unlink($filepath);
     }
 }
-?>
