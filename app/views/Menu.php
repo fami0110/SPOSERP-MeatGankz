@@ -68,9 +68,9 @@
                     </div>
                 </div>
             </div>
-            <div class=" card-body px-0 pt-0 pb-3">
-                <div class="table-responsive p-0">
-                    <table class="table align-items-center mb-0 datatable-basic">
+            <div class=" card-body pt-0 pb-3">
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover text-nowrap align-items-center mb-0" id="table" style="width:100%">
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -137,14 +137,14 @@
                                     <td class="align-middle text-center">
                                         <?php if ($menu['tersedia']) : ?>
                                             <a 
-                                                class="btn btn-success m-0"
+                                                class="btn btn-success m-0 rounded-pill"
                                                 href="<?= BASEURL ?>/menu/updateStatusMenu/<?= $menu['id'] ?>/0"
                                                 onclick="return confirm(`Apakah anda yakin ingin mengubah data status menjadi 'Habis'`)">
                                                 Tersedia
                                             </a>
                                         <?php else : ?>
                                             <a 
-                                                class="btn btn-danger m-0"
+                                                class="btn btn-danger m-0 rounded-pill"
                                                 href="<?= BASEURL ?>/menu/updateStatusMenu/<?= $menu['id'] ?>/1"
                                                 onclick="return confirm(`Apakah anda yakin ingin mengubah data status menjadi 'Tersedia'`)">
                                                 Habis
@@ -153,14 +153,14 @@
                                     </td>
                                     <td class="align-middle text-center">
                                         <a 
-                                            class="btn bg-gradient-primary m-0 tampilModalUbah"
+                                            class="btn bg-gradient-primary m-0 tampilModalUbah rounded-pill"
                                             href="<?= BASEURL; ?>/menu/update/<?= $menu['id'] ?>" 
                                             data-bs-toggle="modal" data-bs-target="#formModal" 
                                             data-id="<?= $menu['id']; ?>">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         <a 
-                                            class="btn bg-gradient-dark m-0"
+                                            class="btn bg-gradient-dark m-0 rounded-pill"
                                             href="<?= BASEURL; ?>/menu/delete/<?= $menu['id'] ?>"
                                             onclick="return confirm ('Hapus data?')"> 
                                             <i class="bi bi-trash"></i>

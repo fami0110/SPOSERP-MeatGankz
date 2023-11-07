@@ -19,9 +19,9 @@
                         </div>
                     </div>
                 </div>
-                <div class=" card-body px-0 pt-0 pb-3">
-                    <div class="table-responsive p-0">
-                        <table class="table align-items-center mb-0" id="datatable-search">
+                <div class="card-body pt-0 pb-3">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover text-nowrap align-items-center mb-0" id="table" style="width:100%">
                             <thead>
                                 <tr>
                                     <th
@@ -77,11 +77,11 @@
                                         <td class="align-middle text-center">
                                             <a href="<?= BASEURL; ?>/daftarBarang/update/<?= $barang['id'] ?>"
                                                 data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                                data-id="<?= $barang['id']; ?>" class="btn bg-gradient-primary tampilModalUbah">
+                                                data-id="<?= $barang['id']; ?>" class="btn bg-gradient-primary tampilModalUbah rounded-pill">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
                                             <a href="<?= BASEURL; ?>/daftarBarang/delete/<?= $barang['id'] ?>"
-                                            onclick="return confirm ('Hapus data?')" class="btn bg-gradient-dark">
+                                            onclick="return confirm ('Hapus data?')" class="btn bg-gradient-dark rounded-pill">
                                                 <i class="bi bi-trash"></i>
                                             </a>
                                         </td>

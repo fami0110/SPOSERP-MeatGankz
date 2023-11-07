@@ -1,4 +1,4 @@
-<footer class="footer pt-3 no-print">
+<footer class="footer pt-3  ">
     <div class="container-fluid">
         <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-12 mb-lg-0 mb-4">
@@ -27,8 +27,73 @@
 <script src="<?= BASEURL ?>/js/plugins/chartjs.min.js"></script>
 <script src="<?= BASEURL ?>/js/plugins/threejs.js"></script>
 <script src="<?= BASEURL ?>/js/plugins/orbit-controls.js"></script>
-<script src="<?= BASEURL ?>/js/plugins/sweetalert.min.js"></script>
+
 <!-- <script src="<?= BASEURL; ?>/js/script.js"></script> -->
+
+<!-- DATATABLES -->
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script> 
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+      var table = $('#table').DataTable({
+        lengthChange: false,
+        buttons: [
+          {
+            extend: 'copy',
+            exportOptions: {
+              columns: ':visible'
+            }
+          },
+          {
+            extend: 'pdf',
+            exportOptions: {
+              columns: ':visible'
+            }
+          },
+          {
+            extend: 'excel',
+            exportOptions: {
+              columns: ':visible'
+            }
+          },
+          {
+          extend: 'print',
+          exportOptions: {
+              columns: ':visible'
+            }
+          },
+          'colvis'
+        ],
+        fixedColumns: {
+          left: 1,
+          right: 1
+        },
+        paging: true,
+        scrollX: true,
+        language: {
+          paginate: {
+            previous: '<i class="bi bi-chevron-left"></i>',
+            next: '<i class="bi bi-chevron-right"></i>'
+          }
+        }
+      });
+  
+      table.buttons().container()
+        .appendTo('#table_wrapper .col-md-6:eq(0)');
+    });
+  </script>
+
 <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -38,7 +103,9 @@
         Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
 </script>
-<script>
+
+
+<!-- <script>
         const dataTableBasic = new simpleDatatables.DataTable(".datatable-basic", {
             searchable: false,
             fixedHeight: true
@@ -48,6 +115,8 @@
             searchable: true,
             fixedHeight: true
         });
+    </script> -->
+
 <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
 
@@ -349,7 +418,7 @@
 <!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8b253dfea2ab4077af8c6f58422dfbfd1689876627854"
     integrity="sha512-bjgnUKX4azu3dLTVtie9u6TKqgx29RBwfj3QXYt5EKfWM/9hPSAI/4qcV5NACjwAo8UtTeWefx6Zq5PHcMm7Tg=="
     data-cf-beacon='{"rayId":"817e9cd9abb84c83","token":"1b7cbb72744b40c580f8633c6b62637e","version":"2023.8.0","si":100}'
-    crossorigin="anonymous"></script>
-</body> -->
+    crossorigin="anonymous"></script> -->
+</body>
 
 </html>

@@ -8,6 +8,10 @@
     <link rel="apple-touch-icon" sizes="76x76" href="<?= BASEURL ?>/img/apple-icon.png">
     <link rel="icon" type="image/png" href="<?= BASEURL ?>/img/favicon.png">
     <!-- stylesheet -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.3.0/css/fixedColumns.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <!-- CSS -->
@@ -17,7 +21,6 @@
     <link id="pagestyle" href="<?= BASEURL ?>/css/soft-ui-dashboard.css" rel="stylesheet" />
     <!-- scripts -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <!-- title -->
     <title>POS - <?= $data['title'] ?></title>
     <style>
@@ -40,6 +43,88 @@
         .animation-card:hover {
             transform: scale(1.03);
         }
+
+        .panel-title h6.text-secondary {
+        border-bottom: 1px solid #ccc;
+        padding-top: 10px;
+        margin-bottom: 20px;
+        }
+
+        .text-secondary {
+        padding-bottom: 15px;
+        }
+    @media (max-width: 768px) {
+        div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper div.dataTables_filter, div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTables_paginate {
+        text-align: start;
+        }
+
+        div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+        justify-content: end !important;
+        }
+    }
+
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+        margin-top:10px;
+        white-space: nowrap;
+        justify-content: flex-end;
+    }
+
+    .btn-close {
+        --bs-btn-close-color: #000;
+        --bs-btn-close-bg: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e);
+        --bs-btn-close-opacity: 0.5;
+        --bs-btn-close-hover-opacity: 0.75;
+        --bs-btn-close-focus-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        --bs-btn-close-focus-opacity: 1;
+        --bs-btn-close-disabled-opacity: 0.25;
+        --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
+        box-sizing: content-box;
+        width: 1em;
+        height: 1em;
+        padding: 0.25em 0.25em;
+        color: var(--bs-btn-close-color);
+        background: transparent var(--bs-btn-close-bg) center/1em auto no-repeat;
+        border: 0;
+        border-radius: 0.375rem;
+        opacity: var(--bs-btn-close-opacity);
+    }
+
+    .rounded-pill {
+        border-radius: 50rem !important;
+    }
+
+    .btn-icon {
+        padding: 0;
+        width: calc(2.309375rem + 2px);
+        height: calc(2.309375rem + 2px);
+        display: inline-flex;
+        flex-shrink: 0;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .dataTables_scrollBody::-webkit-scrollbar-track
+    {
+        border-radius: 10px;
+        background-color: #F5F5F5;
+    }
+
+    .dataTables_scrollBody::-webkit-scrollbar
+    {
+        height: 8px;
+        background-color: #F5F5F5;
+    }
+
+    .dataTables_scrollBody::-webkit-scrollbar-thumb
+    {
+        border-radius: 10px;
+        background-color: #9e9a9a9a;
+    }
+    .dataTables_scrollBody::-webkit-scrollbar-thumb:hover
+    {
+        border-radius: 10px;
+        background-color: #9e9a9a;
+    }
     </style>
     <script>
         (function (a, s, y, n, c, h, i, d, e) {
@@ -341,6 +426,12 @@
                                 <a class="nav-link" href="<?= BASEURL; ?>/suratPeringatan">
                                     <span class="sidenav-mini-icon"> S </span>
                                     <span class="sidenav-normal">Surat Peringatan</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= BASEURL; ?>/penggajian">
+                                    <span class="sidenav-mini-icon"> P </span>
+                                    <span class="sidenav-normal">Penggajian</span>
                                 </a>
                             </li>
                         </ul>

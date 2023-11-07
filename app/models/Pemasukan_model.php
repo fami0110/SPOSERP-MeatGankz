@@ -68,19 +68,19 @@ class Pemasukan_model
 
 		$this->db->execute();
 
-		$query2 = "INSERT INTO {$this->table_stok} VALUES (null, :uuid, :barang_id, :tanggal, :pesan, :unit_pesan, null, null, '', :currentTimestamp, :createdBy, null, '', null, '', null, '', 0, 0, DEFAULT)";
+		// $query2 = "INSERT INTO {$this->table_stok} VALUES (null, :uuid, :barang_id, :tanggal, :pesan, :unit_pesan, null, null, '', :currentTimestamp, :createdBy, null, '', null, '', null, '', 0, 0, DEFAULT)";
 
-		$this->db->query($query2);
+		// $this->db->query($query2);
 
-		$this->db->bind('barang_id', $data['barang_id']);
-		$this->db->bind('tanggal', $data['tanggal']);
-		$this->db->bind('pesan', $data['pesan']);
-		$this->db->bind('unit_pesan', $data['unit_pesan']);
-		$this->db->bind('uuid', $uuid);
-		$this->db->bind('createdBy', $createdBy);
-		$this->db->bind('currentTimestamp', $currentTimestamp);
+		// $this->db->bind('barang_id', $data['barang_id']);
+		// $this->db->bind('tanggal', $data['tanggal']);
+		// $this->db->bind('pesan', $data['pesan']);
+		// $this->db->bind('unit_pesan', $data['unit_pesan']);
+		// $this->db->bind('uuid', $uuid);
+		// $this->db->bind('createdBy', $createdBy);
+		// $this->db->bind('currentTimestamp', $currentTimestamp);
 
-		$this->db->execute();
+		// $this->db->execute();
 
 		return $this->db->rowCount();
 	}

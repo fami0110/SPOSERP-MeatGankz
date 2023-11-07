@@ -25,11 +25,10 @@
                         </form> -->
                     </div>
 
-                    <div class="card-body p-0">
+                    <div class="card-body pt-0 pb-3">
                         <div class="table-container">
                             <div class="table-responsive">
-
-                                <table class="table align-items-center mb-0" id="datatable-search">
+                                <table class="table align-items-center mb-0" id="table" style="width: 100%">
                                     <thead>
                                         <tr>
                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -186,9 +185,9 @@
     </div>
 
     <!-- <script src="https://code.jquery.com/jquery-3.7.0.js"></script> -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="<?= BASEURL; ?>/js/datatables.js"></script>
+    <script src="<?= BASEURL; ?>/js/datatables.js"></script> -->
 
     <script>
 

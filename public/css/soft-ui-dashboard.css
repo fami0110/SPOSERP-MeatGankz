@@ -23565,7 +23565,8 @@ html {
 }
 
 .page-item.active .page-link {
-    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .09), 0 2px 3px -1px rgba(0, 0, 0, .07)
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .09), 0 2px 3px -1px rgba(0, 0, 0, .07);
+    color: #fff;
 }
 
 .page-item .page-link,
@@ -24394,9 +24395,9 @@ html {
     vertical-align: middle
 }
 
-.table tbody tr:last-child td {
+/* .table tbody tr:last-child td {
     border-width: 0
-}
+} */
 
 .table>:not(:last-child)>:last-child>* {
     border-bottom-color: #e9ecef
@@ -34070,3 +34071,4 @@ svg.leaflet-image-layer.leaflet-interactive path {
     transition-delay: 0s;
     transform: scale(1)
 }
+

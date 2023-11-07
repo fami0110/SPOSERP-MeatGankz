@@ -21,14 +21,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body px-0 pt-0 pb-3">
-                    <div class="table-responsive">
-                        <table class="table align-items-center mb-0" id="datatable-search">
+                <div class="card-body pt-0 pb-3">
+                    <div class="row">
+                        
+                    </div>
+                        <table class="table align-items-center text-nowrap" id="table">
                             <thead>
                                 <tr>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Aksi</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         No</th>
                                     <th
@@ -64,23 +63,15 @@
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Supplier</th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i = 1; ?>
                                 <?php foreach ($data["pemasukan"] as $pemasukan): ?>
                                     <tr>
-                                        <td class="align-middle text-sm text-center font-weight-bold mb-0">
-                                            <a href="<?= BASEURL; ?>/pemasukan/update/<?= $pemasukan['id'] ?>"
-                                                data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                                data-id="<?= $pemasukan['id']; ?>" class="btn bg-gradient-primary btn-md p-1 px-2 tampilModalUbah">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                            <a href="<?= BASEURL; ?>/pemasukan/delete/<?= $pemasukan['id'] ?>"
-                                                onclick="return confirm ('yakin?')" class="btn bg-gradient-dark btn-md  p-1 px-2 align-middle acc-button">
-                                                <i class="bi bi-trash"></i>
-                                            </a>
-                                        </td>
                                         <td>
                                             <p class="text-sm text-center font-weight-bold mb-0">
                                                 <?= $i++; ?>
@@ -160,6 +151,17 @@
                                                 echo $kategori;
                                            ?>
                                             </p>
+                                        </td>
+                                        <td class="align-middle text-center font-weight-bold mb-0">
+                                            <a href="<?= BASEURL; ?>/pemasukan/update/<?= $pemasukan['id'] ?>"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                data-id="<?= $pemasukan['id']; ?>" class="btn bg-gradient-primary p-1 px-2 tampilModalUbah rounded-pill">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a href="<?= BASEURL; ?>/pemasukan/delete/<?= $pemasukan['id'] ?>"
+                                                onclick="return confirm ('yakin?')" class="btn bg-gradient-dark p-1 px-2 align-middle acc-button rounded-pill">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 <?php endforeach ?>
@@ -281,8 +283,8 @@
         </div>
     </div>
     <!-- <script src="https://code.jquery.com/jquery-3.7.0.js"></script> -->
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="<?= BASEURL; ?>/js/datatables.js"></script>
+    <!-- <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="<?= BASEURL; ?>/js/datatables.js"></script> -->
     <!-- Sweet Alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
