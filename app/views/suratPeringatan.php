@@ -9,7 +9,7 @@
                                 <h5 class="card-title">Surat Peringatan</h5>
                             </div>
                             <div class="col-lg-4 d-flex justify-content-end">
-                                <button type="button" class=" btn bg-gradient-primary tombolTambahData  "
+                                <button type="button" class=" btn bg-gradient-primary tombolTambahData"
                                     data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah Data</button>
                             </div>
                         </div>
@@ -41,9 +41,11 @@
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Kesalahan</th>
                                             <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Sanksi</th>
+                                            <th
                                                 class="text-end text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Beri
-                                                Surat Peringatan
+                                                Aksi
                                             </th>
 
                                         </tr>
@@ -73,6 +75,11 @@
                                                 <td class="align-middle text-center">
                                                     <span class="text-secondary text-xs font-weight-bold">
                                                         <?= $data['kesalahan'] ?>
+                                                    </span>
+                                                </td>
+                                                <td class="align-middle text-center">
+                                                    <span class="text-secondary text-xs font-weight-bold">
+                                                        <?= $data['sanksi'] ?>
                                                     </span>
                                                 </td>
                                                 <td class="align-middle text-end text-sm">
@@ -148,31 +155,38 @@
                             </div>
                     </div>
                     <div class="mb-3">
-                        <label for="username">Email:</label>
+                        <label for="username">Email</label>
                         <div class="input-group">
                             <input type="text" class="form-control" id="email" placeholder="Tambah Nama Email..."
                                 name="email">
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="jabatan">Jabatan:</label>
+                        <label for="jabatan">Jabatan</label>
                         <div class="input-group">
                             <input type="text" class="form-control" id="jabatan" placeholder="Tambah Jabatan..."
                                 name="jabatan">
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="jabatan">Alamat:</label>
+                        <label for="jabatan">Alamat</label>
                         <div class="input-group">
                             <input type="text" class="form-control" id="alamat" placeholder="Tambah Alamat..."
                                 name="alamat">
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="username">Kesalahan:</label>
+                        <label for="username">Kesalahan</label>
                         <div class="input-group">
                             <input type="text" class="form-control" id="kesalahan" placeholder=" Tambah Kesalahan..."
                                 name="kesalahan">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="username">Sanksi</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="sanksi" placeholder=" Tambah Sanksi..."
+                                name="sanksi">
                         </div>
                     </div>
                 </div>
@@ -193,11 +207,11 @@
     <script>
 
         $(function () {
-
+            const BASEURL = window.location.href;
             $('.tombolTambahData').on('click', function () {
 
                 $('#exampleModalLabel').html('Tambah Data');
-                $('.modal-body form').attr('action', 'http://phpmvc.test/Suratperingatan/tambah');
+                $('.modal-body form').attr('action', `${BASEURL}/tambah`);
                 $('.modal-footer button[type=submit]').html('Tambah Data');
                 // $('#nama').val('');
                 // $('#email').val('');
@@ -211,12 +225,12 @@
                 // console.log('ok');
                 $('#exampleModalLabel').html('Ubah Data');
                 $('.modal-footer button[type=submit]').html('Ubah Data');
-                $('.modal-body form').attr('action', 'http://phpmvc.test/Suratperingatan/ubah');
+                $('.modal-body form').attr('action', `${BASEURL}/ubah`);
 
                 const id = $(this).data('id');
 
                 $.ajax({
-                    url: 'http://phpmvc.test/Suratperingatan/getubah',
+                    url: `${BASEURL}/getubah`,
                     data: { id: id },
                     method: 'post',
                     dataType: 'json',

@@ -20,9 +20,9 @@ class suratPeringatan extends Controller
         $data['surat'] = $this->model('SuratPeringatan_model')->getDataById($id);
         $this->view('printSuratPeringatan', $data);
     }
-    public function insert()
+    public function tambah()
     {
-        if ($this->model('SuratPeringatan_model')->tambahDataSurat($_POST) > 0) {
+        if ($this->model('SuratPeringatan_model')->insert($_POST) > 0) {
             Flasher::setFlash('Insert <b>SUCCESS</b>', 'success');
             header("Location: " . BASEURL . "/suratPeringatan");
             exit;
