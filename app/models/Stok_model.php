@@ -2,15 +2,14 @@
 
 use Ramsey\Uuid\Uuid;
 
-class kelolaStok_model
+class Stok_model
 {
-	protected $table = "stok_bahan";
+	protected $table = "stok";
 	protected $fields = [
-        'deskripsi',
-        'tanggal',
-        'masuk',
+        'nama',
         'stok',
-        'keluar'
+        'satuan',
+        'riwayat',
     ];
 	protected $user;
 	protected $db;
@@ -27,11 +26,11 @@ class kelolaStok_model
 		return $this->db->fetchAll();
 	}
 
-	public function getTanggal()
-    {
-        $this->db->query("SELECT tanggal from {$this->table} WHERE `status` = 1");
-        return $this->db->fetchAll();
-    }
+	public function getLatestData()
+	{
+		$this->db->query("SELECT * FROM {$this->table} ORDER BY `created_at` DESC LIMIT 1");
+		return $this->db->fetch();
+	}
 
 	public function getDataById($id)
 	{
@@ -42,12 +41,12 @@ class kelolaStok_model
 
 	public function insert($data)
 	{
-		$fields_query = ":deskripsi, :tanggal, :masuk, :stok, :keluar";
+		$fields_query = ":nama, :stok, :satuan, :riwayat,";
 
 		$this->db->query(
             "INSERT INTO {$this->table} 
 				VALUES
-            (null, :uuid, {$fields_query}, '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, DEFAULT)"
+            (null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, DEFAULT)"
         );
 
         $this->db->bind('uuid', Uuid::uuid4()->toString());
@@ -62,11 +61,10 @@ class kelolaStok_model
 	public function update($id, $data)
 	{
 		$fields_query = "
-            deskripsi = :deskripsi,
-            tanggal = :tanggal,
-            masuk = :masuk,
+            nama = :nama,
+            satuan = :satuan,
             stok = :stok,
-            keluar = :keluar,
+            riwayat = :riwayat,
         ";
 
 		$this->db->query(
@@ -106,6 +104,15 @@ class kelolaStok_model
 
 		$this->db->execute();
 		return $this->db->rowCount();
+	}
+
+	public function updateStok($id, $bulan, $value)
+	{
+		$riwayat = $this->getDataById($id)['riwayat'];
+		$riwayat = json_decode($riwayat, true);
+		$riwayat[$bulan] = $value;
+
+		return $this->updateField($id, 'riwayat', json_encode($riwayat));
 	}
 
 	public function delete($id)

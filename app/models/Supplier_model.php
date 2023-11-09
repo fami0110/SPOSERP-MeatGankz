@@ -32,6 +32,12 @@ class Supplier_model
 		return $this->db->fetch();
 	}
 
+	public function getLatestData()
+	{
+		$this->db->query("SELECT * FROM {$this->table} ORDER BY `created_at` DESC LIMIT 1");
+		return $this->db->fetch();
+	}
+
 	public function getDataById($id)
 	{
 		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1 AND `id` = :id");
@@ -49,8 +55,8 @@ class Supplier_model
 				(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, DEFAULT)"
 		);
 
-		$this->db->bind('uuid', Uuid::uuid4()->toString());
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
+		$this->db->bind('uuid', Uuid::uuid4()->toString());
 		$this->db->bind('created_by', $this->user);
 
 		$this->db->execute();
@@ -77,8 +83,8 @@ class Supplier_model
 		);
 
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
-		$this->db->bind('id', $id);
 		$this->db->bind('modified_by', $this->user);
+		$this->db->bind('id', $id);
 
 		$this->db->execute();
 
@@ -97,8 +103,8 @@ class Supplier_model
 		);
 
 		$this->db->bind('val', $value);
-		$this->db->bind('id', $id);
 		$this->db->bind('modified_by', $this->user);
+		$this->db->bind('id', $id);
 
 		$this->db->execute();
 		return $this->db->rowCount();

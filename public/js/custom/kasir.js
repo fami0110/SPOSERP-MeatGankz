@@ -119,7 +119,7 @@ function addList(nama, price) {
     item.innerHTML = `
         <div class="col-sm-6">
             <div class="input-group mb-3">
-                <button class="btn btn-danger m-0 removeList" type="button" id="button-addon1" data-nama="${nama}">
+                <button class="btn btn-danger m-0 removeList" type="button" data-nama="${nama}">
                     <i class="fa fa-xmark"></i>
                 </button>
                 <input type="text" class="item form-control ps-3" name="item[]" value="${nama}" readonly>
@@ -130,7 +130,7 @@ function addList(nama, price) {
         </div>
         <div class="col-sm-4 ps-0">
             <div class="input-group mb-3">
-                <span class="input input-group-text" id="button-addon1">Rp. </span>
+                <span class="input input-group-text">Rp. </span>
                 <input type="number" class="subtotal form-control ps-2" name="item_subtotal[]" value="${price}" readonly>
             </div>
         </div>

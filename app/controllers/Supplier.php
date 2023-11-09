@@ -18,27 +18,23 @@ class Supplier extends Controller
     public function insert()
     {
         if ($this->model('Supplier_model')->insert($_POST) > 0) {
-            Flasher::setFlash('Insert <b>SUCCESS</b>', 'success');
-			header("Location: " . BASEURL . "/supplier");
-            exit;
+            Flasher::setFlash('Insert&nbsp<b>SUCCESS</b>', 'success');
         } else {
-            Flasher::setFlash('Insert <b>FAILED</b>', 'danger');
-            header('Location: ' . BASEURL . '/supplier');
-            exit;
+            Flasher::setFlash('Insert&nbsp<b>FAILED</b>', 'danger');
         }
+        header('Location: ' . BASEURL . '/supplier');
+        exit;
     }
 
     public function delete($id)
     {
         if ($this->model('Supplier_model')->delete($id) > 0) {
-            Flasher::setFlash('Delete <b>SUCCESS</b>', 'success');
-            header('Location: ' . BASEURL . '/supplier');
-            exit;
+            Flasher::setFlash('Delete&nbsp<b>SUCCESS</b>', 'success');
         } else {
-            Flasher::setFlash('Delete <b>FAILED</b>', 'danger');
-            header('Location: ' . BASEURL . '/supplier');
-            exit;
+            Flasher::setFlash('Delete&nbsp<b>FAILED</b>', 'danger');
         }
+        header('Location: ' . BASEURL . '/supplier');
+        exit;
     }
 
 	public function store()
@@ -47,18 +43,13 @@ class Supplier extends Controller
 
 	public function update()
     {
-        $id = $_POST['id']; 
-        $data = $_POST; 
-
-        if ($this->model('Supplier_model')->update($id, $data) > 0) {
-            Flasher::setFlash('Update <b>SUCCESS</b>', 'success');
-            header('Location: ' . BASEURL . '/supplier');
-            exit;
+        if ($this->model('Supplier_model')->update($_POST['id'], $_POST) > 0) {
+            Flasher::setFlash('Update&nbsp<b>SUCCESS</b>', 'success');
         } else {
-            Flasher::setFlash('Update <b>FAILED</b>', 'danger');
-            header('Location: ' . BASEURL . '/supplier');
-            exit;
+            Flasher::setFlash('Update&nbsp<b>FAILED</b>', 'danger');
         }
+        header('Location: ' . BASEURL . '/supplier');
+        exit;
     }
 
 

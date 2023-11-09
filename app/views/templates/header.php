@@ -214,27 +214,21 @@
                     <div class="collapse " id="applicationsExamples">
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item ">
-                                <a class="nav-link" href="<?=BASEURL; ?>/daftarBarang">
+                                <a class="nav-link" href="<?=BASEURL; ?>/stok">
                                     <span class="sidenav-mini-icon"> D </span>
                                     <span class="sidenav-normal"> Daftar Barang</span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="<?=BASEURL; ?>/kelolaStok">
+                                <a class="nav-link" href="<?=BASEURL; ?>/stok/rekap">
                                     <span class="sidenav-mini-icon"> K </span>
-                                    <span class="sidenav-normal"> Kelola Stok</span>
+                                    <span class="sidenav-normal"> Rekap Stok</span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link " href="<?= BASEURL; ?>/pemasukan">
+                                <a class="nav-link " href="<?= BASEURL; ?>/shipment">
                                     <span class="sidenav-mini-icon"> P </span>
-                                    <span class="sidenav-normal"> Pemasukan </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link " href="<?= BASEURL; ?>/pengeluaran">
-                                    <span class="sidenav-mini-icon"> P </span>
-                                    <span class="sidenav-normal"> Pengeluaran </span>
+                                    <span class="sidenav-normal"> Shipment </span>
                                 </a>
                             </li>
                             <li class="nav-item ">

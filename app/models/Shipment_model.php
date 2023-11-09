@@ -2,26 +2,24 @@
 
 use Ramsey\Uuid\Uuid;
 
-class Pemasukan_model
+class Shipment_model
 {
 	protected $table = "shipment";
 	protected $table_stok = "stok_bahan";
 	protected $fields = [
-        'harga',
-        'unit_harga',
-        'barang_id',
+        'stok_id',
+		'supplier_id',
+        'harga_all_in',
+        'deskripsi',
         'pesan',
-        'unit_pesan',
         'berat',
-        'unit_berat',
         'harga_exw',
         'total_exw',
-        'ongkir',
-        'ice_pack',
+        'biaya_lainnya',
+        'total_biaya_lainnya',
         'diskon',
         'total',
-        'supplier_id',
-		'tanggal'
+		'tanggal',
     ];
 	protected $user;
 	protected $db;
@@ -38,11 +36,12 @@ class Pemasukan_model
 		return $this->db->fetchAll();
 	}
 
-	public function getbarang_id()
-    {
-        $this->db->query("SELECT barang_id from {$this->table} WHERE `status` = 1");
-        return $this->db->fetchAll();
-    }
+	public function getLatestData()
+	{
+		$this->db->query("SELECT * FROM {$this->table} ORDER BY `created_at` DESC LIMIT 1");
+		return $this->db->fetch();
+	}
+
 	public function getDataById($id)
 	{
 		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1 AND `id` = :id");
@@ -52,35 +51,37 @@ class Pemasukan_model
 
 	public function insert($data)
 	{
-		$fields_query = ":harga, :unit_harga, :barang_id, :pesan, :unit_pesan, :berat, :unit_berat, :harga_exw, :total_exw, :ongkir, :ice_pack, :diskon, :total, :supplier_id, :tanggal";
+		$fields_query = "
+			:stok_id,
+			:supplier_id,
+			:harga_all_in,
+			:deskripsi,
+			:pesan,
+			:berat,
+			:harga_exw,
+			:total_exw,
+			:biaya_lainnya,
+			:total_biaya_lainnya,
+			:diskon,
+			:total,
+			:tanggal,
+		";
 
-		$uuid = Uuid::uuid4()->toString();
-		$currentTimestamp = date("Y-m-d H:i:s");
-		$createdBy = $this->user;
+		$this->db->query(
+			"INSERT INTO {$this->table} 
+				VALUES
+			(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, DEFAULT)"
+		);
 
-		$query1 = "INSERT INTO {$this->table} VALUES (null, :uuid, {$fields_query}, '', :currentTimestamp, :createdBy, null, '', null, '', null, '', 0, 0, DEFAULT)";
-
-		$this->db->query($query1);
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
-		$this->db->bind('uuid', $uuid);
-		$this->db->bind('createdBy', $createdBy);
-		$this->db->bind('currentTimestamp', $currentTimestamp);
+		$this->db->bind('uuid', Uuid::uuid4()->toString());
+		$this->db->bind('created_by', $this->user);
 
 		$this->db->execute();
 
-		$query2 = "INSERT INTO {$this->table_stok} VALUES (null, :uuid, :barang_id, :tanggal, :pesan, :unit_pesan, null, null, '', :currentTimestamp, :createdBy, null, '', null, '', null, '', 0, 0, DEFAULT)";
-
-		$this->db->query($query2);
-
-		$this->db->bind('barang_id', $data['barang_id']);
-		$this->db->bind('tanggal', $data['tanggal']);
-		$this->db->bind('pesan', $data['pesan']);
-		$this->db->bind('unit_pesan', $data['unit_pesan']);
-		$this->db->bind('uuid', $uuid);
-		$this->db->bind('createdBy', $createdBy);
-		$this->db->bind('currentTimestamp', $currentTimestamp);
-
-		$this->db->execute();
+		// if ($this->db->rowCount() == 0) {
+		// 	return 0;
+		// }
 
 		return $this->db->rowCount();
 	}
@@ -89,38 +90,55 @@ class Pemasukan_model
 	public function update($id, $data)
 	{
 		$fields_query = "
-            harga = :harga,
-            unit_harga = :unit_harga,
-            barang_id = :barang_id,
-            pesan = :pesan,
-            unit_pesan = :unit_pesan,
-            berat = :berat,
-            unit_berat = :unit_berat,
-            harga_exw = :harga_exw,
-            total_exw = :total_exw,
-            ongkir = :ongkir,
-            ice_pack = :ice_pack,
-            diskon = :diskon,
-            total = :total,
-            supplier_id = :supplier_id,
-            tanggal = :tanggal,
+			stok_id = :stok_id,
+			supplier_id = :supplier_id,
+			harga_all_in = :harga_all_in,
+			deskripsi = :deskripsi,
+			pesan = :pesan,
+			berat = :berat,
+			harga_exw = :harga_exw,
+			total_exw = :total_exw,
+			biaya_lainnya = :biaya_lainnya,
+			total_biaya_lainnya = :total_biaya_lainnya,
+			diskon = :diskon,
+			total = :total,
+			tanggal = :tanggal,
         ";
 
 		$this->db->query(
 			"UPDATE {$this->table}
 				SET
-					{$fields_query}
-					modified_at = CURRENT_TIMESTAMP,
-					modified_by = :modified_by
+				{$fields_query}
+				modified_at = CURRENT_TIMESTAMP,
+				modified_by = :modified_by
 			WHERE id = :id"
 		);
 
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
-		$this->db->bind('id', $id);
 		$this->db->bind('modified_by', $this->user);
+		$this->db->bind('id', $id);
 
 		$this->db->execute();
 
+		return $this->db->rowCount();
+	}
+
+	public function updateField($id, $field, $value)
+	{
+		$this->db->query(
+			"UPDATE {$this->table}
+				SET 
+				{$field} = :val,
+				modified_at = CURRENT_TIMESTAMP,
+				modified_by = :modified_by
+			WHERE id = :id"
+		);
+
+		$this->db->bind('val', $value);
+		$this->db->bind('modified_by', $this->user);
+		$this->db->bind('id', $id);
+
+		$this->db->execute();
 		return $this->db->rowCount();
 	}
 
@@ -183,25 +201,6 @@ class Pemasukan_model
 			return empty($oldFileName) ? false : $oldFileName;
 		}
     }
-
-	public function updateField($id, $field, $value)
-	{
-		$this->db->query(
-			"UPDATE {$this->table}
-				SET 
-				{$field} = :val,
-				modified_at = CURRENT_TIMESTAMP,
-				modified_by = :modified_by
-			WHERE id = :id"
-		);
-
-		$this->db->bind('val', $value);
-		$this->db->bind('id', $id);
-		$this->db->bind('modified_by', $this->user);
-
-		$this->db->execute();
-		return $this->db->rowCount();
-	}
 
     public function deleteFile($filepath)
     {
