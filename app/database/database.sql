@@ -16,6 +16,46 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `barang`
+--
+
+DROP TABLE IF EXISTS `barang`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `barang` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(36) NOT NULL,
+  `nama` varchar(70) NOT NULL,
+  `supplier_id` int NOT NULL,
+  `harga` int NOT NULL,
+  `harga_unit` varchar(10) NOT NULL,
+  `note` varchar(50) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `created_by` char(36) NOT NULL,
+  `modified_at` datetime DEFAULT NULL,
+  `modified_by` char(36) NOT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `deleted_by` char(36) NOT NULL,
+  `restored_at` datetime DEFAULT NULL,
+  `restored_by` char(36) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `is_restored` tinyint(1) NOT NULL,
+  `status` tinyint(1) GENERATED ALWAYS AS ((case when ((`is_deleted` = 0) and (`is_restored` = 0)) then 1 when ((`is_deleted` = 1) and (`is_restored` = 0)) then 0 when ((`is_deleted` = 0) and (`is_restored` = 1)) then 1 end)) STORED NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `barang`
+--
+
+LOCK TABLES `barang` WRITE;
+/*!40000 ALTER TABLE `barang` DISABLE KEYS */;
+INSERT INTO `barang` (`id`, `uuid`, `nama`, `supplier_id`, `harga`, `harga_unit`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'06bbbfbc-c399-42a7-b828-a46a905d7f0c','mang ea?',2,300000000,'Kg','','2023-11-04 19:32:24','Super Admin',NULL,'','2023-11-04 19:32:47','Super Admin',NULL,'',1,0),(2,'fb2e49e3-71bc-4947-8545-89bf2045ea2f','Daging Tomhawk',2,300000000,'Kg','','2023-11-04 19:39:45','Super Admin',NULL,'','2023-11-04 19:39:47','Super Admin',NULL,'',1,0),(3,'63c942ec-ffa2-445f-ae88-90b5f7b33a23','Daging enak',2,390843,'Kg','','2023-11-04 19:41:03','Super Admin',NULL,'','2023-11-04 19:41:04','Super Admin',NULL,'',1,0),(4,'464e5b4c-07cc-4a79-987f-47fb9525eefb','Daging enak',2,390843,'Kg','','2023-11-04 19:41:33','Super Admin',NULL,'','2023-11-04 19:48:31','Super Admin',NULL,'',1,0),(5,'7b91aff3-52ac-43ae-b5db-2d8a0931234f','Daging enak',2,300000000,'Kg','','2023-11-04 19:50:23','Super Admin',NULL,'','2023-11-04 19:50:25','Super Admin',NULL,'',1,0),(6,'0f2dc0ac-5316-4f23-a26d-4cab2dc4a647','steak',2,390843,'Kg','','2023-11-07 09:48:24','Super Admin',NULL,'',NULL,'',NULL,'',0,0);
+/*!40000 ALTER TABLE `barang` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `kategori`
 --
 
@@ -89,7 +129,7 @@ CREATE TABLE `menu` (
 
 LOCK TABLES `menu` WRITE;
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
-INSERT INTO `menu` VALUES (1,'d7b250a3-1f8d-40b8-aacd-2fdb9156b095','Australian Curried Sausages',1,50000,0,'6539e285223b3.jpg','','2023-10-26 10:52:37','admin','2023-11-03 09:46:25','Sando',NULL,'',NULL,'',0,0,1),(2,'8a65c313-d53b-4472-a09d-78c32fe8bc72','Nasi Goreng',1,20000,1,'6539ec4c67a29.jpg','','2023-10-26 11:34:20','admin','2023-10-30 09:36:32','sando',NULL,'',NULL,'',0,0,1),(3,'6629dff2-5061-45fa-b1ef-2b2749f24cc5','Spageti',1,16000,0,'653b65718c9fa.jpg','','2023-10-26 10:15:54','sando','2023-11-03 09:47:07','Sando',NULL,'',NULL,'',0,0,1),(4,'9849680c-bbc6-4ec0-9b2a-b32662a5372e','Wagyu Steak',1,40000,1,'653f179c50adf.jpeg','','2023-10-30 09:40:28','sando',NULL,'',NULL,'',NULL,'',0,0,1),(5,'95777022-54d7-4ba3-8a78-70d296e28499','Chiken Steak',1,20000,1,'653f181174be1.jpeg','','2023-10-30 09:42:25','sando','2023-10-30 09:42:41','sando',NULL,'',NULL,'',0,0,1),(6,'77146b4b-6fc7-4fd2-a43c-a9946c1691b0','Oreo Milkshake',2,15999,1,'653f18650a624.jpg','','2023-10-30 09:43:49','sando','2023-11-03 09:46:45','Sando',NULL,'',NULL,'',0,0,1),(7,'b98ea26a-1eaf-4725-9d11-ff4c0850db69','Soda Gembira',2,22000,0,'653f18a3b9be3.jpg','','2023-10-30 09:44:51','sando','2023-11-03 09:46:51','Sando',NULL,'',NULL,'',0,0,1),(8,'03c2d485-1c3a-42ea-88a3-2272fa3ccb97','French Fries',3,15000,0,'653f198c1f80e.jpg','','2023-10-30 09:48:25','sando','2023-11-03 09:46:57','Sando',NULL,'',NULL,'',0,0,1),(9,'fa162289-5240-4ddb-8805-b7802c9df211','Crepes',3,18000,1,'653f1a8b5900f.jpg','','2023-10-30 09:52:59','sando',NULL,'',NULL,'',NULL,'',0,0,1),(10,'9c38462f-1ba3-4a56-9395-10247c7111ae','Silky Pudding',4,16000,1,'653f1b1134b87.jpg','','2023-10-30 09:55:13','sando',NULL,'',NULL,'',NULL,'',0,0,1),(11,'33ceeb8c-06f8-47ce-83f9-3de84e462838','Ice Cream',4,15000,1,'653f1b547e240.jpg','','2023-10-30 09:56:20','sando',NULL,'',NULL,'',NULL,'',0,0,1);
+INSERT INTO `menu` VALUES (1,'d7b250a3-1f8d-40b8-aacd-2fdb9156b095','Australian Curried Sausages',1,50000,1,'6539e285223b3.jpg','','2023-10-26 10:52:37','admin','2023-11-06 09:32:22','Super Admin',NULL,'',NULL,'',0,0,1),(2,'8a65c313-d53b-4472-a09d-78c32fe8bc72','Nasi Goreng',1,20000,1,'6539ec4c67a29.jpg','','2023-10-26 11:34:20','admin','2023-10-30 09:36:32','sando',NULL,'',NULL,'',0,0,1),(3,'6629dff2-5061-45fa-b1ef-2b2749f24cc5','Spageti',1,16000,1,'653b65718c9fa.jpg','','2023-10-26 10:15:54','sando','2023-10-30 09:16:05','sando',NULL,'',NULL,'',0,0,1),(4,'9849680c-bbc6-4ec0-9b2a-b32662a5372e','Wagyu Steak',1,40000,1,'653f179c50adf.jpeg','','2023-10-30 09:40:28','sando',NULL,'',NULL,'',NULL,'',0,0,1),(5,'95777022-54d7-4ba3-8a78-70d296e28499','Chiken Steak',1,20000,1,'653f181174be1.jpeg','','2023-10-30 09:42:25','sando','2023-10-30 09:42:41','sando',NULL,'',NULL,'',0,0,1),(6,'77146b4b-6fc7-4fd2-a43c-a9946c1691b0','Oreo Milkshake',2,15999,1,'653f18650a624.jpg','','2023-10-30 09:43:49','sando',NULL,'',NULL,'',NULL,'',0,0,1),(7,'b98ea26a-1eaf-4725-9d11-ff4c0850db69','Soda Gembira',2,22000,1,'653f18a3b9be3.jpg','','2023-10-30 09:44:51','sando','2023-10-30 09:46:20','sando',NULL,'',NULL,'',0,0,1),(8,'03c2d485-1c3a-42ea-88a3-2272fa3ccb97','French Fries',3,15000,1,'653f198c1f80e.jpg','','2023-10-30 09:48:25','sando','2023-10-30 09:48:44','sando',NULL,'',NULL,'',0,0,1),(9,'fa162289-5240-4ddb-8805-b7802c9df211','Crepes',3,18000,1,'653f1a8b5900f.jpg','','2023-10-30 09:52:59','sando',NULL,'',NULL,'',NULL,'',0,0,1),(10,'9c38462f-1ba3-4a56-9395-10247c7111ae','Silky Pudding',4,16000,1,'653f1b1134b87.jpg','','2023-10-30 09:55:13','sando',NULL,'',NULL,'',NULL,'',0,0,1),(11,'33ceeb8c-06f8-47ce-83f9-3de84e462838','Ice Cream',4,15000,1,'653f1b547e240.jpg','','2023-10-30 09:56:20','sando',NULL,'',NULL,'',NULL,'',0,0,1);
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -162,7 +202,7 @@ CREATE TABLE `preferences` (
 
 LOCK TABLES `preferences` WRITE;
 /*!40000 ALTER TABLE `preferences` DISABLE KEYS */;
-INSERT INTO `preferences` VALUES (1,'POS','Nama_Perusahaan','Meatgankz','2023-10-31 08:58:55'),(2,'POS','Besar_Pajak_(%)','2','2023-10-31 08:55:04'),(3,'ERP','Waktu_Datang','06:00 - 07:00','2023-10-31 09:04:13'),(4,'ERP','Waktu_Pulang','15:00 - 17:00','2023-10-31 09:06:38'),(5,'ERP','Token_Absensi','12e461f63a95af15aad0e97648fa0872','2023-10-31 09:07:03');
+INSERT INTO `preferences` VALUES (1,'POS','Nama_Perusahaan','Meatgankz','2023-10-31 08:58:55'),(2,'POS','Besar_Pajak_(%)','10','2023-10-31 08:55:04'),(3,'ERP','Waktu_Datang','06:00 - 07:00','2023-10-31 09:04:13'),(4,'ERP','Waktu_Pulang','15:00 - 17:00','2023-10-31 09:06:38'),(5,'ERP','Token_Absensi','12e461f63a95af15aad0e97648fa0872','2023-10-31 09:07:03');
 /*!40000 ALTER TABLE `preferences` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,7 +218,7 @@ CREATE TABLE `shipment` (
   `uuid` char(36) NOT NULL,
   `harga` int NOT NULL,
   `unit_harga` varchar(20) NOT NULL,
-  `menu` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `barang_id` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `pesan` int NOT NULL,
   `unit_pesan` varchar(20) NOT NULL,
   `berat` int NOT NULL,
@@ -189,7 +229,8 @@ CREATE TABLE `shipment` (
   `ice_pack` int NOT NULL,
   `diskon` int NOT NULL,
   `total` int NOT NULL,
-  `keterangan` text NOT NULL,
+  `supplier_id` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `tanggal` date NOT NULL,
   `note` varchar(50) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` char(36) NOT NULL,
@@ -203,7 +244,7 @@ CREATE TABLE `shipment` (
   `is_restored` tinyint(1) NOT NULL,
   `status` tinyint(1) GENERATED ALWAYS AS ((case when ((`is_deleted` = 0) and (`is_restored` = 0)) then _utf8mb4'1' when ((`is_deleted` = 1) and (`is_restored` = 0)) then _utf8mb4'0' when ((`is_deleted` = 0) and (`is_restored` = 1)) then _utf8mb4'1' end)) STORED,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,7 +253,7 @@ CREATE TABLE `shipment` (
 
 LOCK TABLES `shipment` WRITE;
 /*!40000 ALTER TABLE `shipment` DISABLE KEYS */;
-INSERT INTO `shipment` (`id`, `uuid`, `harga`, `unit_harga`, `menu`, `pesan`, `unit_pesan`, `berat`, `unit_berat`, `harga_exw`, `total_exw`, `ongkir`, `ice_pack`, `diskon`, `total`, `keterangan`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'5723360b-b710-40fc-b3ae-f18263e977b8',100000,'Kg','Daging wagyu',1,'Kg',1000,'gr',100000,100000,20000,5000,10000,200000,'s1','','2023-10-24 13:04:02','admin',NULL,'','2023-10-24 13:19:15','admin',NULL,'',1,0),(2,'2cb13f8f-39aa-4d9e-946c-b394f28e93e1',100000,'Kg','Daging wagyu',2,'Kg',2000,'gr',100000,100000,20000,5000,10000,200000,'s2','','2023-10-24 13:20:12','admin','2023-10-24 13:29:41','admin','2023-10-24 15:16:03','admin',NULL,'',1,0),(3,'71f75d9d-2edb-4508-9a29-f5e35c75b4ca',100000,'Kg','Daging wagyu',5,'Kg',5000,'gr',100000,500000,20000,5000,10000,200000,'1','','2023-10-24 15:16:42','admin',NULL,'','2023-10-24 15:22:34','admin',NULL,'',1,0),(4,'dbbee3ac-1fa7-47dc-8955-5e4326d6f8d0',100000,'Kg','Daging wagyu',2,'Kg',2000,'gr',100000,200000,20000,5000,10000,200000,'1','','2023-10-24 15:25:14','admin',NULL,'','2023-10-25 08:09:14','admin',NULL,'',1,0),(5,'bbf3d594-84db-4c3c-a125-8cc205d5cde6',100000,'Kg','Daging wagyu',2,'Kg',2000,'gr',100000,200000,20000,5000,10000,215000,'1','','2023-10-25 08:06:52','admin',NULL,'',NULL,'',NULL,'',0,0);
+INSERT INTO `shipment` (`id`, `uuid`, `harga`, `unit_harga`, `barang_id`, `pesan`, `unit_pesan`, `berat`, `unit_berat`, `harga_exw`, `total_exw`, `ongkir`, `ice_pack`, `diskon`, `total`, `supplier_id`, `tanggal`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (6,'61e1d2a0-8c61-4455-97b8-df787c2b5108',390843,'Kg','6',3,'Kg',3000,'gr',100000,300000,20000,5000,10000,315000,'2','2023-11-07','','2023-11-07 02:59:40','Super Admin',NULL,'',NULL,'',NULL,'',0,0);
 /*!40000 ALTER TABLE `shipment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -226,7 +267,7 @@ DROP TABLE IF EXISTS `stok_bahan`;
 CREATE TABLE `stok_bahan` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` char(36) NOT NULL,
-  `menu` text NOT NULL,
+  `barang_id` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `tanggal` date NOT NULL,
   `masuk` int NOT NULL,
   `stok` int NOT NULL,
@@ -253,7 +294,7 @@ CREATE TABLE `stok_bahan` (
 
 LOCK TABLES `stok_bahan` WRITE;
 /*!40000 ALTER TABLE `stok_bahan` DISABLE KEYS */;
-INSERT INTO `stok_bahan` (`id`, `uuid`, `menu`, `tanggal`, `masuk`, `stok`, `keluar`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'4555f04b-738b-43f0-a0f9-d89354412b5d','Daging wagyu','2023-10-25',2,2,0,'','2023-10-25 09:42:28','admin',NULL,'',NULL,'',NULL,'',0,0);
+INSERT INTO `stok_bahan` (`id`, `uuid`, `barang_id`, `tanggal`, `masuk`, `stok`, `keluar`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'4555f04b-738b-43f0-a0f9-d89354412b5d','Daging wagyu','2023-10-25',2,2,0,'','2023-10-25 09:42:28','admin',NULL,'',NULL,'',NULL,'',0,0);
 /*!40000 ALTER TABLE `stok_bahan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -298,6 +339,48 @@ INSERT INTO `supplier` (`id`, `uuid`, `nama`, `alamat`, `kontak`, `email`, `note
 UNLOCK TABLES;
 
 --
+-- Table structure for table `suratperingatan`
+--
+
+DROP TABLE IF EXISTS `suratperingatan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `suratperingatan` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(36) NOT NULL,
+  `nama` varchar(200) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `jabatan` varchar(200) NOT NULL,
+  `alamat` varchar(200) NOT NULL,
+  `kesalahan` varchar(500) NOT NULL,
+  `sanksi` varchar(100) NOT NULL,
+  `note` varchar(50) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `created_by` char(36) NOT NULL,
+  `modified_at` datetime DEFAULT NULL,
+  `modified_by` char(36) NOT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `deleted_by` char(36) NOT NULL,
+  `restored_at` datetime DEFAULT NULL,
+  `restored_by` char(36) NOT NULL,
+  `is_deleted` tinyint(1) DEFAULT NULL,
+  `is_restored` tinyint(1) DEFAULT NULL,
+  `status` tinyint(1) GENERATED ALWAYS AS ((case when ((`is_deleted` = 0) and (`is_restored` = 0)) then 1 when ((`is_deleted` = 1) and (`is_restored` = 0)) then 0 when ((`is_deleted` = 0) and (`is_restored` = 1)) then 1 end)) STORED,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `suratperingatan`
+--
+
+LOCK TABLES `suratperingatan` WRITE;
+/*!40000 ALTER TABLE `suratperingatan` DISABLE KEYS */;
+INSERT INTO `suratperingatan` (`id`, `uuid`, `nama`, `email`, `jabatan`, `alamat`, `kesalahan`, `sanksi`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (6,'','sepuh benita','benitasepuh@gmail.com','sepuh','sepuh iya puh','terlalu sepuh ben','','',NULL,'',NULL,'',NULL,'',NULL,'',NULL,NULL),(7,'','memet','apasi@gmail.com','sepuh juga','jl.sepuh','terlalu sepuh mey','','',NULL,'',NULL,'',NULL,'',NULL,'',NULL,NULL),(9,'9d91b222-c5eb-4078-9f83-4b27fabd9bce','mang ea?','teampapathore@gmail.com','fgtf','bumi','banyak banget woilahh','dikeluarkan','','2023-11-06 08:47:24','Super Admin',NULL,'',NULL,'',NULL,'',0,0);
+/*!40000 ALTER TABLE `suratperingatan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -313,7 +396,7 @@ CREATE TABLE `users` (
   `last_login_at` datetime NOT NULL,
   `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -322,7 +405,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Super Admin','e34f92a20532a873cb3184398070b4b82a8fa29cf48572c203dc5f0fa6158231','superadmin@gmail.com','superadmin','2023-10-31 10:01:31',1),(2,'Sando','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','masandofami@gmail.com','admin','2023-11-02 11:55:20',1);
+INSERT INTO `users` VALUES (1,'Super Admin','e34f92a20532a873cb3184398070b4b82a8fa29cf48572c203dc5f0fa6158231','superadmin@gmail.com','superadmin','2023-11-03 10:12:32',0),(2,'Sando','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','masandofami@gmail.com','admin','2023-10-31 09:54:02',0),(4,'ale','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','alelio@gmail.com','user','2023-11-09 07:58:25',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -335,4 +418,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-03 10:11:19
+-- Dump completed on 2023-11-09  8:17:02
