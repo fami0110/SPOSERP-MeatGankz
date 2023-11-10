@@ -16,25 +16,19 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `pembayaran`
+-- Table structure for table `stok`
 --
 
-DROP TABLE IF EXISTS `pembayaran`;
+DROP TABLE IF EXISTS `stok`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `pembayaran` (
+CREATE TABLE `stok` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` char(36) NOT NULL,
-  `kasir` varchar(20) NOT NULL,
-  `pelanggan` varchar(20) NOT NULL,
-  `detail_pembayaran` json NOT NULL,
-  `subtotal` int NOT NULL,
-  `pajak` int NOT NULL,
-  `total` int NOT NULL,
-  `metode_pembayaran` varchar(10) NOT NULL,
-  `kode_transaksi` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `bayar` int NOT NULL,
-  `kembali` int NOT NULL,
+  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `stok` float NOT NULL,
+  `satuan` varchar(20) NOT NULL,
+  `riwayat` json NOT NULL,
   `note` varchar(50) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` char(36) NOT NULL,
@@ -48,17 +42,17 @@ CREATE TABLE `pembayaran` (
   `is_restored` tinyint(1) NOT NULL,
   `status` tinyint(1) GENERATED ALWAYS AS ((case when ((`is_deleted` = 0) and (`is_restored` = 0)) then _utf8mb4'1' when ((`is_deleted` = 1) and (`is_restored` = 0)) then _utf8mb4'0' when ((`is_deleted` = 0) and (`is_restored` = 1)) then _utf8mb4'1' end)) STORED,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `pembayaran`
+-- Dumping data for table `stok`
 --
 
-LOCK TABLES `pembayaran` WRITE;
-/*!40000 ALTER TABLE `pembayaran` DISABLE KEYS */;
-INSERT INTO `pembayaran` (`id`, `uuid`, `kasir`, `pelanggan`, `detail_pembayaran`, `subtotal`, `pajak`, `total`, `metode_pembayaran`, `kode_transaksi`, `bayar`, `kembali`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'3b6101e8-cd9e-471c-934f-7b00187665e9','Super Admin','sando lalala','[{\"item\": \"Nasi Goreng\", \"amount\": \"1\", \"subtotal\": \"20000\"}, {\"item\": \"Spageti\", \"amount\": \"1\", \"subtotal\": \"16000\"}, {\"item\": \"Oreo Milkshake\", \"amount\": \"2\", \"subtotal\": \"32000\"}]',68000,1360,69360,'cash','',69360,0,'','2023-11-02 10:50:20','Super Admin',NULL,'',NULL,'',NULL,'',0,0);
-/*!40000 ALTER TABLE `pembayaran` ENABLE KEYS */;
+LOCK TABLES `stok` WRITE;
+/*!40000 ALTER TABLE `stok` DISABLE KEYS */;
+INSERT INTO `stok` (`id`, `uuid`, `nama`, `stok`, `satuan`, `riwayat`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (3,'7b7dca29-fde7-4d84-86df-3d6c42a9c8e7','Daging Giling',8,'Kg','{\"2023-11-07\": {\"stok\": \"0\", \"masuk\": 0, \"keluar\": 0}, \"2023-11-10\": {\"stok\": 8, \"masuk\": 8, \"keluar\": 0}}','','2023-11-07 14:47:11','Super Admin','2023-11-10 09:31:11','Super Admin',NULL,'',NULL,'',0,0),(4,'0ac7aa5d-ad49-4f86-9aa1-bee0dc22c503','Daging Wahyu',0,'pcs','{\"2023-11-08\": {\"stok\": \"0\", \"masuk\": 0, \"keluar\": 0}}','','2023-11-08 11:43:25','Super Admin','2023-11-09 14:22:01','Super Admin',NULL,'',NULL,'',0,0),(5,'c3f142d5-76ac-47ed-bc5c-e958e6ec2519','Tenderloin',0,'Kg','{\"2023-11-08\": {\"stok\": \"0\", \"masuk\": 0, \"keluar\": 0}}','','2023-11-08 11:43:39','Super Admin',NULL,'',NULL,'',NULL,'',0,0);
+/*!40000 ALTER TABLE `stok` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -70,4 +64,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-02 11:54:01
+-- Dump completed on 2023-11-10  9:48:11
