@@ -69,7 +69,7 @@
                                         <?= $i++; ?>
                                     </td>
                                     <td class="text-sm text-center font-weight-bold mb-0">
-                                        <?= $shipment['tanggal'] ?>
+                                        <?= date('d/m/Y', strtotime($shipment['tanggal'])) ?>
                                     </td>
                                     <td class="text-sm text-center font-weight-bold mb-0">
                                         <?= $shipment['deskripsi'] ?>
@@ -114,14 +114,14 @@
                                             class="btn bg-gradient-primary btn-md p-1 px-2 mb-0 tampilModalUbah">
                                             <i class="bi bi-pencil"></i>
                                         </button>
-                                        <a href="<?= BASEURL ?>/pemasukan/delete/<?= $shipment['id'] ?>" 
+                                        <a href="<?= BASEURL ?>/shipment/delete/<?= $shipment['id'] ?>" 
                                             class="btn bg-gradient-dark btn-md  p-1 px-2 mb-0 align-middle acc-button"
                                             onclick="return confirm('Hapus data?')">
                                             <i class="bi bi-trash"></i>
                                         </a>
                                     </td>
                                 </tr>
-                            <?php endforeach ?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -173,7 +173,7 @@
                         <label class="form-label d-block" for="pesan">Pesan</label>
                         <div class="row pe-3">
                             <div class="col-sm-10">
-                                <input type="number" class="form-control" id="pesan" value="0" name="pesan">
+                                <input type="number" class="form-control" id="pesan" placeholder="0" name="pesan" min="0">
                             </div>
                             <div class="col-sm-2 px-0">
                                 <input type="text" class="form-control" id="satuan" value="<?= $data['barang'][0]['satuan'] ?>" disabled>
@@ -184,7 +184,7 @@
                         <label class="form-label d-block" for="berat">Berat</label>
                         <div class="row pe-3">
                             <div class="col-sm-10">
-                                <input type="number" class="form-control count" id="berat" value="0" name="berat">
+                                <input type="number" class="form-control count" id="berat" placeholder="0" name="berat" min="0">
                             </div>
                             <div class="col-sm-2 px-0">
                                 <input type="text" class="form-control" value="gram" disabled>
@@ -197,7 +197,7 @@
                         <label class="form-label" for="harga_exw">Harga EXW / Kg</label>
                         <div class="input-group">
                             <span class="input-group-text">Rp</span>
-                            <input type="number" class="form-control ps-2 count" name="harga_exw" id="harga_exw" value="0" required>
+                            <input type="number" class="form-control ps-2 count" name="harga_exw" id="harga_exw" placeholder="0" min="0" required>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -227,7 +227,7 @@
                                 <div class="col-sm-6 ps-0">
                                     <div class="input-group">
                                         <span class="input-group-text">Rp</span>
-                                        <input type="number" class="form-control ps-2 biaya-lainnya count" name="biaya_lainnya[]" value="0" required>
+                                        <input type="number" class="form-control ps-2 biaya-lainnya count" name="biaya_lainnya[]" placeholder="0" min="0" required>
                                     </div>
                                 </div>
                             </div>

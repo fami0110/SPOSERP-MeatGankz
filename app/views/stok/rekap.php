@@ -77,6 +77,7 @@
               <thead>
                 <tr align="center">
                   <th rowspan="3" class="align-middle">Nama</th>
+                  <th rowspan="3" class="align-middle">Stok Saat Ini</th>
                   <th rowspan="3" class="align-middle">Satuan</th>
                   <?php for ($i = 0; $i <= $range; $i++) : ?>
                     <th colspan="3"><?= date('d/m/Y', strtotime($data['filter']['from']) + ($i * 60 * 60 * 24)) ?></th>
@@ -96,6 +97,7 @@
                 <?php foreach ($data['barang'] as $barang) : ?>
                   <tr align="center">
                     <td><?= $barang['nama'] ?></td>
+                    <td><?= $barang['stok'] ?></td>
                     <td><?= $barang['satuan'] ?></td>
                     <?php $riwayat = json_decode($barang['riwayat'], true) ?>
                     <?php for ($i = 0; $i <= $range; $i++) : ?>
