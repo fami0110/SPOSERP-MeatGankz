@@ -27,11 +27,16 @@ class Menu_model
 		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1");
 		return $this->db->fetchAll();
 	}
+	public function getBest()
+	{
+		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1 LIMIT 5");
+		return $this->db->fetchAll();
+	}
 
 	public function getJmlData()
 	{
-		$this->db->query("SELECT COUNT(*) AS count FROM {$this->table} WHERE `status` = 1");
-		return $this->db->fetch();
+			$this->db->query("SELECT COUNT(*) AS count FROM {$this->table} WHERE `status` = 1");
+			return $this->db->fetch();
 	}
 
 	public function getLatestData()
