@@ -326,7 +326,7 @@
                     <div class="collapse " id="authExamples">
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item">
-                                <a class="nav-link" href="<?= BASEURL; ?>/suratPeringatan">
+                                <a class="nav-link" href="<?= BASEURL; ?>/manageKaryawan">
                                     <span class="sidenav-mini-icon"> M </span>
                                     <span class="sidenav-normal">Manage Karyawan</span>
                                 </a>
