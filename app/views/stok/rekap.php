@@ -93,8 +93,8 @@
               </thead>
 
               <tbody>
-                <?php $lastVal = 0; ?>
                 <?php foreach ($data['barang'] as $barang) : ?>
+                  <?php $lastVal = 0; ?>
                   <tr align="center">
                     <td><?= $barang['nama'] ?></td>
                     <td><?= $barang['stok'] ?></td>
