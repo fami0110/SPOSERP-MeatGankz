@@ -40,12 +40,6 @@ class Pembayaran_model
 		return $this->db->fetch();
 	}
 
-	public function getIncome()
-	{
-		$this->db->query("SELECT SUM(`total`) AS total_pembayaran FROM {$this->table} WHERE `status` = 1");
-		return $this->db->fetch();
-	}
-
 	public function getDataById($id)
 	{
 		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1 AND `id` = :id");
