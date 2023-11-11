@@ -21,17 +21,17 @@
                 </div>
                 <div class="card-body pt-0">
                     <div class="table-responsive p-0">
-                        <table class="table table-bordered align-items-center" id="table">
+                        <table class="table table-bordered align-items-center" style="width: 100%" id="table">
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         No</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Nama</th>
+                                        Jabatan</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Jabatan</th>
+                                        Keterangan</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Aksi</th>
