@@ -4,7 +4,7 @@ use Ramsey\Uuid\Uuid;
 
 class Managekaryawan_model
 {
-    protected $table = "manage_karyawan";
+    protected $table = "karyawan";
     protected $fields = [
         'nik',
         'nama',
@@ -42,6 +42,12 @@ class Managekaryawan_model
 	{
 		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1 AND `id` = :id");
 		$this->db->bind('id', $id);
+		return $this->db->fetch();
+	}
+
+	public function getJmlData()
+	{
+		$this->db->query("SELECT COUNT(*) AS count FROM {$this->table} WHERE `status` = 1");
 		return $this->db->fetch();
 	}
 

@@ -9,8 +9,13 @@ class suratPeringatan extends Controller
         $data['title'] = 'SURAT PERINGATAN';
 		$data['user'] = $this->user;
         $data['surat'] = $this->model('SuratPeringatan_model')->getAllData();
-        $this->view('suratPeringatan', $data);
+        $data['kategori'] = $this->model('KategoriSP_model')->getAllData();
+        $data['Managekaryawan'] = $this->model('Managekaryawan_model')->getAllData();
 
+        // echo '<pre>';
+        // var_dump($data['kategori']); die();
+
+        $this->view('suratPeringatan', $data);
     }
     public function print($id)
     {
