@@ -11,16 +11,16 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="d-flex justify-content-end">
-                            <button class="btn bg-gradient-primary d-lg-block" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <button class="btn bg-gradient-primary d-lg-block mb-0" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Tambah Data Kategori
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class=" card-body px-0 pt-0 pb-3">
-                <div class="table-responsive p-0">
-                    <table class="table align-items-center mb-0" id="datatable">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0" id="table" style="width: 100%">
                         <thead>
                             <tr>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -46,10 +46,10 @@
                                         </p>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <a href="<?= BASEURL; ?>/kategori/update/<?= $kategori['id'] ?>" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="<?= $kategori['id']; ?>" class="btn btn-primary tampilModalUbah">
+                                        <a href="<?= BASEURL; ?>/kategori/update/<?= $kategori['id'] ?>" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="<?= $kategori['id']; ?>" class="btn bg-gradient-primary rounded-pill tampilModalUbah">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <a href="<?= BASEURL; ?>/kategori/delete/<?= $kategori['id'] ?>" onclick="return confirm ('Hapus data?')" class="btn btn-dark">
+                                        <a href="<?= BASEURL; ?>/kategori/delete/<?= $kategori['id'] ?>" onclick="return confirm ('Hapus data?')" class="btn bg-gradient-dark rounded-pill">
                                             <i class="bi bi-trash"></i>
                                         </a>
                                     </td>

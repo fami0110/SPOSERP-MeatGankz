@@ -94,7 +94,7 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Karyawan</p>
                                     <h5 class="font-weight-bolder mb-0">
-                                        
+                                        <?= $data['jmlKaryawan'] ?>
                                         <!-- <span class="text-success text-sm font-weight-bolder">+5%</span> -->
                                     </h5>
                                 </div>
@@ -118,7 +118,7 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table align-items-center" id="table">
+                        <table class="table align-items-center">
                             <thead>
                                 <tr>
                                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Gambar</th>
