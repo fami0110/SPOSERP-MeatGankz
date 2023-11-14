@@ -106,13 +106,41 @@ class Stok_model
 		return $this->db->rowCount();
 	}
 
-	public function updateStok($id, $bulan, $value)
+	public function updateStok($id, $tanggal, $value = ['masuk' => 0, 'keluar' => 0])
 	{
-		$riwayat = $this->getDataById($id)['riwayat'];
-		$riwayat = json_decode($riwayat, true);
-		$riwayat[$bulan] = $value;
+		$data = $this->getDataById($id);
+		$riwayat = json_decode($data['riwayat'], true);
 
-		return $this->updateField($id, 'riwayat', json_encode($riwayat));
+		if (isset($value['masuk'])) $riwayat[$tanggal]['masuk'] = $value['masuk'];
+		if (isset($value['keluar'])) $riwayat[$tanggal]['keluar'] = $value['keluar'];
+
+		if (!isset($riwayat[$tanggal]['masuk'])) $riwayat[$tanggal]['masuk'] = 0;
+		if (!isset($riwayat[$tanggal]['keluar'])) $riwayat[$tanggal]['keluar'] = 0;
+
+		$stok = 0;
+		foreach ($riwayat as $i) {
+			$stok += $i['masuk'] - $i['keluar'];
+		}
+
+		$riwayat[$tanggal]['stok'] = $stok;
+
+		$this->db->query(
+			"UPDATE {$this->table}
+				SET 
+				stok = :stok,
+				riwayat = :riwayat,
+				modified_at = CURRENT_TIMESTAMP,
+				modified_by = :modified_by
+			WHERE id = :id"
+		);
+
+		$this->db->bind('stok', $stok);
+		$this->db->bind('riwayat', json_encode($riwayat));
+		$this->db->bind('id', $id);
+		$this->db->bind('modified_by', $this->user);
+
+		$this->db->execute();
+		return $this->db->rowCount();
 	}
 
 	public function delete($id)

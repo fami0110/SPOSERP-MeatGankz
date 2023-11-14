@@ -17,9 +17,9 @@
                     </div>
                 </div>
             </div>
-            <div class=" card-body px-0 pt-0 pb-3">
+            <div class=" card-body pt-0 pb-3">
                 <div class="table-responsive p-0">
-                    <table class="table align-items-center mb-0" id="datatable-search">
+                    <table class="table align-items-center mb-0 search" id="table" style="width: 100%">
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -51,7 +51,7 @@
                                         </p>
                                     </td>
                                     <td>
-                                        <p class="text-sm text-center font-weight-bold mb-0">
+                                        <p class="text-sm text-center font-weight-bold mb-0 text-wrap">
                                             <?= $supplier['alamat']; ?>
                                         </p>
                                     </td>
@@ -66,11 +66,11 @@
                                         </p>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <a href="<?= BASEURL; ?>/supplier/update/<?= $supplier['id'] ?>" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="<?= $supplier['id']; ?>" class="btn btn-primary tampilModalUbah">
-                                            <i class="bi bi-pencil"></i>
+                                        <a href="<?= BASEURL; ?>/supplier/update/<?= $supplier['id'] ?>" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="<?= $supplier['id']; ?>" class="btn bg-gradient-primary rounded-pill tampilModalUbah">
+                                            <i class="fa fa-pen"></i>
                                         </a>
-                                        <a href="<?= BASEURL; ?>/supplier/delete/<?= $supplier['id'] ?>" onclick="return confirm ('Hapus data?')" class="btn btn-dark">
-                                            <i class="bi bi-trash"></i>
+                                        <a href="<?= BASEURL; ?>/supplier/delete/<?= $supplier['id'] ?>" onclick="return confirm ('Hapus data?')" class="btn bg-gradient-dark rounded-pill">
+                                            <i class="fa fa-trash"></i>
                                         </a>
                                     </td>
                                 </tr>

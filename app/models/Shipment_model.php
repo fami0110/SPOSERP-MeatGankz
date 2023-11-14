@@ -49,6 +49,23 @@ class Shipment_model
 		return $this->db->fetch();
 	}
 
+	public function getPemasukanAt($tanggal, $stok_id)
+	{
+		$this->db->query(
+			"SELECT SUM(`pesan`) AS 'sum' FROM {$this->table}
+				WHERE 
+				`tanggal` = :tanggal AND
+				`stok_id` = :stok_id AND
+				`status` = 1
+			GROUP BY `tanggal`"
+		);
+
+		$this->db->bind('tanggal', $tanggal);
+		$this->db->bind('stok_id', $stok_id);
+
+		return $this->db->fetch(PDO::FETCH_COLUMN);
+	}
+
 	public function insert($data)
 	{
 		$fields_query = "
@@ -79,13 +96,11 @@ class Shipment_model
 
 		$this->db->execute();
 
-		// if ($this->db->rowCount() == 0) {
-		// 	return 0;
-		// }
-
-		return $this->db->rowCount();
+		// Update stok
+		$pemasukan = $this->getPemasukanAt($data['tanggal'], $data['stok_id']);
+		return Get::model('Stok_model')
+			->updateStok($data['stok_id'], $data['tanggal'], ['masuk' => intval($pemasukan)]);
 	}
-
 
 	public function update($id, $data)
 	{

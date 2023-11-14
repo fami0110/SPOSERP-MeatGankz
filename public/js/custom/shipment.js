@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="col-sm-6 ps-0">
                 <div class="input-group">
                     <span class="input-group-text">Rp</span>
-                    <input type="number" class="form-control ps-2 biaya-lainnya count" name="biaya_lainnya[]" value="0" required>
+                    <input type="number" class="form-control ps-2 biaya-lainnya count" name="biaya_lainnya[]" placeholder="0" min="0" required>
                 </div>
             </div>
         `;
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 total.value = parseInt(total_exw.value) + parseInt(total_biaya_lainnya.value) - diskon_val;
 
                 // Hitung harga all in / kg
-                harga_all_in.value = parseInt(total.value) / (berat_val / 1000);
+                harga_all_in.value = (parseInt(total.value) / (berat_val / 1000)).toFixed();
             }
         });
     }

@@ -4,16 +4,16 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="card mb-4">
-            <div class="card-header pb-0 mb-3">
+            <div class="card-header pb-0">
                 <div class="row">
                     <div class="col-lg-8">
                         <h5 class="card-title">Pesanan</h5>
                     </div>
                 </div>
             </div>
-            <div class=" card-body px-0 pt-0 pb-3">
-                <div class="table-responsive p-0">
-                    <table class="table align-items-center mb-0 search" id="datatable">
+            <div class="card-body py-3">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0 search" id="table" style="width: 100%">
                         <thead>
                             <tr>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -46,7 +46,7 @@
                                         <?= $pembayaran['nomor_telp']; ?>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <a class="btn bg-gradient-info tampilModalUbah m-0" 
+                                        <a class="btn bg-gradient-info rounded-pill tampilModalUbah m-0" 
                                             data-bs-toggle="modal" data-bs-target="#exampleModal" 
                                             data-id="<?= $pembayaran['id']; ?>">
                                             <i class="bi bi-search"></i>
@@ -54,12 +54,12 @@
                                     </td>
                                     <td class="align-middle text-center">
                                         <?php if (!$pembayaran['status_order']) : ?>
-                                            <a class="btn btn-success m-0" href="<?= BASEURL ?>/pesanan/updateStatusPesanan/<?= $pembayaran['id'] ?>" 
+                                            <a class="btn btn-success rounded-pill m-0" href="<?= BASEURL ?>/pesanan/updateStatusPesanan/<?= $pembayaran['id'] ?>" 
                                                 onclick="return confirm(`Apakah anda yakin ingin mengubah status pesanan?`)">
                                                 Pending
                                             </a>
                                         <?php else : ?>
-                                            <button type="button" class="btn btn-secondary m-0">
+                                            <button type="button" class="btn btn-secondary rounded-pill m-0">
                                                 Selesai
                                             </button>
                                         <?php endif ?>
@@ -68,7 +68,7 @@
                                         <?= date('d/m/Y  H.m', strtotime($pembayaran['created_at'])) ?>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <a class="btn btn-dark m-0" 
+                                        <a class="btn bg-gradient-dark rounded-pill m-0" 
                                             href="<?= BASEURL; ?>/pesanan/delete/<?= $pembayaran['id'] ?>" 
                                             onclick="return confirm ('Hapus data?')">
                                             <i class="bi bi-trash"></i>

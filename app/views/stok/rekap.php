@@ -4,6 +4,38 @@
   $range = (strtotime($data['filter']['to']) - strtotime($data['filter']['from'])) / (60 * 60 * 24);
 ?>
 
+<style>
+    .fixed-column {
+      position: -webkit-sticky;
+      position: sticky;
+      left: 0;
+      background-color: white !important;
+      z-index: 1; /* Tambahkan z-index agar elemen sticky berada di atas elemen lain */
+    }
+
+    
+    .table-responsive::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background-color: #F5F5F5;
+        }
+
+        .table-responsive::-webkit-scrollbar {
+            height: 8px;
+            background-color: #F5F5F5;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #9e9a9a9a;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            border-radius: 10px;
+            background-color: #9e9a9a;
+        }
+</style>
+
+
 <!-- Filter -->
 <div class="container-fluid py-4">
   <div class="row">
@@ -71,44 +103,46 @@
             </div>
           </div>
         </div>
-        <div class="card-body px-0 pt-0 pb-3">
+        <div class="card-body pt-0 px-0 pb-0">
           <div class="table-responsive">
-            <table class="table table-bordered table-striped table-hover">
+            <table class="table table-bordered table-striped table-hover" id="table">
               <thead>
                 <tr align="center">
-                  <th rowspan="3" class="align-middle">Nama</th>
-                  <th rowspan="3" class="align-middle">Satuan</th>
+                  <th rowspan="3" class="align-middle text-center text-uppercase text-secondary text-xxs font-weight-bolder fixed-column">Nama</th>
+                  <th rowspan="3" class="align-middle text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Stok Saat Ini</th>
+                  <th rowspan="3" class="align-middle text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Satuan</th>
                   <?php for ($i = 0; $i <= $range; $i++) : ?>
-                    <th colspan="3"><?= date('d/m/Y', strtotime($data['filter']['from']) + ($i * 60 * 60 * 24)) ?></th>
+                    <th colspan="3" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><?= date('d/m/Y', strtotime($data['filter']['from']) + ($i * 60 * 60 * 24)) ?></th>
                   <?php endfor; ?>
                 </tr>
                 <tr>
                   <?php for ($i = 0; $i <= $range; $i++) : ?>
-                    <th>Masuk</th>
-                    <th>Stok</th>
-                    <th>Keluar</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Masuk</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Stok</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Keluar</th>
                   <?php endfor; ?>
                 </tr>
               </thead>
 
               <tbody>
-                <?php $lastVal = 0; ?>
                 <?php foreach ($data['barang'] as $barang) : ?>
+                  <?php $lastVal = 0; ?>
                   <tr align="center">
-                    <td><?= $barang['nama'] ?></td>
-                    <td><?= $barang['satuan'] ?></td>
+                    <td class="text-sm text-center font-weight-bold mb-0 fixed-column"><?= $barang['nama'] ?></td>
+                    <td class="text-sm text-center font-weight-bold mb-0"><?= $barang['stok'] ?></td>
+                    <td class="text-sm text-center font-weight-bold mb-0"><?= $barang['satuan'] ?></td>
                     <?php $riwayat = json_decode($barang['riwayat'], true) ?>
                     <?php for ($i = 0; $i <= $range; $i++) : ?>
                       <?php $key = date('Y-m-d', strtotime($data['filter']['from']) + ($i * 60 * 60 * 24)) ?>
                       <?php if (array_key_exists($key, $riwayat)) : ?>
-                        <td><?= $riwayat[$key]['masuk'] ?></td>
-                        <td><?= $riwayat[$key]['stok'] ?></td>
-                        <td><?= $riwayat[$key]['keluar'] ?></td>
+                        <td class="text-sm text-center font-weight-bold mb-0"><?= $riwayat[$key]['masuk'] ?></td>
+                        <td class="text-sm text-center font-weight-bold mb-0"><?= $riwayat[$key]['stok'] ?></td>
+                        <td class="text-sm text-center font-weight-bold mb-0"><?= $riwayat[$key]['keluar'] ?></td>
                         <?php $lastVal = $riwayat[$key]['stok'] ?>
                       <?php else : ?>
-                        <td>0</td>
-                        <td><?= $lastVal ?></td>
-                        <td>0</td>
+                        <td class="text-sm text-center font-weight-bold mb-0">0</td>
+                        <td class="text-sm text-center font-weight-bold mb-0"><?= $lastVal ?></td>
+                        <td class="text-sm text-center font-weight-bold mb-0">0</td>
                       <?php endif; ?>
                     <?php endfor; ?>
                   </tr>
@@ -125,7 +159,9 @@
 </div>
 <!-- End Tabel -->
 
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="<?= BASEURL ?>/js/datatables.js"></script>
+
+<!-- <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
 <script>
   new DataTable('.table', {
@@ -138,7 +174,7 @@
     scrollX: true,
     scrollY: 300
   });
-</script>
+</script> -->
 
 <script src="<?= BASEURL ?>/js/custom/rekap-stok.js"></script>
 

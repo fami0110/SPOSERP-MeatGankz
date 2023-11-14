@@ -8,6 +8,11 @@
     <link rel="apple-touch-icon" sizes="76x76" href="<?= BASEURL ?>/img/apple-icon.png">
     <link rel="icon" type="image/png" href="<?= BASEURL ?>/img/favicon.png">
     <!-- stylesheet -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.3.0/css/fixedColumns.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <!-- CSS -->
@@ -17,13 +22,15 @@
     <link id="pagestyle" href="<?= BASEURL ?>/css/soft-ui-dashboard.css" rel="stylesheet" />
     <!-- scripts -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <!-- title -->
-    <title>POS - <?= $data['title'] ?></title>
+    <title>POS -
+        <?= $data['title'] ?>
+    </title>
     <style>
         .async-hide {
             opacity: 0 !important
         }
+
         .animation-card {
             position: relative;
             display: flex;
@@ -39,6 +46,94 @@
 
         .animation-card:hover {
             transform: scale(1.03);
+        }
+
+        .panel-title h6.text-secondary {
+            border-bottom: 1px solid #ccc;
+            padding-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .text-secondary {
+            padding-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+
+            div.dataTables_wrapper div.dataTables_length,
+            div.dataTables_wrapper div.dataTables_filter,
+            div.dataTables_wrapper div.dataTables_info,
+            div.dataTables_wrapper div.dataTables_paginate {
+                text-align: start;
+            }
+
+            div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+                justify-content: end !important;
+            }
+        }
+
+        div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+            margin-top: 10px;
+            white-space: nowrap;
+            justify-content: flex-end;
+        }
+
+        .btn-close {
+            --bs-btn-close-color: #000;
+            --bs-btn-close-bg: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e);
+            --bs-btn-close-opacity: 0.5;
+            --bs-btn-close-hover-opacity: 0.75;
+            --bs-btn-close-focus-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+            --bs-btn-close-focus-opacity: 1;
+            --bs-btn-close-disabled-opacity: 0.25;
+            --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
+            box-sizing: content-box;
+            width: 1em;
+            height: 1em;
+            padding: 0.25em 0.25em;
+            color: var(--bs-btn-close-color);
+            background: transparent var(--bs-btn-close-bg) center/1em auto no-repeat;
+            border: 0;
+            border-radius: 0.375rem;
+            opacity: var(--bs-btn-close-opacity);
+        }
+
+        .rounded-pill {
+            border-radius: 50rem !important;
+        }
+
+        .btn-icon {
+            padding: 0;
+            width: calc(2.309375rem + 2px);
+            height: calc(2.309375rem + 2px);
+            display: inline-flex;
+            flex-shrink: 0;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dataTables_scrollBody::-webkit-scrollbar-track {
+            border-radius: 10px;
+            background-color: #F5F5F5;
+        }
+
+        .dataTables_scrollBody::-webkit-scrollbar {
+            height: 8px;
+            background-color: #F5F5F5;
+        }
+
+        .dataTables_scrollBody::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #9e9a9a9a;
+        }
+
+        .dataTables_scrollBody::-webkit-scrollbar-thumb:hover {
+            border-radius: 10px;
+            background-color: #9e9a9a;
+        }
+
+        .page-link {
+            color: white;
         }
     </style>
     <script>
@@ -110,14 +205,18 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
 
-    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 no-print"
+    <aside
+        class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 no-print"
         id="sidenav-main">
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
                 aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand m-0" href="<?= BASEURL; ?>">
-                <img src="<?= Get::model('Preferences')->getPreference('Direktori_Logo') ?>" class="navbar-brand-img h-100" alt="main_logo">
-                <span class="ms-1 font-weight-bold"><?= Get::model('Preferences')->getPreference('Nama_Perusahaan') ?></span>
+                <img src="<?= Get::model('Preferences')->getPreference('Direktori_Logo') ?>"
+                    class="navbar-brand-img h-100" alt="main_logo">
+                <span class="ms-1 font-weight-bold">
+                    <?= Get::model('Preferences')->getPreference('Nama_Perusahaan') ?>
+                </span>
             </a>
         </div>
         <hr class="horizontal dark mt-0">
@@ -127,7 +226,8 @@
                     <a class="nav-link" href="<?= BASEURL; ?>">
                         <div
                             class="icon icon-shape text-icon icon-sm shadow border-radius-md bg-white text-center  me-2 d-flex align-items-center justify-content-center">
-                            <div class="fa fa-house" style="width: 12px; height: 12px; font-size: 12px; color: #3a416d;"></div>
+                            <div class="fa fa-house"
+                                style="width: 12px; height: 12px; font-size: 12px; color: #3a416d;"></div>
                         </div>
                         <span class="nav-link-text ms-1">Dashboard</span>
                     </a>
@@ -177,11 +277,12 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#bbb" class="nav-link "
-                        aria-controls="applicationsExamples" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#bbb" class="nav-link " aria-controls="applicationsExamples"
+                        role="button" aria-expanded="false">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center  me-2 d-flex align-items-center justify-content-center">
-                            <div class="fa fa-utensils text-icon" style="width: 12px; height: 12px; font-size: 12px; color: #3a416d;"></div>
+                            <div class="fa fa-utensils text-icon"
+                                style="width: 12px; height: 12px; font-size: 12px; color: #3a416d;"></div>
                         </div>
                         <span class="nav-link-text ms-1">Menu</span>
                     </a>
@@ -207,20 +308,21 @@
                         aria-controls="applicationsExamples" role="button" aria-expanded="false">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                            <div class="fa fa-inbox text-icon" style="width: 12px; height: 12px; font-size: 12px; color: #3a416d;"></div>
+                            <div class="fa fa-inbox text-icon"
+                                style="width: 12px; height: 12px; font-size: 12px; color: #3a416d;"></div>
                         </div>
                         <span class="nav-link-text ms-1">Stok</span>
                     </a>
                     <div class="collapse " id="applicationsExamples">
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item ">
-                                <a class="nav-link" href="<?=BASEURL; ?>/stok">
+                                <a class="nav-link" href="<?= BASEURL; ?>/stok">
                                     <span class="sidenav-mini-icon"> D </span>
                                     <span class="sidenav-normal"> Daftar Barang</span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="<?=BASEURL; ?>/stok/rekap">
+                                <a class="nav-link" href="<?= BASEURL; ?>/stok/rekap">
                                     <span class="sidenav-mini-icon"> K </span>
                                     <span class="sidenav-normal"> Rekap Stok</span>
                                 </a>
@@ -326,7 +428,7 @@
                     <div class="collapse " id="authExamples">
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item">
-                                <a class="nav-link" href="<?= BASEURL; ?>/suratPeringatan">
+                                <a class="nav-link" href="<?= BASEURL; ?>/manageKaryawan">
                                     <span class="sidenav-mini-icon"> M </span>
                                     <span class="sidenav-normal">Manage Karyawan</span>
                                 </a>
@@ -340,38 +442,37 @@
                         </ul>
                     </div>
                 </li>
-                <?php if ($data['user']['role'] == 'superadmin') : ?>
-                <li class="nav-item">
-                    <a class="nav-link"
-                        href="<?= BASEURL; ?>/settings">
-                        <div
-                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
-                            <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1"
-                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <title>settings</title>
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g transform="translate(-2020.000000, -442.000000)" fill="#FFFFFF"
-                                        fill-rule="nonzero">
-                                        <g transform="translate(1716.000000, 291.000000)">
-                                            <g transform="translate(304.000000, 151.000000)">
-                                                <polygon class="color-background" opacity="0.596981957"
-                                                    points="18.0883333 15.7316667 11.1783333 8.82166667 13.3333333 6.66666667 6.66666667 0 0 6.66666667 6.66666667 13.3333333 8.82166667 11.1783333 15.315 17.6716667">
-                                                </polygon>
-                                                <path class="color-background"
-                                                    d="M31.5666667,23.2333333 C31.0516667,23.2933333 30.53,23.3333333 30,23.3333333 C29.4916667,23.3333333 28.9866667,23.3033333 28.48,23.245 L22.4116667,30.7433333 L29.9416667,38.2733333 C32.2433333,40.575 35.9733333,40.575 38.275,38.2733333 L38.275,38.2733333 C40.5766667,35.9716667 40.5766667,32.2416667 38.275,29.94 L31.5666667,23.2333333 Z"
-                                                    opacity="0.596981957"></path>
-                                                <path class="color-background"
-                                                    d="M33.785,11.285 L28.715,6.215 L34.0616667,0.868333333 C32.82,0.315 31.4483333,0 30,0 C24.4766667,0 20,4.47666667 20,10 C20,10.99 20.1483333,11.9433333 20.4166667,12.8466667 L2.435,27.3966667 C0.95,28.7083333 0.0633333333,30.595 0.00333333333,32.5733333 C-0.0583333333,34.5533333 0.71,36.4916667 2.11,37.89 C3.47,39.2516667 5.27833333,40 7.20166667,40 C9.26666667,40 11.2366667,39.1133333 12.6033333,37.565 L27.1533333,19.5833333 C28.0566667,19.8516667 29.01,20 30,20 C35.5233333,20 40,15.5233333 40,10 C40,8.55166667 39.685,7.18 39.1316667,5.93666667 L33.785,11.285 Z">
-                                                </path>
+                <?php if ($data['user']['role'] == 'superadmin'): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= BASEURL; ?>/settings">
+                            <div
+                                class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                                <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <title>settings</title>
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g transform="translate(-2020.000000, -442.000000)" fill="#FFFFFF"
+                                            fill-rule="nonzero">
+                                            <g transform="translate(1716.000000, 291.000000)">
+                                                <g transform="translate(304.000000, 151.000000)">
+                                                    <polygon class="color-background" opacity="0.596981957"
+                                                        points="18.0883333 15.7316667 11.1783333 8.82166667 13.3333333 6.66666667 6.66666667 0 0 6.66666667 6.66666667 13.3333333 8.82166667 11.1783333 15.315 17.6716667">
+                                                    </polygon>
+                                                    <path class="color-background"
+                                                        d="M31.5666667,23.2333333 C31.0516667,23.2933333 30.53,23.3333333 30,23.3333333 C29.4916667,23.3333333 28.9866667,23.3033333 28.48,23.245 L22.4116667,30.7433333 L29.9416667,38.2733333 C32.2433333,40.575 35.9733333,40.575 38.275,38.2733333 L38.275,38.2733333 C40.5766667,35.9716667 40.5766667,32.2416667 38.275,29.94 L31.5666667,23.2333333 Z"
+                                                        opacity="0.596981957"></path>
+                                                    <path class="color-background"
+                                                        d="M33.785,11.285 L28.715,6.215 L34.0616667,0.868333333 C32.82,0.315 31.4483333,0 30,0 C24.4766667,0 20,4.47666667 20,10 C20,10.99 20.1483333,11.9433333 20.4166667,12.8466667 L2.435,27.3966667 C0.95,28.7083333 0.0633333333,30.595 0.00333333333,32.5733333 C-0.0583333333,34.5533333 0.71,36.4916667 2.11,37.89 C3.47,39.2516667 5.27833333,40 7.20166667,40 C9.26666667,40 11.2366667,39.1133333 12.6033333,37.565 L27.1533333,19.5833333 C28.0566667,19.8516667 29.01,20 30,20 C35.5233333,20 40,15.5233333 40,10 C40,8.55166667 39.685,7.18 39.1316667,5.93666667 L33.785,11.285 Z">
+                                                    </path>
+                                                </g>
                                             </g>
                                         </g>
                                     </g>
-                                </g>
-                            </svg>
-                        </div>
-                        <span class="nav-link-text ms-1">Settings</span>
-                    </a>
-                </li>
+                                </svg>
+                            </div>
+                            <span class="nav-link-text ms-1">Settings</span>
+                        </a>
+                    </li>
                 <?php endif; ?>
             </ul>
         </div>
@@ -425,14 +526,16 @@
                 </div>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center justify-content-start">
-                        
+
                     </div>
                     <ul class="navbar-nav  justify-content-end">
-                    <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                        <li class="nav-item dropdown pe-2 d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-user cursor-pointer me-2"></i>
-                                <h7 class="font-weight-bold"><?= $data['user']['username'] ?></h7>
+                                <h7 class="font-weight-bold">
+                                    <?= $data['user']['username'] ?>
+                                </h7>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end px-2 py-3 pb-1 me-sm-n4"
                                 aria-labelledby="dropdownMenuButton">
@@ -452,7 +555,7 @@
                                         <div class="d-flex py-1">
                                             <div class="d-flex flex-column justify-content-center">
                                                 <h6 class="text-sm font-weight-normal mb-1">
-                                                <!-- <i class="fa fa-arrow-right"></i> -->
+                                                    <!-- <i class="fa fa-arrow-right"></i> -->
                                                     <span class="font-weight-bold">Log Out</span>
                                                 </h6>
                                             </div>
@@ -469,13 +572,13 @@
                                     <i class="sidenav-toggler-line"></i>
                                 </div>
                             </a>
-                        <!-- </li>
+                            <!-- </li>
                         <li class="nav-item px-3 d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body p-0">
                                 <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
                             </a>
                         </li> -->
-                        <!-- <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                            <!-- <li class="nav-item dropdown pe-2 d-flex align-items-center">
                             <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-bell cursor-pointer"></i>
@@ -564,4 +667,4 @@
             </div>
         </nav>
         <div class="container-fluid py-4">
-		<?php Flasher::flash() ?>
+            <?php Flasher::flash() ?>

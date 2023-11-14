@@ -12,7 +12,7 @@ class Supplier extends Controller
 		$data['user'] = $this->user;
         $data['supplier'] = $this->model('Supplier_model')->getAllData();
 		
-		$this->view('supplier', $data);
+		$this->view('stok/supplier', $data);
 	}
 
     public function insert()
