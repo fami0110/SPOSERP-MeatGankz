@@ -221,14 +221,20 @@
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="<?=BASEURL; ?>/stok/rekap">
-                                    <span class="sidenav-mini-icon"> K </span>
+                                    <span class="sidenav-mini-icon"> R </span>
                                     <span class="sidenav-normal"> Rekap Stok</span>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link " href="<?= BASEURL; ?>/shipment">
-                                    <span class="sidenav-mini-icon"> P </span>
+                                    <span class="sidenav-mini-icon"> S </span>
                                     <span class="sidenav-normal"> Shipment </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link " href="<?= BASEURL; ?>/stok/pengeluaran">
+                                    <span class="sidenav-mini-icon"> P </span>
+                                    <span class="sidenav-normal"> Pengeluaran </span>
                                 </a>
                             </li>
                             <li class="nav-item ">

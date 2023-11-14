@@ -290,37 +290,4 @@
 
 <script src="<?= BASEURL ?>/js/custom/shipment.js"></script>
 
-<script>
-    $(function() {
-        const BASEURL = window.location.href;
-        console.log(BASEURL)
-        $('.tombolTambahData').on('click', function() {
-            $('modalLabel').html('Tambah Data')
-            $('.modal-footer button[type=submit]').html('Tambah Data');
-            $(".modal-body form").attr("action", `${BASEURL}/insert`);
-
-            $(".modal-body form")[0].reset();
-            $("#tanggal").val(new Date().toISOString().split('T')[0]);
-        });
-
-        $(".tampilModalUbah").click(function() {
-            $("#modal").addClass("edit");
-            $("#modalLabel").html("Ubah Data");
-            $(".modal-footer button[type=submit]").html("Ubah Data");
-            $(".modal-body form").attr("action", `${BASEURL}/update`);
-
-            const id = $(this).data("id");
-            console.log(id);
-
-            $.ajax({
-                url: `${BASEURL}/getubah`,
-                data: {id: id},
-                method: "post",
-                dataType: "json",
-                success: function(data) {
-                },
-            })
-        })
-    });
-</script>
 <?php Get::view('templates/footer', $data) ?>
