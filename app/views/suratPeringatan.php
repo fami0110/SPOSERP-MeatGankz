@@ -9,7 +9,7 @@
                             <h5 class="card-title">Surat Peringatan</h5>
                         </div>
                         <div class="col-lg-4 d-flex justify-content-end">
-                            <button type="button" class=" btn bg-gradient-primary tombolTambahData" data-bs-toggle="modal"
+                            <button type="button" class="mb-0 btn bg-gradient-primary tombolTambahData" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">Tambah Data</button>
                         </div>
                     </div>
@@ -26,18 +26,18 @@
                 </div>
                 
 
-                <div class="card-body p-0">
+                <div class="card-body">
                     <div class="table-container">
                         <div class="table-responsive">
-                            <table class="table align-items-center mb-0" id="datatable-search">
+                            <table class="table align-items-center mb-0" style="width: 100%" id="table">
                                 <thead>
                                     <tr>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Kategori SP</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Nama Karyawan</th>
                                         <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Jabatan</th>
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -55,17 +55,36 @@
                                 <tbody>
                                     <?php foreach ($data['surat'] as $surat): ?>
                                         <tr>
-                                            <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">
-                                                    <?= $surat['kategori'] ?>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
+                                            <td class="align-middle">
+                                                <p class="text-sm text-center font-weight-bold mb-0 text-wrap">
+                                                    <?php 
+                                                        $kategori = '-';
+                                                        
+                                                        foreach ($data['kategori'] as $kategoriSP) {
+                                                            if ($kategoriSP['id'] == $surat['kategori']) {
+                                                                $kategori = $kategoriSP['nama']; break;
+                                                            }   
+                                                        }
 
-                                                    <div class="d-flex flex-column justify-content-center">
+                                                        echo $kategori;
+                                                    ?>
+                                                </p>
+                                            </td>
+                                            <td class="align-middle">
+                                                <div class="d-flex px-2 align-middle">
+                                                    <div class="d-flex flex-column justify-content-center align-middle">
                                                         <h6 class="mb-0 text-sm">
-                                                            <?= $surat['nama'] ?>
+                                                            <?php 
+                                                                $kategori = '-';
+                                                                
+                                                                foreach ($data['Managekaryawan'] as $karyawan) {
+                                                                    if ($karyawan['id'] == $surat['nama']) {
+                                                                        $kategori = $karyawan['nama']; break;
+                                                                    }   
+                                                                }
+
+                                                                echo $kategori;
+                                                            ?>
                                                         </h6>
                                                         <p class="text-xs text-secondary mb-0">
                                                             <?= $surat['email'] ?>
@@ -73,20 +92,20 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>
-                                                <span class="text-secondary text-xs font-weight-bold">
+                                            <td class="align-middle text-center">
+                                                <p class="text-sm text-center font-weight-bold mb-0 text-wrap">
                                                     <?= $surat['jabatan'] ?>
-                                                </span>
+                                                </p>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">
+                                                <p class="text-sm text-center font-weight-bold mb-0 text-wrap">
                                                     <?= $surat['kesalahan'] ?>
-                                                </span>
+                                                </p>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">
+                                                <p class="text-sm text-center font-weight-bold mb-0 text-wrap">
                                                     <?= $surat['sanksi'] ?>
-                                                </span>
+                                                </p>
                                             </td>
                                             <td class="align-middle text-end text-sm">
                                                 <a href="<?= BASEURL; ?>/Suratperingatan/print/<?= $surat['id'] ?>"
@@ -170,7 +189,7 @@
                                     <select class="form-select" id="nama" placeholder="Tambah Nama Karyawan..." name="nama">
                                         <option value="">--Pilih Karyawan--</option>
                                         <?php foreach ($data['Managekaryawan'] as $karyawan): ?>
-                                            <option value="<?= $karyawan['id'] ?>"><?= $karyawan['nama'] ?></option>
+                                            <option value="<?= $karyawan['id'] ?>" data-email="<?= $karyawan['email'] ?>" data-jabatan="<?= $karyawan['jabatan'] ?>" data-alamat="<?= $karyawan['alamat'] ?>"><?= $karyawan['nama'] ?></option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>
@@ -179,14 +198,14 @@
                                 <label for="username">Email</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="email" placeholder="Tambah Nama Email..."
-                                        name="email">
+                                        name="email" readonly>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="jabatan">Jabatan</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="jabatan" placeholder="Tambah Jabatan..."
-                                        name="jabatan">
+                                        name="jabatan" readonly>
                                 </div>
                             </div>
                         </div>
@@ -195,7 +214,7 @@
                                 <label for="jabatan">Alamat</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="alamat" placeholder="Tambah Alamat..."
-                                        name="alamat">
+                                        name="alamat" readonly>
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -225,12 +244,29 @@
     </div>
 
     <!-- <script src="https://code.jquery.com/jquery-3.7.0.js"></script> -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="<?= BASEURL; ?>/js/datatables.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script> -->
+    <!-- <script src="<?= BASEURL; ?>/js/datatables.js"></script> -->
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
+        $(document).ready(function () {
+            $('#nama').change(function () {
+                // Get the selected employee's information
+                var selectedEmployee = $(this).find(':selected');
+                var selectedEmail = selectedEmployee.data('email');
+                var selectedJabatan = selectedEmployee.data('jabatan');
+                var selectedAlamat = selectedEmployee.data('alamat');
 
+                // Set the values for Email, Jabatan, and Alamat
+                $('#email').val(selectedEmail);
+                $('#jabatan').val(selectedJabatan);
+                $('#alamat').val(selectedAlamat);
+            });
+        });
+    </script>
+    
+    <script>
         $(function () {
             const BASEURL = window.location.href;
             $('.tombolTambahData').on('click', function () {

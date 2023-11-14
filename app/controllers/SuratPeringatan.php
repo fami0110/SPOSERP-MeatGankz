@@ -11,6 +11,7 @@ class suratPeringatan extends Controller
         $data['surat'] = $this->model('SuratPeringatan_model')->getAllData();
         $data['kategori'] = $this->model('KategoriSP_model')->getAllData();
         $data['Managekaryawan'] = $this->model('Managekaryawan_model')->getAllData();
+        // $data['email'] = $this->model('Managekaryawan_model')->getAllEmail();
 
         // echo '<pre>';
         // var_dump($data['kategori']); die();
@@ -19,10 +20,11 @@ class suratPeringatan extends Controller
     }
     public function print($id)
     {
-
         $data['title'] = 'SURAT PERINGATAN ';
 		$data['user'] = $this->user;
         $data['surat'] = $this->model('SuratPeringatan_model')->getDataById($id);
+        $data['Managekaryawan'] = $this->model('Managekaryawan_model')->getAllData();
+
         $this->view('printSuratPeringatan', $data);
     }
     public function tambah()

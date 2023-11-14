@@ -51,7 +51,7 @@
                                         </p>
                                     </td>
                                     <td>
-                                        <p class="text-sm text-center font-weight-bold mb-0">
+                                        <p class="text-sm text-center font-weight-bold mb-0 text-wrap">
                                             <?= $supplier['alamat']; ?>
                                         </p>
                                     </td>
@@ -67,10 +67,10 @@
                                     </td>
                                     <td class="align-middle text-center">
                                         <a href="<?= BASEURL; ?>/supplier/update/<?= $supplier['id'] ?>" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="<?= $supplier['id']; ?>" class="btn bg-gradient-primary rounded-pill tampilModalUbah">
-                                            <i class="bi bi-pencil"></i>
+                                            <i class="fa fa-pen"></i>
                                         </a>
                                         <a href="<?= BASEURL; ?>/supplier/delete/<?= $supplier['id'] ?>" onclick="return confirm ('Hapus data?')" class="btn bg-gradient-dark rounded-pill">
-                                            <i class="bi bi-trash"></i>
+                                            <i class="fa fa-trash"></i>
                                         </a>
                                     </td>
                                 </tr>

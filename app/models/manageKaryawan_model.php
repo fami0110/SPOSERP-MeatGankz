@@ -37,6 +37,17 @@ class Managekaryawan_model
             return [];
         }
     }
+	
+    // public function getAllEmail()
+    // {
+    //     try {
+    //         $this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1");
+	// 		$row = $this->db->fetchAll();
+	// 		$emailValue = $row["email"];
+    //     } catch (PDOException $e) {
+    //         return [];
+    //     }
+    // }
 
 	public function getDataById($id)
 	{
