@@ -20,12 +20,12 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body px-0 pt-0 pb-3">
+            <div class="card-body pt-0 pb-3">
                 <div class="table-responsive">
-                    <table class="table table-bordered align-items-center mb-0" style="border-collapse: collapse;" id="datatable-search">
+                    <table class="table table-bordered align-items-center mb-0" style="border-collapse: collapse;" id="table">
                         <thead>
                             <tr>
-                                <th rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                <th rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">
                                     No</th>
                                 <th rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                     Tanggal</th>
@@ -47,7 +47,7 @@
                                     Harga All In / Kg</th>
                                 <th rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                     Supplier</th>
-                                <th rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                <th rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">
                                     Aksi</th>
                             </tr>
                             <tr>

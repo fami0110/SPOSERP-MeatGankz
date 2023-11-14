@@ -6,10 +6,10 @@
             <div class="card-header pb-0">
                     <div class="row">
                         <div class="col-lg-8">
-                            <h5 class="card-title">Manage Karyawan</h5>
+                            <h5 class="card-title mb-0">Manage Karyawan</h5>
                         </div>
                         <div class="col-lg-4 d-flex justify-content-end">
-                            <button class="btn bg-gradient-primary d-lg-block" type="button" data-bs-toggle="modal"
+                            <button class="btn bg-gradient-primary d-lg-block mb-0" type="button" data-bs-toggle="modal"
                                 data-bs-target="#modalEditKaryawan">
                                 Tambah Data Karyawan
                             </button>
@@ -19,44 +19,44 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="table-responsive">
-                            <table id="table" class="table table-sm table-bordered table-hover text-nowrap"
+                            <table id="table" class="table table-bordered table-sm text-nowrap"
                                 style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="align-middle">No.</th>
-                                        <th class="align-middle">Foto</th>
-                                        <th class="align-middle">Nama</th>
-                                        <th class="align-middle">Jabatan</th>
-                                        <th class="align-middle">Status</th>
-                                        <th class="align-middle">Email</th>
-                                        <th class="align-middle">Gaji</th>
-                                        <th class="align-middle">Aksi</th>
+                                        <th class="align-middle text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No.</th>
+                                        <th class="align-middle text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Foto</th>
+                                        <th class="align-middle text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
+                                        <th class="align-middle text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Jabatan</th>
+                                        <th class="align-middle text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                                        <th class="align-middle text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
+                                        <th class="align-middle text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Gaji</th>
+                                        <th class="align-middle text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $i = 1 ?>
                                     <?php foreach ($data["Managekaryawan"] as $karyawan): ?>
                                     <tr>
-                                        <td class="text-center"><?= $i++ ?></td>
-                                        <td class="text-center">
+                                        <td class="text-center align-middle"><?= $i++ ?></td>
+                                        <td class="text-center align-middle">
                                             <img src="<?= BASEURL; ?>/img/datafoto/<?= $karyawan['foto'] ?>" class="avatar" style="object-fit: cover"
                                                 alt="foto_karyawan_1">
                                         </td>
-                                        <td class="text-center"><?= $karyawan['nama'] ?></td>
-                                        <td class="text-center"><?= $karyawan['jabatan'] ?></td>
-                                        <td class="text-center"><?= $karyawan['statuss'] ?></td>
-                                        <td class="text-center"><?= $karyawan['email'] ?></td>
-                                        <td class="text-center">Rp <?= number_format($karyawan['gaji'], 0, '.', '.') ?></td>
-                                        <td class="text-center">
-                                            <button class="btn bg-gradient-primary rounded-pill btn-icon tampilModalUbah"
+                                        <td class="align-middle text-sm text-center font-weight-bold mb-0"><?= $karyawan['nama'] ?></td>
+                                        <td class="align-middle text-sm text-center font-weight-bold mb-0"><?= $karyawan['jabatan'] ?></td>
+                                        <td class="align-middle text-sm text-center font-weight-bold mb-0"><?= $karyawan['statuss'] ?></td>
+                                        <td class="align-middle text-sm text-center font-weight-bold mb-0"><?= $karyawan['email'] ?></td>
+                                        <td class="align-middle text-sm text-center font-weight-bold mb-0">Rp <?= number_format($karyawan['gaji'], 0, '.', '.') ?></td>
+                                        <td class="align-middle text-sm text-center font-weight-bold mb-0">
+                                            <button class="btn bg-gradient-primary rounded-pill mb-0 btn-icon tampilModalUbah"
                                                 data-toggle="tooltip" data-placement="bottom" title="Edit"
                                                 data-bs-toggle="modal" data-bs-target="#modalEditKaryawan" data-id="<?= $karyawan['id']; ?>"><i
                                                     class="fa fa-pen"></i></button>
-                                            <a class="btn btn-danger rounded-pill btn-icon delete-button" href="<?= BASEURL; ?>/Managekaryawan/delete/<?= $karyawan['id'] ?>"
+                                            <a class="btn btn-danger rounded-pill mb-0 btn-icon delete-button" href="<?= BASEURL; ?>/Managekaryawan/delete/<?= $karyawan['id'] ?>"
                                                 onclick="return confirm ('Hapus data?')"
                                                 data-toggle="tooltip" data-placement="bottom" title="Hapus"><i
                                                     class="fa fa-trash"></i></a>
-                                            <a href="<?= BASEURL; ?>/Managekaryawan/detail/<?= $karyawan['id'] ?>" data-id="<?= $karyawan['id']; ?>" class="btn btn-info rounded-pill btn-icon"
+                                            <a href="<?= BASEURL; ?>/Managekaryawan/detail/<?= $karyawan['id'] ?>" data-id="<?= $karyawan['id']; ?>" class="btn btn-info rounded-pill mb-0 btn-icon"
                                                 data-toggle="tooltip" data-placement="bottom" title="Detail">
                                                 <i class="fa fa-user"></i>
                                             </a>

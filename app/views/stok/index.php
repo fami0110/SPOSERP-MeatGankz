@@ -10,16 +10,16 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="d-flex justify-content-end">
-                            <button class="btn bg-gradient-primary d-lg-block tombolTambahData" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <button class="btn bg-gradient-primary mb-0 d-lg-block tombolTambahData" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Tambah Data
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class=" card-body px-0 pt-0 pb-3">
-                <div class="table-responsive p-0">
-                    <table class="table align-items-center mb-0 search" id="datatable">
+            <div class="card-body py-3">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0 search" id="table" style="width: 100%">
                         <thead>
                             <tr>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -51,12 +51,12 @@
                                         <?= $barang['satuan'] ?>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <button type="button" class="btn bg-gradient-primary tampilModalUbah"
+                                        <button type="button" class="btn bg-gradient-primary rounded-pill mb-0 tampilModalUbah"
                                             data-bs-toggle="modal" data-bs-target="#exampleModal" 
                                             data-id="<?= $barang['id']; ?>">
                                             <i class="bi bi-pencil"></i>
                                         </button>
-                                        <a href="<?= BASEURL ?>/stok/delete/<?= $barang['id'] ?>" onclick="return confirm('Hapus data?')" class="btn bg-gradient-dark">
+                                        <a href="<?= BASEURL ?>/stok/delete/<?= $barang['id'] ?>" onclick="return confirm('Hapus data?')" class="btn bg-gradient-dark rounded-pill mb-0">
                                             <i class="bi bi-trash"></i>
                                         </a>
                                     </td>

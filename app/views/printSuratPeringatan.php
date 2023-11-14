@@ -91,7 +91,17 @@
                 <p class="mb-0">Surat ini Ditujukan Kepada:</p>
                 <p class="mb-0">
                     Nama:
-                    <?= $data['surat']['nama'] ?>
+                        <?php 
+                            $kategori = '-';
+                            
+                            foreach ($data['Managekaryawan'] as $karyawan) {
+                                if ($karyawan['id'] == $data['surat']['nama']) {
+                                    $kategori = $karyawan['nama']; break;
+                                }   
+                            }
+
+                            echo $kategori;
+                        ?>
                 </p>
                 <p class="mb-0">
                     Jabatan:
@@ -106,7 +116,18 @@
                     tindakan disiplin yang lebih lanjut. Kami mengharapkan Anda untuk segera memperbaiki perilaku Anda
                     guna menghindari tindakan lebih lanjut yang mungkin diperlukan. Sesuai dengan peraturan perusahaan yang
                     berlaku, kami akan menerapkan sanksi berupa <strong><?= $data['surat']['sanksi']; ?></strong>. Dengan pemberlakuan sanksi ini, kami berharap agar Saudara
-                    <?= $data['surat']['nama'] ?> dapat menghindari tindakan yang serupa di masa depan.
+                    <?php 
+                            $kategori = '-';
+                            
+                            foreach ($data['Managekaryawan'] as $karyawan) {
+                                if ($karyawan['id'] == $data['surat']['nama']) {
+                                    $kategori = $karyawan['nama']; break;
+                                }   
+                            }
+
+                            echo $kategori;
+                        ?>
+                    dapat menghindari tindakan yang serupa di masa depan.
                 </p>    
                 <p class="mb-5">
                     Demikian surat peringatan ini dibuat untuk dijadikan bahan introspeksi. Atas perhatiannya, kami
