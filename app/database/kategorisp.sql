@@ -1,0 +1,65 @@
+-- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
+--
+-- Host: localhost    Database: sposerp
+-- ------------------------------------------------------
+-- Server version	8.0.30
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `kategorisp`
+--
+
+DROP TABLE IF EXISTS `kategorisp`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `kategorisp` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(36) NOT NULL,
+  `nama` varchar(80) NOT NULL,
+  `pengurangan_gaji` int NOT NULL,
+  `note` varchar(50) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `created_by` char(36) NOT NULL,
+  `modified_at` datetime DEFAULT NULL,
+  `modified_by` char(36) NOT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `deleted_by` char(36) NOT NULL,
+  `restored_at` datetime DEFAULT NULL,
+  `restored_by` char(36) NOT NULL,
+  `is_deleted` tinyint(1) DEFAULT NULL,
+  `is_restored` tinyint(1) DEFAULT NULL,
+  `status` tinyint(1) GENERATED ALWAYS AS ((case when ((`is_deleted` = 0) and (`is_restored` = 0)) then 1 when ((`is_deleted` = 1) and (`is_restored` = 0)) then 0 when ((`is_deleted` = 0) and (`is_restored` = 1)) then 1 end)) STORED NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `kategorisp`
+--
+
+LOCK TABLES `kategorisp` WRITE;
+/*!40000 ALTER TABLE `kategorisp` DISABLE KEYS */;
+INSERT INTO `kategorisp` (`id`, `uuid`, `nama`, `pengurangan_gaji`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'7f6454fc-56a4-4105-876c-963c5350a5d2','Surat Peringatan I',300000,'','2023-11-13 09:30:00','ale','2023-11-13 09:31:54','ale','2023-11-13 09:32:56','ale',NULL,'',1,0),(2,'5ded4c22-74e7-4f74-8063-9fcf64702661','Surat Peringatan I',300000,'','2023-11-13 09:33:09','ale',NULL,'',NULL,'',NULL,'',0,0),(3,'adb7ffd1-63fd-4b86-acb8-239c5d9cb228','Surat Peringatan II',500000,'','2023-11-13 11:52:33','ale',NULL,'',NULL,'',NULL,'',0,0);
+/*!40000 ALTER TABLE `kategorisp` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2023-11-15  9:53:32

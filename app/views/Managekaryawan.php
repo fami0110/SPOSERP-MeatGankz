@@ -85,117 +85,77 @@
                     <form action="<?= BASEURL; ?>/Managekaryawan/insert" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" id="id">
                     <input type="hidden" name="fotoLama" id="fotoLama">
-                        <div class="row mb-3">
-                            <div class="col-md-2">
-                                <label class="form-label" for="nik">NIK</label>
-                            </div>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" name="nik" id="nik" placeholder="Cth: 2021010024001" required />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-2">
-                                <label class="form-label" for="nama_karyawan">Nama</label>
-                            </div>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" name="nama" id="nama" placeholder="Cth: Tono" required />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-2">
-                                <label class="form-label" for="tempat_lahir">Tempat Lahir</label>
-                            </div>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" name="tempat_lahir" id="tempat_lahir" placeholder="Cth: Kota Malang" required />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-2">
-                                <label class="form-label" for="tanggal_lahir">Tanggal Lahir</label>
-                            </div>
-                            <div class="col-md-10">
-                                <input type="date" class="form-control" name="tgllahir" id="tgllahir" required />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-2">
-                                <label class="form-label" for="jenis_kelamin">Jenis Kelamin</label>
-                            </div>
-                            <div class="col-md-10">
-                                <div class="form-check form-check-inline mt-2">
-                                    <input class="form-check-input" type="radio" name="jenis_kelamin" name="jenis_kelamin" id="jenis_kelamin" value="Laki-laki" />
-                                    <label class="form-check-label" for="jenis_kelamin_l">Laki-laki</label>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-2">
+                                    <label class="form-label" for="nik">NIK</label>
+                                    <input type="text" class="form-control" name="nik" id="nik" placeholder="Cth: 2021010024001" required />
                                 </div>
-                                <div class="form-check form-check-inline mt-2">
-                                    <input class="form-check-input" type="radio" name="jenis_kelamin" name="jenis_kelamin" id="jenis_kelamin" value="Perempuan" />
-                                    <label class="form-check-label" for="jenis_kelamin_p">Perempuan</label>
+                                <div class="mb-2">
+                                    <label class="form-label" for="nama_karyawan">Nama</label>
+                                    <input type="text" class="form-control" name="nama" id="nama" placeholder="Cth: Tono" required />
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label" for="tempat_lahir">Tempat Lahir</label>
+                                    <input type="text" class="form-control" name="tempat_lahir" id="tempat_lahir" placeholder="Cth: Kota Malang" required />
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label" for="tanggal_lahir">Tanggal Lahir</label>
+                                    <input type="date" class="form-control" name="tgllahir" id="tgllahir" required />
+                                </div>
+                                <div class="mb-2">
+                                    <div class="col-lg-12">
+                                        <label class="form-label me-2" for="jenis_kelamin">Jenis Kelamin</label>
+                                    </div>
+                                    <div class="form-check form-check-inline mt-2">
+                                        <input class="form-check-input" type="radio" name="jenis_kelamin" name="jenis_kelamin" id="jenis_kelamin" value="Laki-laki" />
+                                        <label class="form-check-label" for="jenis_kelamin_l">Laki-laki</label>
+                                    </div>
+                                    <div class="form-check form-check-inline mt-2">
+                                        <input class="form-check-input" type="radio" name="jenis_kelamin" name="jenis_kelamin" id="jenis_kelamin" value="Perempuan" />
+                                        <label class="form-check-label" for="jenis_kelamin_p">Perempuan</label>
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label" for="alamat_karyawan">Alamat</label>
+                                    <textarea class="form-control" name="alamat" id="alamat" placeholder="Cth: Jl. Terusan Sulfat 25A, Pandanwangi, Kecamatan Blimbing, Kota Malang, Jawa Timur" required></textarea>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-2">
-                                <label class="form-label" for="alamat_karyawan">Alamat</label>
-                            </div>
-                            <div class="col-md-10">
-                                <textarea class="form-control" name="alamat" id="alamat" placeholder="Cth: Jl. Terusan Sulfat 25A, Pandanwangi, Kecamatan Blimbing, Kota Malang, Jawa Timur" required></textarea>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-2">
-                                <label class="form-label" for="email">Email</label>
-                            </div>
-                            <div class="col-md-10">
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Cth: tono@gmail.com" required />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-2">
-                                <label class="form-label" for="no_telp">Nomor Telepon</label>
-                            </div>
-                            <div class="col-md-10">
-                                <input type="number" class="form-control ps-2 border-start" aria-label="Nomor Telepon"
-                                    id="no_telp" name="no_telp" aria-describedby="no_telp" value="0812345678910">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-2">
-                                <label class="form-label" for="foto_karyawan">Foto</label>
-                            </div>
-                            <div class="col-md-10">
-                                <input class="form-control" type="file" name="foto" id="foto" accept=".jpg, .png, .pdf">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-2">
-                                <label class="form-label" for="jabatan_karyawan">Jabatan</label>
-                            </div>
-                            <div class="col-md-10">
-                            <select class="form-select" name="jabatan" id="jabatan" aria-label="Jabatan Karyawan" required>
-                                <option selected disabled>Pilih Jabatan</option>
-                                <option value="manager">Manager</option>
-                                <option value="kasir">Kasir</option>
-                            </select>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-2">
-                                <label class="form-label" for="status_karyawan">Status</label>
-                            </div>
-                            <div class="col-md-10">
-                            <select class="form-select" name="statuss" id="statuss" aria-label="Status Karyawan" required>
-                                <option selected disabled>Pilih Status</option>
-                                <option value="Tetap">Karyawan Tetap</option>
-                                <option value="Honorer">Karyawan Honorer</option>
-                                <option value="Kontrak">Karyawan Kontrak</option>
-                            </select>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-2">
-                                <label class="form-label" for="gaji_karyawan">Gaji</label>
-                            </div>
-                            <div class="col-md-10">
-                                <input type="number" class="form-control" name="gaji" id="gaji" required />
+                            <div class="col-lg-6">
+                                <div class="mb-2">
+                                    <label class="form-label" for="email">Email</label>
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Cth: tono@gmail.com" required />
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label" for="no_telp">Nomor Telepon</label>
+                                    <input type="number" class="form-control ps-2 border-start" aria-label="Nomor Telepon" id="no_telp" name="no_telp" aria-describedby="no_telp">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label" for="foto_karyawan">Foto</label>
+                                    <input class="form-control" type="file" name="foto" id="foto" accept=".jpg, .png, .pdf">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label" for="jabatan_karyawan">Jabatan</label>
+                                    <select class="form-select" name="jabatan" id="jabatan" aria-label="Jabatan Karyawan" required>
+                                        <option selected disabled>Pilih Jabatan</option>
+                                        <?php foreach ($data['jabatan'] as $jabatan): ?>
+                                            <option value="<?= $jabatan['id']; ?>" data-gaji="<?= $jabatan['gaji'] ?>"><?= $jabatan['nama']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label" for="status_karyawan">Status</label>
+                                    <select class="form-select" name="statuss" id="statuss" aria-label="Status Karyawan" required>
+                                        <option selected disabled>Pilih Status</option>
+                                        <option value="Tetap">Karyawan Tetap</option>
+                                        <option value="Honorer">Karyawan Honorer</option>
+                                        <option value="Kontrak">Karyawan Kontrak</option>
+                                    </select>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label" for="gaji_karyawan">Gaji</label>
+                                    <input type="number" class="form-control" name="gaji" id="gaji" readonly />
+                                </div>
                             </div>
                         </div>
                 </div>
@@ -210,6 +170,16 @@
     <!-- End Modal -->
 
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#jabatan').change(function () {
+                var selectedEmployee = $(this).find(':selected');
+                var selectedEmail = selectedEmployee.data('gaji');
+
+                $('#gaji').val(selectedEmail);
+            });
+        });
+    </script>
     
 
     <!-- <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>

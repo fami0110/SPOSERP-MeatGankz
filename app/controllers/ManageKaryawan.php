@@ -12,6 +12,7 @@ class Managekaryawan extends Controller
     $data['user'] = $this->user;
     $manageModel = $this->model('Managekaryawan_model');
     $data['Managekaryawan'] = $manageModel->getAllData();
+    $data['jabatan'] = $this->model('Jabatan_model')->getAllData();
 
     $this->view('Managekaryawan', $data);
     }
