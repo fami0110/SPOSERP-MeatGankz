@@ -22,6 +22,7 @@
     <link id="pagestyle" href="<?= BASEURL ?>/css/soft-ui-dashboard.css" rel="stylesheet" />
     <!-- scripts -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <!-- title -->
     <title>POS -
         <?= $data['title'] ?>
@@ -434,13 +435,13 @@
                     <div class="collapse " id="authExamples">
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item">
-                                <a class="nav-link" href="<?= BASEURL; ?>/manageKaryawan">
+                                <a class="nav-link" href="<?= BASEURL; ?>/karyawan">
                                     <span class="sidenav-mini-icon"> M </span>
                                     <span class="sidenav-normal">Manage Karyawan</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="<?= BASEURL; ?>/suratPeringatan">
+                                <a class="nav-link" href="<?= BASEURL; ?>/suratperingatan">
                                     <span class="sidenav-mini-icon"> S </span>
                                     <span class="sidenav-normal">Surat Peringatan</span>
                                 </a>

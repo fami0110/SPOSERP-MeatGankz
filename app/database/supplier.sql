@@ -51,7 +51,7 @@ CREATE TABLE `supplier` (
 
 LOCK TABLES `supplier` WRITE;
 /*!40000 ALTER TABLE `supplier` DISABLE KEYS */;
-INSERT INTO `supplier` (`id`, `uuid`, `nama`, `alamat`, `kontak`, `email`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'36929f29-b36f-4e8d-9012-3cd006c85c33','Yanto','mana aja','08123382520','teampapathore@gmail.com','','2023-10-23 18:54:11','admin',NULL,'','2023-10-23 19:03:34','admin',NULL,'',0,0),(4,'bc7357be-4ec2-40cd-a26a-b3864ab45c2b','Budi','Jl. Baruk Utara VI / 3 Surabaya  Jawa Timur 60298, Indonesia','3254329','hahha@example.com','','2023-10-26 10:16:42','admin',NULL,'','2023-10-26 10:20:06','admin',NULL,'',0,0);
+INSERT INTO `supplier` (`id`, `uuid`, `nama`, `alamat`, `kontak`, `email`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'36929f29-b36f-4e8d-9012-3cd006c85c33','Daging enak','mana aja','08123382520','teampapathore@gmail.com','','2023-10-23 18:54:11','admin',NULL,'','2023-10-23 19:03:34','admin',NULL,'',1,0),(2,'48bb7345-1699-4abc-b670-0121341c47cb','Budi','JL Penambahan No 47','08123382520','budianjay@example.com','','2023-10-23 19:04:04','admin','2023-11-15 08:44:58','Super Admin',NULL,'',NULL,'',0,0),(3,'760633c2-1d7d-46cf-aa96-8b6e29760e3e','Yanto','JL Kesasar','089520409050','yantohaha@gmail.com','','2023-10-23 20:07:07','admin','2023-11-15 08:45:17','Super Admin',NULL,'',NULL,'',0,0),(4,'bc7357be-4ec2-40cd-a26a-b3864ab45c2b','mang ea?','Jl. Baruk Utara VI / 3 Surabaya  Jawa Timur 60298, Indonesia','3254329','hahha@example.com','','2023-10-26 10:16:42','admin',NULL,'','2023-10-26 10:20:06','admin',NULL,'',1,0);
 /*!40000 ALTER TABLE `supplier` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -64,4 +64,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-10  9:48:15
+-- Dump completed on 2023-11-15  9:28:06

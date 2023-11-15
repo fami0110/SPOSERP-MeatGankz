@@ -2,7 +2,7 @@
 
 class Kategori extends Controller
 {
-	protected $model = 'Kategori_model';
+	protected $model_name = 'Kategori_model';
 
 	public function index()
 	{
@@ -10,14 +10,14 @@ class Kategori extends Controller
 
 		$data['title'] = 'Kategori Menu';
 		$data['user'] = $this->user;
-        $data['kategori'] = $this->model('Kategori_model')->getAllData();
+        $data['kategori'] = $this->model($this->model_name)->getAllData();
 		
 		$this->view('menu/kategori', $data);
 	}
 
     public function insert()
     {
-        if ($this->model('Kategori_model')->insert($_POST) > 0) {
+        if ($this->model($this->model_name)->insert($_POST) > 0) {
             Flasher::setFlash('Insert <b>SUCCESS</b>', 'success');
 			header("Location: " . BASEURL . "/kategori");
             exit;
@@ -30,7 +30,7 @@ class Kategori extends Controller
 
     public function delete($id)
     {
-        if ($this->model('Kategori_model')->delete($id) > 0) {
+        if ($this->model($this->model_name)->delete($id) > 0) {
             Flasher::setFlash('Delete <b>SUCCESS</b>', 'success');
             header('Location: ' . BASEURL . '/kategori');
             exit;
@@ -43,10 +43,7 @@ class Kategori extends Controller
 
 	public function update()
     {
-        $id = $_POST['id']; 
-        $data = $_POST; 
-
-        if ($this->model('Kategori_model')->update($id, $data) > 0) {
+        if ($this->model($this->model_name)->update($_POST['id'], $_POST) > 0) {
             Flasher::setFlash('Update <b>SUCCESS</b>', 'success');
             header('Location: ' . BASEURL . '/kategori');
             exit;
@@ -57,10 +54,9 @@ class Kategori extends Controller
         }
     }
 
-
     public function getUbah()
     {
-        echo json_encode($this->model('Kategori_model')->getDataById($_POST['id']));
+        echo json_encode($this->model($this->model_name)->getDataById($_POST['id']));
     }
 
 	public function destroy()

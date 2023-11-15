@@ -51,7 +51,7 @@ CREATE TABLE `shipment` (
   `is_restored` tinyint(1) NOT NULL,
   `status` tinyint(1) GENERATED ALWAYS AS ((case when ((`is_deleted` = 0) and (`is_restored` = 0)) then _utf8mb4'1' when ((`is_deleted` = 1) and (`is_restored` = 0)) then _utf8mb4'0' when ((`is_deleted` = 0) and (`is_restored` = 1)) then _utf8mb4'1' end)) STORED,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -60,7 +60,7 @@ CREATE TABLE `shipment` (
 
 LOCK TABLES `shipment` WRITE;
 /*!40000 ALTER TABLE `shipment` DISABLE KEYS */;
-INSERT INTO `shipment` (`id`, `uuid`, `stok_id`, `supplier_id`, `harga_all_in`, `deskripsi`, `pesan`, `berat`, `harga_exw`, `total_exw`, `biaya_lainnya`, `total_biaya_lainnya`, `diskon`, `total`, `tanggal`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (3,'df94ae6c-f36d-43e3-b413-3e3b72646bbe',3,1,105167,'Daging giling 1',3,3000,98000,294000,'{\"ongkir\": \"12000\", \"icepack\": \"10000\"}',22000,500,315500,'2023-11-10','','2023-11-10 09:10:23','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(4,'e9a35dd2-39ea-458e-a2a6-61a6d6c34064',3,4,76000,'Daging giling 2',3,3000,99000,297000,'{\"ongkir\": \"11000\"}',11000,80000,228000,'2023-11-10','','2023-11-10 09:25:22','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(5,'9cc12264-9aea-4350-8118-1e46d1cdadee',3,1,61000,'Daging giling 3',2,2000,65000,130000,'{\"ongkir\": \"12000\"}',12000,20000,122000,'2023-11-10','','2023-11-10 09:31:11','Super Admin',NULL,'',NULL,'',NULL,'',0,0);
+INSERT INTO `shipment` (`id`, `uuid`, `stok_id`, `supplier_id`, `harga_all_in`, `deskripsi`, `pesan`, `berat`, `harga_exw`, `total_exw`, `biaya_lainnya`, `total_biaya_lainnya`, `diskon`, `total`, `tanggal`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'5df52f8f-145f-44fc-9494-f1a150978025',1,2,105000,'Nambah wahyu',2,2000,98000,196000,'{\"ongkir\": \"12000\", \"icepack\": \"10000\"}',22000,8000,210000,'2023-11-15','','2023-11-15 08:51:53','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(2,'cc1f3a4b-f6fd-4b6d-8636-84f35ab6181b',2,2,104333,'Daging gilang yoi gilang hahahahah',3,3000,104000,312000,'{\"ongkir\": \"12000\", \"icepack\": \"8000\"}',20000,19000,313000,'2023-11-15','','2023-11-15 08:53:44','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(3,'76a48cfd-0efd-416e-9aac-14a068873381',1,3,100600,'Wahyu lagi',5,5000,98000,490000,'{\"ongkir\": \"15000\", \"icepack\": \"10000\"}',25000,12000,503000,'2023-11-15','','2023-11-15 08:55:12','Super Admin',NULL,'',NULL,'',NULL,'',0,0);
 /*!40000 ALTER TABLE `shipment` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -73,4 +73,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-10  9:48:01
+-- Dump completed on 2023-11-15  9:28:00

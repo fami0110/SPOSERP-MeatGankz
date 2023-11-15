@@ -16,21 +16,19 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `suratperingatan`
+-- Table structure for table `laporan_pengeluaran`
 --
 
-DROP TABLE IF EXISTS `suratperingatan`;
+DROP TABLE IF EXISTS `laporan_pengeluaran`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `suratperingatan` (
+CREATE TABLE `laporan_pengeluaran` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` varchar(36) NOT NULL,
-  `nama` varchar(200) NOT NULL,
-  `email` varchar(200) NOT NULL,
-  `jabatan` varchar(200) NOT NULL,
-  `alamat` varchar(200) NOT NULL,
-  `kesalahan` varchar(500) NOT NULL,
-  `sanksi` varchar(100) NOT NULL,
+  `tanggal` date NOT NULL,
+  `menu` varchar(50) NOT NULL,
+  `quantity` int NOT NULL,
+  `harga` varchar(50) NOT NULL,
   `note` varchar(50) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` char(36) NOT NULL,
@@ -40,21 +38,21 @@ CREATE TABLE `suratperingatan` (
   `deleted_by` char(36) NOT NULL,
   `restored_at` datetime DEFAULT NULL,
   `restored_by` char(36) NOT NULL,
-  `is_deleted` tinyint(1) DEFAULT NULL,
-  `is_restored` tinyint(1) DEFAULT NULL,
-  `status` tinyint(1) GENERATED ALWAYS AS ((case when ((`is_deleted` = 0) and (`is_restored` = 0)) then 1 when ((`is_deleted` = 1) and (`is_restored` = 0)) then 0 when ((`is_deleted` = 0) and (`is_restored` = 1)) then 1 end)) STORED,
+  `is_deleted` tinyint(1) NOT NULL,
+  `is_restored` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `suratperingatan`
+-- Dumping data for table `laporan_pengeluaran`
 --
 
-LOCK TABLES `suratperingatan` WRITE;
-/*!40000 ALTER TABLE `suratperingatan` DISABLE KEYS */;
-INSERT INTO `suratperingatan` (`id`, `uuid`, `nama`, `email`, `jabatan`, `alamat`, `kesalahan`, `sanksi`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (6,'','sepuh benita','benitasepuh@gmail.com','sepuh','sepuh iya puh','terlalu sepuh ben','','',NULL,'',NULL,'',NULL,'',NULL,'',NULL,NULL),(7,'','memet','apasi@gmail.com','sepuh juga','jl.sepuh','terlalu sepuh mey','','',NULL,'',NULL,'',NULL,'',NULL,'',NULL,NULL),(9,'9d91b222-c5eb-4078-9f83-4b27fabd9bce','mang ea?','teampapathore@gmail.com','fgtf','bumi','banyak banget woilahh','dikeluarkan','','2023-11-06 08:47:24','Super Admin',NULL,'',NULL,'',NULL,'',0,0);
-/*!40000 ALTER TABLE `suratperingatan` ENABLE KEYS */;
+LOCK TABLES `laporan_pengeluaran` WRITE;
+/*!40000 ALTER TABLE `laporan_pengeluaran` DISABLE KEYS */;
+INSERT INTO `laporan_pengeluaran` VALUES (1,'2','2023-11-06','ff',3,'5000','f','2023-10-02 10:14:50','f','2023-11-06 10:54:50','f','2023-11-06 11:12:51','Gita','2023-11-06 10:54:50','f',1,0,0),(2,'4c85981c-265b-4ff3-9c9d-9ad26eb1c4bc','2023-11-06','mie',3,'5000','','2023-11-06 11:12:44','Gita','2023-11-06 11:12:59','Gita',NULL,'',NULL,'',0,0,1),(3,'3e187fec-8076-427b-913f-a9bfd95d655d','2023-11-09','Daging wagyu',3,'100000','','2023-11-09 09:08:13','ale',NULL,'',NULL,'',NULL,'',0,0,1);
+/*!40000 ALTER TABLE `laporan_pengeluaran` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -66,4 +64,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-15  9:28:09
+-- Dump completed on 2023-11-15  9:27:49

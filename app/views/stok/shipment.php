@@ -109,11 +109,6 @@
                                         <?php endforeach; ?>
                                     </td>
                                     <td class="align-middle text-sm text-center font-weight-bold mb-0">
-                                        <button
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="<?= $shipment['id']; ?>" 
-                                            class="btn bg-gradient-primary btn-md p-1 px-2 mb-0 tampilModalUbah">
-                                            <i class="bi bi-pencil"></i>
-                                        </button>
                                         <a href="<?= BASEURL ?>/shipment/delete/<?= $shipment['id'] ?>" 
                                             class="btn bg-gradient-dark btn-md  p-1 px-2 mb-0 align-middle acc-button"
                                             onclick="return confirm('Hapus data?')">
@@ -151,7 +146,7 @@
                     </div>
                     <div class="col-lg-4">
                         <label class="form-label" for="tanggal">Tanggal</label>
-                        <input type="date" class="form-control" name="tanggal" id="tanggal">
+                        <input type="date" class="form-control" name="tanggal" id="tanggal" value="<?= date('Y-m-d') ?>">
                     </div>
                     <div class="col-lg-4">
                         <label class="form-label" for="supplier_id">Supplier</label>
@@ -284,8 +279,6 @@
     </div>
 </div>
 
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="<?= BASEURL; ?>/js/datatables.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script src="<?= BASEURL ?>/js/custom/shipment.js"></script>

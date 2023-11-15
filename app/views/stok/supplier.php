@@ -11,7 +11,7 @@
                     <div class="col-lg-4">
                         <div class="d-flex justify-content-end">
                             <button class="btn bg-gradient-primary d-lg-block" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Tambah Data Supplier
+                                Tambah Data
                             </button>
                         </div>
                     </div>
@@ -66,9 +66,10 @@
                                         </p>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <a href="<?= BASEURL; ?>/supplier/update/<?= $supplier['id'] ?>" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="<?= $supplier['id']; ?>" class="btn bg-gradient-primary rounded-pill tampilModalUbah">
+                                        <button class="btn bg-gradient-primary rounded-pill tampilModalUbah" 
+                                            type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="<?= $supplier['id']; ?>">
                                             <i class="fa fa-pen"></i>
-                                        </a>
+                                        </button>
                                         <a href="<?= BASEURL; ?>/supplier/delete/<?= $supplier['id'] ?>" onclick="return confirm ('Hapus data?')" class="btn bg-gradient-dark rounded-pill">
                                             <i class="fa fa-trash"></i>
                                         </a>
@@ -119,14 +120,6 @@
         </div>
     </div>
 </div>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="<?= BASEURL; ?>/js/datatables.js"></script>
-<script>
-    const dataTableSearch = new simpleDatatables.DataTable("#datatable-basic", {
-        searchable: true,
-        fixedHeight: true
-    });
-</script>
 <script>
     $(function() {
         const BASEURL = window.location.href;
@@ -134,7 +127,8 @@
         $('.tombolTambahData').on('click', function() {
             $('modalLabel').html('Tambah Data')
             $('.modal-footer button[type=submit]').html('Tambah Data');
-
+            $(".modal-body form").attr("action", `${BASEURL}/insert`);
+            $(".modal-body form")[0].reset();
         });
 
         $(".tampilModalUbah").click(function() {
@@ -148,9 +142,7 @@
 
             $.ajax({
                 url: `${BASEURL}/getubah`,
-                data: {
-                    id: id
-                },
+                data: {id: id},
                 method: "post",
                 dataType: "json",
                 success: function(data) {

@@ -23,7 +23,7 @@ class Pesanan extends Controller
 		$data['user'] = $this->user;
 
         $data['menu'] = $this->model('Menu_model')->getAllData();
-        $data['kategori'] = $this->model('Kategori_model')->getAllData();
+        $data['kategori'] = $this->model('KategoriMenu_model')->getAllData();
         $data['pajak'] = $this->model('Preferences')->getPreference('Besar_Pajak_(%)');
 		
 		$this->view('penjualan/kasir', $data);

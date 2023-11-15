@@ -2,7 +2,7 @@
 
 use Ramsey\Uuid\Uuid;
 
-class Managekaryawan_model
+class Karyawan_model
 {
     protected $table = "karyawan";
     protected $fields = [
@@ -37,17 +37,6 @@ class Managekaryawan_model
             return [];
         }
     }
-	
-    // public function getAllEmail()
-    // {
-    //     try {
-    //         $this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1");
-	// 		$row = $this->db->fetchAll();
-	// 		$emailValue = $row["email"];
-    //     } catch (PDOException $e) {
-    //         return [];
-    //     }
-    // }
 
 	public function getDataById($id)
 	{
@@ -64,12 +53,25 @@ class Managekaryawan_model
 
     public function insert($data)
     {
-        $fields_query = ":nik, :nama, :tempat_lahir, :tgllahir, :jenis_kelamin, :alamat, :email, :no_telp, :foto, :jabatan, :statuss, :gaji";
+        $fields_query = "
+			:nik, 
+			:nama, 
+			:tempat_lahir, 
+			:tgllahir, 
+			:jenis_kelamin, 
+			:alamat, 
+			:email, 
+			:no_telp, 
+			:foto, 
+			:jabatan, 
+			:statuss, 
+			:gaji,
+		";
 
 		$this->db->query(
 			"INSERT INTO {$this->table} 
 			    VALUES
-			(null, :uuid, {$fields_query}, '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
+			(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, DEFAULT)"
 		);
 
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
@@ -149,8 +151,6 @@ class Managekaryawan_model
 				`deleted_at` = CURRENT_TIMESTAMP,
 				`deleted_by` = :deleted_by,
 				`is_deleted` = 1,
-				`is_restored` = 0,
-				`status` = 0
 			WHERE id = :id"
     	);
 

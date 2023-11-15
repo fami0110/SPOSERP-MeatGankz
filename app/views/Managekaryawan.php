@@ -11,7 +11,7 @@
                         <div class="col-lg-4 d-flex justify-content-end">
                             <button class="btn bg-gradient-primary d-lg-block mb-0" type="button" data-bs-toggle="modal"
                                 data-bs-target="#modalEditKaryawan">
-                                Tambah Data Karyawan
+                                Tambah Data
                             </button>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                                 </thead>
                                 <tbody>
                                     <?php $i = 1 ?>
-                                    <?php foreach ($data["Managekaryawan"] as $karyawan): ?>
+                                    <?php foreach ($data["karyawan"] as $karyawan): ?>
                                     <tr>
                                         <td class="text-center align-middle"><?= $i++ ?></td>
                                         <td class="text-center align-middle">

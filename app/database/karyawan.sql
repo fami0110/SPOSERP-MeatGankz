@@ -16,21 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `suratperingatan`
+-- Table structure for table `karyawan`
 --
 
-DROP TABLE IF EXISTS `suratperingatan`;
+DROP TABLE IF EXISTS `karyawan`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `suratperingatan` (
+CREATE TABLE `karyawan` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` varchar(36) NOT NULL,
-  `nama` varchar(200) NOT NULL,
-  `email` varchar(200) NOT NULL,
-  `jabatan` varchar(200) NOT NULL,
-  `alamat` varchar(200) NOT NULL,
-  `kesalahan` varchar(500) NOT NULL,
-  `sanksi` varchar(100) NOT NULL,
+  `nik` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `nama` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `tempat_lahir` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `tgllahir` date NOT NULL,
+  `jenis_kelamin` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `alamat` varchar(100) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `no_telp` varchar(20) NOT NULL,
+  `foto` varchar(100) DEFAULT NULL,
+  `jabatan` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `statuss` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `gaji` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `note` varchar(50) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` char(36) NOT NULL,
@@ -40,21 +46,21 @@ CREATE TABLE `suratperingatan` (
   `deleted_by` char(36) NOT NULL,
   `restored_at` datetime DEFAULT NULL,
   `restored_by` char(36) NOT NULL,
-  `is_deleted` tinyint(1) DEFAULT NULL,
-  `is_restored` tinyint(1) DEFAULT NULL,
-  `status` tinyint(1) GENERATED ALWAYS AS ((case when ((`is_deleted` = 0) and (`is_restored` = 0)) then 1 when ((`is_deleted` = 1) and (`is_restored` = 0)) then 0 when ((`is_deleted` = 0) and (`is_restored` = 1)) then 1 end)) STORED,
+  `is_deleted` tinyint(1) NOT NULL,
+  `is_restored` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `suratperingatan`
+-- Dumping data for table `karyawan`
 --
 
-LOCK TABLES `suratperingatan` WRITE;
-/*!40000 ALTER TABLE `suratperingatan` DISABLE KEYS */;
-INSERT INTO `suratperingatan` (`id`, `uuid`, `nama`, `email`, `jabatan`, `alamat`, `kesalahan`, `sanksi`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (6,'','sepuh benita','benitasepuh@gmail.com','sepuh','sepuh iya puh','terlalu sepuh ben','','',NULL,'',NULL,'',NULL,'',NULL,'',NULL,NULL),(7,'','memet','apasi@gmail.com','sepuh juga','jl.sepuh','terlalu sepuh mey','','',NULL,'',NULL,'',NULL,'',NULL,'',NULL,NULL),(9,'9d91b222-c5eb-4078-9f83-4b27fabd9bce','mang ea?','teampapathore@gmail.com','fgtf','bumi','banyak banget woilahh','dikeluarkan','','2023-11-06 08:47:24','Super Admin',NULL,'',NULL,'',NULL,'',0,0);
-/*!40000 ALTER TABLE `suratperingatan` ENABLE KEYS */;
+LOCK TABLES `karyawan` WRITE;
+/*!40000 ALTER TABLE `karyawan` DISABLE KEYS */;
+INSERT INTO `karyawan` VALUES (4,'9d19efcd-8f61-4d47-82fa-f882ce413421','3825698298','Meyla','Malang','2007-05-30','Perempuan','gadang','Meylakusuma07@gmail.com','0812345678910','6552d60c5aeb7.jpg','manager','Tetap','6587845678','','2023-11-09 10:30:09','ale',NULL,'','2023-11-09 10:58:12','ale',NULL,'',0,0,1);
+/*!40000 ALTER TABLE `karyawan` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -66,4 +72,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-15  9:28:09
+-- Dump completed on 2023-11-15  9:27:43

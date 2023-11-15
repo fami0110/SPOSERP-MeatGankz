@@ -125,8 +125,6 @@ class Keuangan_model
 				`deleted_at` = CURRENT_TIMESTAMP,
 				`deleted_by` = :deleted_by,
 				`is_deleted` = 1,
-				`is_restored` = 0,
-				`status` = 0
 			WHERE id = :id"
     	);
 

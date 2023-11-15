@@ -62,7 +62,7 @@
                         <div class="d-flex justify-content-end">
                             <button class="btn bg-gradient-primary mb-0 d-lg-block tombolTambahData" type="button" data-bs-toggle="modal"
                                 data-bs-target="#formModal">
-                                Tambah Data Menu
+                                Tambah Data
                             </button>
                         </div>
                     </div>

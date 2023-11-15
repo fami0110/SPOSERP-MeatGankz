@@ -27,7 +27,7 @@ CREATE TABLE `pembayaran` (
   `uuid` char(36) NOT NULL,
   `kasir` varchar(20) NOT NULL,
   `pelanggan` varchar(20) NOT NULL,
-  `nomor_telp` varchar(20) NOT NULL,
+  `nomor_telp` varchar(30) NOT NULL,
   `detail_pembayaran` json NOT NULL,
   `subtotal` int NOT NULL,
   `pajak` int NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE `pembayaran` (
   `is_restored` tinyint(1) NOT NULL,
   `status` tinyint(1) GENERATED ALWAYS AS ((case when ((`is_deleted` = 0) and (`is_restored` = 0)) then _utf8mb4'1' when ((`is_deleted` = 1) and (`is_restored` = 0)) then _utf8mb4'0' when ((`is_deleted` = 0) and (`is_restored` = 1)) then _utf8mb4'1' end)) STORED,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -59,7 +59,7 @@ CREATE TABLE `pembayaran` (
 
 LOCK TABLES `pembayaran` WRITE;
 /*!40000 ALTER TABLE `pembayaran` DISABLE KEYS */;
-INSERT INTO `pembayaran` (`id`, `uuid`, `kasir`, `pelanggan`, `nomor_telp`, `detail_pembayaran`, `subtotal`, `pajak`, `total`, `metode_pembayaran`, `kode_transaksi`, `bayar`, `kembali`, `status_order`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'3b6101e8-cd9e-471c-934f-7b00187665e9','Super Admin','sando lalala','08983419373','[{\"item\": \"Nasi Goreng\", \"amount\": \"1\", \"subtotal\": \"20000\"}, {\"item\": \"Spageti\", \"amount\": \"1\", \"subtotal\": \"16000\"}, {\"item\": \"Oreo Milkshake\", \"amount\": \"2\", \"subtotal\": \"32000\"}]',68000,1360,69360,'cash','',69360,0,0,'','2023-11-02 10:50:20','Super Admin',NULL,'',NULL,'',NULL,'',0,0);
+INSERT INTO `pembayaran` (`id`, `uuid`, `kasir`, `pelanggan`, `nomor_telp`, `detail_pembayaran`, `subtotal`, `pajak`, `total`, `metode_pembayaran`, `kode_transaksi`, `bayar`, `kembali`, `status_order`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'3b6101e8-cd9e-471c-934f-7b00187665e9','Super Admin','sando lalala','0','[{\"item\": \"Nasi Goreng\", \"amount\": \"1\", \"subtotal\": \"20000\"}, {\"item\": \"Spageti\", \"amount\": \"1\", \"subtotal\": \"16000\"}, {\"item\": \"Oreo Milkshake\", \"amount\": \"2\", \"subtotal\": \"32000\"}]',68000,1360,69360,'cash','',69360,0,0,'','2023-11-02 10:50:20','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(2,'7c05ea8e-70e7-40de-a76e-8db00ff39ef2','ale','mey','8123382520','[{\"item\": \"Nasi Goreng\", \"amount\": \"1\", \"subtotal\": \"20000\"}, {\"item\": \"Spageti\", \"amount\": \"1\", \"subtotal\": \"16000\"}, {\"item\": \"Australian Curried Sausages\", \"amount\": \"1\", \"subtotal\": \"50000\"}]',86000,8600,94600,'cash','',100000,5400,0,'','2023-11-09 08:33:52','ale',NULL,'',NULL,'',NULL,'',0,0);
 /*!40000 ALTER TABLE `pembayaran` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -72,4 +72,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-14 10:47:38
+-- Dump completed on 2023-11-15  9:27:55

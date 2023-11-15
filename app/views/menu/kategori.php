@@ -12,7 +12,7 @@
                     <div class="col-sm-4">
                         <div class="d-flex justify-content-end">
                             <button class="btn bg-gradient-primary d-lg-block mb-0" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Tambah Data Kategori
+                                Tambah Data
                             </button>
                         </div>
                     </div>
