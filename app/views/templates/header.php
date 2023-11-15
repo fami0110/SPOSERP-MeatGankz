@@ -27,10 +27,6 @@
         <?= $data['title'] ?>
     </title>
     <style>
-        .async-hide {
-            opacity: 0 !important
-        }
-
         .animation-card {
             position: relative;
             display: flex;
@@ -135,76 +131,14 @@
         .page-link {
             color: white;
         }
+
+        #ofBar {
+            display: none;
+        }
     </style>
-    <script>
-        (function (a, s, y, n, c, h, i, d, e) {
-            s.className += ' ' + y;
-            h.start = 1 * new Date;
-            h.end = i = function () {
-                s.className = s.className.replace(RegExp(' ?' + y), '')
-            };
-            (a[n] = a[n] || []).hide = h;
-            setTimeout(function () {
-                i();
-                h.end = null
-            }, c);
-            h.timeout = c;
-        })(window, document.documentElement, 'async-hide', 'dataLayer', 4000, {
-            'GTM-K9BGS8K': true
-        });
-    </script>
-
-    <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-        ga('create', 'UA-46172202-22', 'auto', {
-            allowLinker: true
-        });
-        ga('set', 'anonymizeIp', true);
-        ga('require', 'GTM-K9BGS8K');
-        ga('require', 'displayfeatures');
-        ga('require', 'linker');
-        ga('linker:autoLink', ["2checkout.com", "avangate.com"]);
-    </script>
-
-
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start': new Date().getTime(),
-                event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NKDMSK6');
-    </script>
-
-
-
-    <script defer data-site="demos.creative-tim.com" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
-
-
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-
     <aside
         class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 no-print"
         id="sidenav-main">
@@ -349,6 +283,14 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="<?= BASEURL; ?>/finance">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                            <div class="fa fa-building-columns text-icon" style="width: 12px; height: 12px; font-size: 12px; color: #3a416d;"></div>
+                        </div>
+                        <span class="nav-link-text ms-1">Finance</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#ecommerceExamples" class="nav-link "
                         aria-controls="ecommerceExamples" role="button" aria-expanded="false">
                         <div
@@ -383,12 +325,12 @@
                                     <span class="sidenav-normal"> Penjualan Harian</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" href="<?= BASEURL; ?>/pengeluaran">
                                     <span class="sidenav-mini-icon"> P </span>
                                     <span class="sidenav-normal"> Pengeluaran</span>
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
                                 <a class="nav-link" href="<?= BASEURL; ?>/keuangan">
                                     <span class="sidenav-mini-icon"> K </span>
@@ -434,6 +376,12 @@
                     <div class="collapse " id="authExamples">
                         <ul class="nav ms-4 ps-3">
                             <li class="nav-item">
+                                <a class="nav-link" href="<?= BASEURL; ?>/jabatan">
+                                    <span class="sidenav-mini-icon"> M </span>
+                                    <span class="sidenav-normal">Manage Jabatan</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="<?= BASEURL; ?>/manageKaryawan">
                                     <span class="sidenav-mini-icon"> M </span>
                                     <span class="sidenav-normal">Manage Karyawan</span>
@@ -443,6 +391,12 @@
                                 <a class="nav-link" href="<?= BASEURL; ?>/suratPeringatan">
                                     <span class="sidenav-mini-icon"> S </span>
                                     <span class="sidenav-normal">Surat Peringatan</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= BASEURL; ?>/penggajian">
+                                    <span class="sidenav-mini-icon"> P </span>
+                                    <span class="sidenav-normal">Penggajian</span>
                                 </a>
                             </li>
                         </ul>

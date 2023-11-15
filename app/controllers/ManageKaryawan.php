@@ -8,6 +8,7 @@ class Managekaryawan extends Controller
     {
         $this->auth('user');
 
+
         $data['title'] = 'Manage Karyawan';
         $data['user'] = $this->user;
         $manageModel = $this->model('Managekaryawan_model');
