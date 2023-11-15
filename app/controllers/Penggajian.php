@@ -1,49 +1,44 @@
 <?php
 
-class penggajian extends Controller
+class Penggajian extends Controller
 {
+    protected $model_name = 'Karyawan_model';
+
     public function index()
     {
 		$this->auth('user');
 
         $data['title'] = 'Penggajian';
 		$data['user'] = $this->user;
+
+        $data['karyawan'] = $this->model($this->model_name)->getAllData();
         $data['surat'] = $this->model('SuratPeringatan_model')->getAllData();
         $data['kategori'] = $this->model('KategoriSP_model')->getAllData();
-        $data['Managekaryawan'] = $this->model('Managekaryawan_model')->getAllData();
         
-        $this->view('penggajian', $data);
+        $this->view('karyawan/penggajian', $data);
     }
-    public function print($id)
-    {
-        $data['title'] = 'Penggajian';
-		$data['user'] = $this->user;
-        $data['surat'] = $this->model('SuratPeringatan_model')->getDataById($id);
-        $data['Managekaryawan'] = $this->model('Managekaryawan_model')->getAllData();
 
-        $this->view('printSuratPeringatan', $data);
-    }
     public function tambah()
     {
-        if ($this->model('SuratPeringatan_model')->insert($_POST) > 0) {
+        if ($this->model($this->model_name)->insert($_POST) > 0) {
             Flasher::setFlash('Insert <b>SUCCESS</b>', 'success');
-            header("Location: " . BASEURL . "/suratPeringatan");
+            header("Location: " . BASEURL . "/Penggajian");
             exit;
         } else {
             Flasher::setFlash('Insert <b>FAILED</b>', 'danger');
-            header('Location: ' . BASEURL . '/suratPeringatan');
+            header('Location: ' . BASEURL . '/Penggajian');
             exit;
         }
     }
     public function delete($id)
     {
-        if ($this->model('SuratPeringatan_model')->hapusDataSurat($id) > 0) {
+        if ($this->model($this->model_name)->hapusDataSurat($id) > 0) {
             Flasher::setFlash('Delete <b>SUCCESS</b>', 'success');
-            header("Location: " . BASEURL . "/supplier");
+            header("Location: " . BASEURL . "/Penggajian");
             exit;
         } else {
             Flasher::setFlash('Delete <b>FAILED</b>', 'danger');
-            header('Location: ' . BASEURL . '/supplier');
+            header('Location: ' . BASEURL . '/Penggajian');
             exit;
         }
     }

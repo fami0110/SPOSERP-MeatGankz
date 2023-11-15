@@ -12,6 +12,7 @@ class Karyawan extends Controller
         $data['user'] = $this->user;
 
         $data['karyawan'] = $this->model($this->model_name)->getAllData();
+        $data['jabatan'] = $this->model("Jabatan_model")->getAllData();
 
         $this->view('karyawan/index', $data);
     }
@@ -24,8 +25,9 @@ class Karyawan extends Controller
         $data['user'] = $this->user;
 
         $data['karyawan'] = $this->model($this->model_name)->getDataById($id);
+        $data['jabatan'] = $this->model("Jabatan_model")->getAllData();
 
-        $this->view('karyawan/detailKaryawan', $data);
+        $this->view('karyawan/detail', $data);
     }
 
 

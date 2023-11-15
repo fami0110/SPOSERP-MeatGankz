@@ -10,19 +10,20 @@ class Jabatan extends Controller
 
 		$data['title'] = 'Jabatan';
 		$data['user'] = $this->user;
+
         $data['jabatan'] = $this->model('Jabatan_model')->getAllData();
 		
-		$this->view('jabatan', $data);
+		$this->view('karyawan/jabatan', $data);
 	}
 
     public function insert()
     {
         if ($this->model('Jabatan_model')->insert($_POST) > 0) {
-            Flasher::setFlash('Insert <b>SUCCESS</b>', 'success');
+            Flasher::setFlash('Insert&nbsp<b>SUCCESS</b>', 'success');
 			header("Location: " . BASEURL . "/jabatan");
             exit;
         } else {
-            Flasher::setFlash('Insert <b>FAILED</b>', 'danger');
+            Flasher::setFlash('Insert&nbsp<b>FAILED</b>', 'danger');
             header('Location: ' . BASEURL . '/jabatan');
             exit;
         }
@@ -31,11 +32,11 @@ class Jabatan extends Controller
     public function delete($id)
     {
         if ($this->model('Jabatan_model')->delete($id) > 0) {
-            Flasher::setFlash('Delete <b>SUCCESS</b>', 'success');
+            Flasher::setFlash('Delete&nbsp<b>SUCCESS</b>', 'success');
             header('Location: ' . BASEURL . '/jabatan');
             exit;
         } else {
-            Flasher::setFlash('Delete <b>FAILED</b>', 'danger');
+            Flasher::setFlash('Delete&nbsp<b>FAILED</b>', 'danger');
             header('Location: ' . BASEURL . '/jabatan');
             exit;
         }
@@ -43,15 +44,12 @@ class Jabatan extends Controller
 
 	public function update()
     {
-        $id = $_POST['id']; 
-        $data = $_POST; 
-
-        if ($this->model('Jabatan_model')->update($id, $data) > 0) {
-            Flasher::setFlash('Update <b>SUCCESS</b>', 'success');
+        if ($this->model('Jabatan_model')->update($_POST['id'], $_POST) > 0) {
+            Flasher::setFlash('Update&nbsp<b>SUCCESS</b>', 'success');
             header('Location: ' . BASEURL . '/jabatan');
             exit;
         } else {
-            Flasher::setFlash('Update <b>FAILED</b>', 'danger');
+            Flasher::setFlash('Update&nbsp<b>FAILED</b>', 'danger');
             header('Location: ' . BASEURL . '/jabatan');
             exit;
         }

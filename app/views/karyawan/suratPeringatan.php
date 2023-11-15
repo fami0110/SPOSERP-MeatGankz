@@ -1,5 +1,15 @@
 <?php Get::view('templates/header', $data) ?>
 
+<?php 
+    foreach ($data['kategoriSP'] as $item) {
+        $kategoriSP[$item['id']] = $item['nama'];
+    }
+
+    foreach ($data['jabatan'] as $item) {
+        $jabatan[$item['id']] = $item['nama'];
+    }
+?>
+
 <div class="row">
     <div class="col-12">
         <div class="card mb-4 ">
@@ -33,60 +43,40 @@
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        No</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Kategori SP</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Nama Karyawan</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Jabatan</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Kesalahan</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Sanksi</th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Aksi
-                                    </th>
-
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $i = 1; ?>
                                 <?php foreach ($data['surat'] as $surat): ?>
                                     <tr>
+                                        <td class="align-middle text-center">
+                                            <?= $i++ ?>
+                                        </td>
                                         <td class="align-middle">
                                             <p class="text-sm text-center font-weight-bold mb-0 text-wrap">
-                                                <?php 
-                                                    $kategori = '-';
-                                                    
-                                                    foreach ($data['kategori'] as $kategoriSP) {
-                                                        if ($kategoriSP['id'] == $surat['kategori']) {
-                                                            $kategori = $kategoriSP['nama']; break;
-                                                        }   
-                                                    }
-
-                                                    echo $kategori;
-                                                ?>
+                                                <?= $kategoriSP[$surat['kategorisp_id']] ?>
                                             </p>
                                         </td>
                                         <td class="align-middle">
                                             <div class="d-flex px-2 align-middle">
                                                 <div class="d-flex flex-column justify-content-center align-middle">
                                                     <h6 class="mb-0 text-sm">
-                                                        <?php 
-                                                            $kategori = '-';
-                                                            
-                                                            foreach ($data['Managekaryawan'] as $karyawan) {
-                                                                if ($karyawan['id'] == $surat['nama']) {
-                                                                    $kategori = $karyawan['nama']; break;
-                                                                }   
-                                                            }
-
-                                                            echo $kategori;
-                                                        ?>
+                                                        <?= $surat['nama'] ?>
                                                     </h6>
-                                                    <p class="text-xs text-secondary mb-0">
+                                                    <p class="text-xs text-secondary mb-0 pb-0">
                                                         <?= $surat['email'] ?>
                                                     </p>
                                                 </div>
@@ -188,8 +178,12 @@
                             <div class="input-group">
                                 <select class="form-select" id="nama" placeholder="Tambah Nama Karyawan..." name="nama">
                                     <option value="">--Pilih Karyawan--</option>
-                                    <?php foreach ($data['Managekaryawan'] as $karyawan): ?>
-                                        <option value="<?= $karyawan['id'] ?>" data-email="<?= $karyawan['email'] ?>" data-jabatan="<?= $karyawan['jabatan'] ?>" data-alamat="<?= $karyawan['alamat'] ?>"><?= $karyawan['nama'] ?></option>
+                                    <?php foreach ($data['karyawan'] as $karyawan): ?>
+                                        <option value="<?= $karyawan['nama'] ?>"
+                                            data-email="<?= $karyawan['email'] ?>"
+                                            data-jabatan="<?= $jabatan[$karyawan['jabatan_id']] ?>"
+                                            data-alamat="<?= $karyawan['alamat'] ?>"
+                                        ><?= $karyawan['nama'] ?></option>
                                     <?php endforeach ?>
                                 </select>
                             </div>
@@ -243,17 +237,12 @@
     </div>
 </div>
 
-<!-- <script src="https://code.jquery.com/jquery-3.7.0.js"></script> -->
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script> -->
-<!-- <script src="<?= BASEURL; ?>/js/datatables.js"></script> -->
-
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     $(document).ready(function () {
         $('#nama').change(function () {
             // Get the selected employee's information
             var selectedEmployee = $(this).find(':selected');
+            console.log(selectedEmployee);
             var selectedEmail = selectedEmployee.data('email');
             var selectedJabatan = selectedEmployee.data('jabatan');
             var selectedAlamat = selectedEmployee.data('alamat');
@@ -269,24 +258,19 @@
 <script>
     $(function () {
         const BASEURL = window.location.href;
-        $('.tombolTambahData').on('click', function () {
+        console.log(BASEURL);
 
+        $('.tombolTambahData').on('click', function () {
             $('#exampleModalLabel').html('Tambah Data');
-            $('.modal-body form').attr('action', `${BASEURL}/tambah`);
             $('.modal-footer button[type=submit]').html('Tambah Data');
-            // $('#nama').val('');
-            // $('#email').val('');
-            // $('#jabatan').val('');
-            // $('#alamat').val('');
-            // $('#kesalahan').val('');
-            // $('#id').val('');
+            $('.modal-body form').attr('action', `${BASEURL}/insert`);
+            $('.modal-body form')[0].reset();
         });
 
         $('.tampilModalUbah').on('click', function () {
-            // console.log('ok');
             $('#exampleModalLabel').html('Ubah Data');
             $('.modal-footer button[type=submit]').html('Ubah Data');
-            $('.modal-body form').attr('action', `${BASEURL}/ubah`);
+            $('.modal-body form').attr('action', `${BASEURL}/update`);
 
             const id = $(this).data('id');
 
@@ -296,24 +280,17 @@
                 method: 'post',
                 dataType: 'json',
                 success: function (data) {
-
                     $('#nama').val(data.nama);
                     $('#email').val(data.email);
                     $('#jabatan').val(data.jabatan);
                     $('#alamat').val(data.alamat);
                     $('#kesalahan').val(data.kesalahan);
                     $('#id').val(data.id);
-                    // console.log($data);
+                    console.log($data);
                 }
             });
         });
 
-    });
-</script>
-<script>
-    const dataTableSearch = new simpleDatatables.DataTable(".table", {
-        searchable: true,
-        fixedHeight: true
     });
 </script>
 

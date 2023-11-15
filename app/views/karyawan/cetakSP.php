@@ -83,67 +83,38 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <h4><strong>Nama Perusahaan</strong></h4>
-                    <p class="mb-0">Alamat Perusahaan: Jl. Contoh No. 123, Kota Contoh</p>
-                    <p class="mb-4">Telp: (123) 456-7890</p>
+                    <h4><strong><?= Get::model('Preferences')->getPreference('Nama_Perusahaan') ?></strong></h4>
+                    <p class="mb-0">Alamat Perusahaan: <?= Get::model('Preferences')->getPreference('Alamat_Perusahaan') ?></p>
+                    <p class="mb-4">Telp: <?= Get::model('Preferences')->getPreference('No_Telp_Perusahaan') ?></p>
                     <p class="mb-0"><strong>Surat Peringatan</strong></p>
-                    <p class="mb-5">No: SP/001/11/2023</p>
+                    <p class="mb-5">No: SP/<?= date('Y') ?>/<?= date('m') ?>/<?= date('d') ?>/<?= $data['id'] ?></p>
                 </div>
-                <p class="mb-0">Surat ini Ditujukan Kepada:</p>
-                <p class="mb-0">
-                    Nama:
-                        <?php 
-                            $kategori = '-';
-                            
-                            foreach ($data['Managekaryawan'] as $karyawan) {
-                                if ($karyawan['id'] == $data['surat']['nama']) {
-                                    $kategori = $karyawan['nama']; break;
-                                }   
-                            }
-
-                            echo $kategori;
-                        ?>
-                </p>
-                <p class="mb-0">
-                    Jabatan:
-                    <?= $data['surat']['jabatan'] ?>
-                </p>
-                <p class="mb-3">
-                    Alamat:
-                    <?= $data['surat']['alamat'] ?>
-                </p>
-                <p class="mb-3" style="text-align: justify;">
+                <p class="mb-3">Surat ini Ditujukan Kepada:</p>
+                <ul class="p-0" style="list-style-position: inside;">
+                    <li class="mb-0">
+                        Nama: <?= $data['surat']['nama'] ?>
+                    </li>
+                    <li class="mb-0">
+                        Jabatan: <?= $data['surat']['jabatan'] ?>
+                    </li>
+                    <li class="mb-3">
+                        Alamat: <?= $data['surat']['alamat'] ?>
+                    </li>
+                </ul>
+                <p class="mb-3" style="text-align: justify; text-indent: 2rem;">
                     Kami ingin menegaskan bahwa tindakan ini melanggar kebijakan perusahaan, yaitu <strong><?= $data['surat']['kesalahan']; ?></strong> dan berpotensi mengakibatkan
                     tindakan disiplin yang lebih lanjut. Kami mengharapkan Anda untuk segera memperbaiki perilaku Anda
                     guna menghindari tindakan lebih lanjut yang mungkin diperlukan. Sesuai dengan peraturan perusahaan yang
                     berlaku, kami akan menerapkan sanksi berupa <strong><?= $data['surat']['sanksi']; ?></strong>. Dengan pemberlakuan sanksi ini, kami berharap agar Saudara
-                    <?php 
-                            $kategori = '-';
-                            
-                            foreach ($data['Managekaryawan'] as $karyawan) {
-                                if ($karyawan['id'] == $data['surat']['nama']) {
-                                    $kategori = $karyawan['nama']; break;
-                                }   
-                            }
-
-                            echo $kategori;
-                        ?>
+                    <?= $data['surat']['nama'] ?>
                     dapat menghindari tindakan yang serupa di masa depan.
                 </p>    
                 <p class="mb-5">
                     Demikian surat peringatan ini dibuat untuk dijadikan bahan introspeksi. Atas perhatiannya, kami
                     mengucapkan terima kasih.
                 </p>
-                <p class="mb-0">Malang,
-                    <script>
-                        const waktuSekarang = new Date();
-                        const tanggal = waktuSekarang.getDate();
-                        const bulan = waktuSekarang.toLocaleString('default', { month: 'long' });
-                        const tahun = waktuSekarang.getFullYear();
-
-                        const hasil = `${tanggal} ${bulan} ${tahun}`;
-                        document.write(hasil);
-                    </script>
+                <p class="mb-0">
+                    Malang, <?= date('d F Y') ?>
                 </p>
                 <p class="mb-7">Manajemen Perusahaan,</p>
                 <p>Siapa wes</p>
@@ -151,10 +122,9 @@
         </page>
     </div>
 </div>
-<script src="<?= BASEURL; ?>/js/jquery-1.10.2.js"></script>
 
 <script>
-    jQuery(document).ready(function () {
+    $(document).ready(function () {
         // initiate layout and plugins
         $("#actprint").click(function () {
             window.print();

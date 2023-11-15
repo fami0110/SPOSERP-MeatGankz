@@ -383,7 +383,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="<?= BASEURL; ?>/manageKaryawan">
+                                <a class="nav-link" href="<?= BASEURL; ?>/karyawan">
                                     <span class="sidenav-mini-icon"> M </span>
                                     <span class="sidenav-normal">Manage Karyawan</span>
                                 </a>

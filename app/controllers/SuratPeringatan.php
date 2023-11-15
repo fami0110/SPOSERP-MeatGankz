@@ -1,6 +1,6 @@
 <?php
 
-class suratPeringatan extends Controller
+class SuratPeringatan extends Controller
 {
     protected $model_name = 'SuratPeringatan_model';
 
@@ -12,32 +12,36 @@ class suratPeringatan extends Controller
 		$data['user'] = $this->user;
 
         $data['surat'] = $this->model($this->model_name)->getAllData();
-        $data['kategori'] = $this->model('KategoriSP_model')->getAllData();
-        $data['Managekaryawan'] = $this->model('Karyawan_model')->getAllData();
+        $data['kategoriSP'] = $this->model('KategoriSP_model')->getAllData();
+        $data['karyawan'] = $this->model('Karyawan_model')->getAllData();
+        $data['jabatan'] = $this->model("Jabatan_model")->getAllData();
 
-        $this->view('suratPeringatan', $data);
+        $this->view('karyawan/suratperingatan', $data);
     }
 
     public function print($id)
     {
+        $this->auth('user');
+        
         $data['title'] = 'Surat Peringatan';
 		$data['user'] = $this->user;
 
+        $data['id'] = $id;
         $data['surat'] = $this->model($this->model_name)->getDataById($id);
-        $data['Managekaryawan'] = $this->model('Karyawan_model')->getAllData();
+        $data['karyawan'] = $this->model('Karyawan_model')->getAllData();
 
-        $this->view('karyawan/printSuratPeringatan', $data);
+        $this->view('karyawan/cetakSP', $data);
     }
 
     public function tambah()
     {
         if ($this->model($this->model_name)->insert($_POST) > 0) {
             Flasher::setFlash('Insert <b>SUCCESS</b>', 'success');
-            header("Location: " . BASEURL . "/suratPeringatan");
+            header("Location: " . BASEURL . "/suratperingatan");
             exit;
         } else {
             Flasher::setFlash('Insert <b>FAILED</b>', 'danger');
-            header('Location: ' . BASEURL . '/suratPeringatan');
+            header('Location: ' . BASEURL . '/suratperingatan');
             exit;
         }
     }
@@ -45,11 +49,11 @@ class suratPeringatan extends Controller
     {
         if ($this->model($this->model_name)->hapusDataSurat($id) > 0) {
             Flasher::setFlash('Delete <b>SUCCESS</b>', 'success');
-            header("Location: " . BASEURL . "/supplier");
+            header("Location: " . BASEURL . "/suratperingatan");
             exit;
         } else {
             Flasher::setFlash('Delete <b>FAILED</b>', 'danger');
-            header('Location: ' . BASEURL . '/supplier');
+            header('Location: ' . BASEURL . '/suratperingatan');
             exit;
         }
     }
@@ -63,11 +67,11 @@ class suratPeringatan extends Controller
     {
         if ($this->model($this->model_name)->update($_POST['id'], $_POST) > 0) {
             Flasher::setFlash('Update <b>SUCCESS</b>', 'success');
-            header('Location: ' . BASEURL . '/supplier');
+            header('Location: ' . BASEURL . '/suratperingatan');
             exit;
         } else {
             Flasher::setFlash('Update <b>FAILED</b>', 'danger');
-            header('Location: ' . BASEURL . '/supplier');
+            header('Location: ' . BASEURL . '/suratperingatan');
             exit;
         }
     }
@@ -77,6 +81,6 @@ class suratPeringatan extends Controller
         $data['judul'] = 'SURAT PERINGATAN';
 		$data['user'] = $this->user;
         $data['surat'] = $this->model($this->model_name)->cariDataSurat();
-		$this->view('suratPeringatan', $data);
+		$this->view('suratperingatan', $data);
     }
 }

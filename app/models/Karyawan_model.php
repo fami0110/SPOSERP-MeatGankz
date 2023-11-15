@@ -14,8 +14,8 @@ class Karyawan_model
         'alamat',
         'email',
         'no_telp',
-        'jabatan',
-        'statuss',
+        'jabatan_id',
+        'status_karyawan',
         'gaji'
     ];
     protected $user;
@@ -63,8 +63,8 @@ class Karyawan_model
 			:email, 
 			:no_telp, 
 			:foto, 
-			:jabatan, 
-			:statuss, 
+			:jabatan_id, 
+			:status_karyawan, 
 			:gaji,
 		";
 
@@ -98,8 +98,8 @@ class Karyawan_model
 			email = :email,
 			no_telp = :no_telp,
 			foto = :foto,
-            jabatan = :jabatan,
-			statuss = :statuss,
+            jabatan_id = :jabatan_id,
+			status_karyawan = :status_karyawan,
             gaji = :gaji,
 		";
 

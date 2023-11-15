@@ -6,7 +6,7 @@ class SuratPeringatan_model
 {
 	protected $table = "suratperingatan";
 	protected $fields = [
-        'kategori',
+        'kategorisp_id',
         'nama',
         'email',
         'jabatan',
@@ -50,7 +50,7 @@ public function getLatestData()
 
 	public function insert($data)
 	{
-		$fields_query = ":kategori, :nama, :email, :jabatan, :alamat, :kesalahan, :sanksi,";
+		$fields_query = ":kategorisp_id, :nama, :email, :jabatan, :alamat, :kesalahan, :sanksi,";
 
 		$this->db->query(
 				"INSERT INTO {$this->table} 
@@ -70,7 +70,7 @@ public function getLatestData()
 	public function update($id, $data)
 	{
 		$fields_query = "
-			kategori = :kategori,
+			kategorisp_id = :kategorisp_id,
 			nama = :nama,
 			email = :email,
 			jabatan = :jabatan,
