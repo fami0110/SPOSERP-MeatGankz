@@ -8,10 +8,11 @@ class Logout extends Controller
 	{
 		$this->auth('user');
 
-		if ($this->model($this->model_name)->logout($this->user['id']) > 0) {
+		try {
+			$this->model($this->model_name)->logout($this->user['id']);
 			Cookie::delete_jwt();
 			Flasher::setFlash('Logout&nbsp<b>SUCCESS</b>', 'success');
-		} else {
+		} catch (Exception) {
 			Flasher::setFlash('<b>FAILED</b> to logout. Try again later.', 'danger');
 		}
 		header("Location: " . BASEURL);

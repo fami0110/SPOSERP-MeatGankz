@@ -34,8 +34,8 @@ CREATE TABLE `karyawan` (
   `email` varchar(50) NOT NULL,
   `no_telp` varchar(20) NOT NULL,
   `foto` varchar(100) DEFAULT NULL,
-  `jabatan` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `statuss` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `jabatan_id` int NOT NULL,
+  `status_karyawan` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `gaji` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `note` varchar(50) NOT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -48,9 +48,9 @@ CREATE TABLE `karyawan` (
   `restored_by` char(36) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL,
   `is_restored` tinyint(1) NOT NULL,
-  `status` tinyint(1) NOT NULL,
+  `status` tinyint(1) GENERATED ALWAYS AS ((case when ((`is_deleted` = 0) and (`is_restored` = 0)) then 1 when ((`is_deleted` = 1) and (`is_restored` = 0)) then 0 when ((`is_deleted` = 0) and (`is_restored` = 1)) then 1 end)) STORED NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -59,7 +59,7 @@ CREATE TABLE `karyawan` (
 
 LOCK TABLES `karyawan` WRITE;
 /*!40000 ALTER TABLE `karyawan` DISABLE KEYS */;
-INSERT INTO `karyawan` VALUES (4,'9d19efcd-8f61-4d47-82fa-f882ce413421','3825698298','Meyla','Malang','2007-05-30','Perempuan','gadang','Meylakusuma07@gmail.com','0812345678910','6552d60c5aeb7.jpg','manager','Tetap','6587845678','','2023-11-09 10:30:09','ale',NULL,'','2023-11-09 10:58:12','ale',NULL,'',0,0,1);
+INSERT INTO `karyawan` (`id`, `uuid`, `nik`, `nama`, `tempat_lahir`, `tgllahir`, `jenis_kelamin`, `alamat`, `email`, `no_telp`, `foto`, `jabatan_id`, `status_karyawan`, `gaji`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (6,'e824fd89-2429-4ef1-b800-c00690cc0765','3825698298','Masando Fami Ramadhan','Malang','2006-01-10','Laki-laki','Jalan-jalan','masandofami@gmail.com','08983419373','65550105b1e94.jpg',4,'Kontrak','1200000','','2023-11-16 00:24:33','Super Admin','2023-11-16 00:33:57','Super Admin',NULL,'',NULL,'',0,0);
 /*!40000 ALTER TABLE `karyawan` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -72,4 +72,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-15  9:27:43
+-- Dump completed on 2023-11-16  1:12:41

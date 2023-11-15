@@ -29,7 +29,7 @@ class Controller
                     header('Location: '. BASEURL .'/login');
                     exit;
                 } elseif ($role && $role != $this->user['role']) {
-                    header('Location: '. BASEURL .'/forbidden');
+                    header('Location: '. BASEURL .'/http/forbidden');
                     exit;
                 }
                 break;

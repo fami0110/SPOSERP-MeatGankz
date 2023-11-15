@@ -65,7 +65,7 @@ class Migrate extends Controller
 	public function import($target)
 	{
 		try {
-			$mysqldump = explode('www', $_SERVER['DOCUMENT_ROOT'], 2)[0] . "bin/mysql/mysql-8.0.30-winx64/bin/mysqldump";
+			$mysqldump = explode('/public', $_SERVER['DOCUMENT_ROOT'], 2)[0] . '/core/mysqldump';
 			$sqlFilePath = "{$this->folderPath}/{$target}";
 
 			$command = ($target == 'database') ? 

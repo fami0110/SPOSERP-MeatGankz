@@ -40,7 +40,7 @@ CREATE TABLE `jabatan` (
   `is_restored` tinyint(1) NOT NULL,
   `status` tinyint(1) GENERATED ALWAYS AS ((case when ((`is_deleted` = 0) and (`is_restored` = 0)) then 1 when ((`is_deleted` = 1) and (`is_restored` = 0)) then 0 when ((`is_deleted` = 0) and (`is_restored` = 1)) then 1 end)) STORED NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +49,7 @@ CREATE TABLE `jabatan` (
 
 LOCK TABLES `jabatan` WRITE;
 /*!40000 ALTER TABLE `jabatan` DISABLE KEYS */;
-INSERT INTO `jabatan` (`id`, `uuid`, `nama`, `gaji`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'cb8a23dd-c3ba-4270-bfa8-08bc1bba1f1d','Manager',3000000,'','2023-11-10 09:38:27','ale',NULL,'',NULL,'',NULL,'',0,0),(2,'c82ab4af-a002-490d-8ac2-7630b82b82eb','Kasir',1500000,'','2023-11-10 09:39:30','ale',NULL,'',NULL,'',NULL,'',0,0),(3,'17aa3f2f-8e88-4e6d-8ae9-0d7ac6738d92','HR',2000000,'','2023-11-10 09:41:47','ale',NULL,'',NULL,'',NULL,'',0,0);
+INSERT INTO `jabatan` (`id`, `uuid`, `nama`, `gaji`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'cb8a23dd-c3ba-4270-bfa8-08bc1bba1f1d','Manager',3000000,'','2023-11-10 09:38:27','ale',NULL,'',NULL,'',NULL,'',0,0),(2,'c82ab4af-a002-490d-8ac2-7630b82b82eb','Kasir',1500000,'','2023-11-10 09:39:30','ale',NULL,'',NULL,'',NULL,'',0,0),(3,'17aa3f2f-8e88-4e6d-8ae9-0d7ac6738d92','HR',2000000,'','2023-11-10 09:41:47','ale',NULL,'',NULL,'',NULL,'',0,0),(4,'68373e87-3c22-49b4-9934-362c99ce7834','Karyawan',1200000,'','2023-11-16 00:07:42','Super Admin',NULL,'',NULL,'',NULL,'',0,0);
 /*!40000 ALTER TABLE `jabatan` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -62,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-15  9:53:49
+-- Dump completed on 2023-11-16  1:12:38

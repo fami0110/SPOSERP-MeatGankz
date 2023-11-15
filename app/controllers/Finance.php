@@ -1,6 +1,6 @@
 <?php
 
-class finance extends Controller
+class Finance extends Controller
 {
 	protected $model_name = 'Pembayaran_model';
 

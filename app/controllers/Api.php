@@ -11,14 +11,14 @@ class Api extends Controller
 			header('Access-Control-Allow-Origin: *');
 			header('Content-Type: application/json');
 		} else {
-			header('Location: '. BASEURL .'/forbidden');
+			header('Location: '. BASEURL .'/http/forbidden');
 			exit;
 		}
 	}
 
 	public function index()
 	{
-		header('Location: '. BASEURL .'/forbidden');
+		header('Location: '. BASEURL .'/http/forbidden');
 		exit;
 	}
 
