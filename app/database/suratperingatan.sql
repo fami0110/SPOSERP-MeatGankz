@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `suratperingatan`;
 CREATE TABLE `suratperingatan` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` varchar(36) NOT NULL,
+  `kategori` int NOT NULL,
   `nama` varchar(200) NOT NULL,
   `email` varchar(200) NOT NULL,
   `jabatan` varchar(200) NOT NULL,
@@ -44,7 +45,7 @@ CREATE TABLE `suratperingatan` (
   `is_restored` tinyint(1) DEFAULT NULL,
   `status` tinyint(1) GENERATED ALWAYS AS ((case when ((`is_deleted` = 0) and (`is_restored` = 0)) then 1 when ((`is_deleted` = 1) and (`is_restored` = 0)) then 0 when ((`is_deleted` = 0) and (`is_restored` = 1)) then 1 end)) STORED,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,7 +54,7 @@ CREATE TABLE `suratperingatan` (
 
 LOCK TABLES `suratperingatan` WRITE;
 /*!40000 ALTER TABLE `suratperingatan` DISABLE KEYS */;
-INSERT INTO `suratperingatan` (`id`, `uuid`, `nama`, `email`, `jabatan`, `alamat`, `kesalahan`, `sanksi`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (6,'','sepuh benita','benitasepuh@gmail.com','sepuh','sepuh iya puh','terlalu sepuh ben','','',NULL,'',NULL,'',NULL,'',NULL,'',NULL,NULL),(7,'','memet','apasi@gmail.com','sepuh juga','jl.sepuh','terlalu sepuh mey','','',NULL,'',NULL,'',NULL,'',NULL,'',NULL,NULL),(9,'9d91b222-c5eb-4078-9f83-4b27fabd9bce','mang ea?','teampapathore@gmail.com','fgtf','bumi','banyak banget woilahh','dikeluarkan','','2023-11-06 08:47:24','Super Admin',NULL,'',NULL,'',NULL,'',0,0);
+INSERT INTO `suratperingatan` (`id`, `uuid`, `kategori`, `nama`, `email`, `jabatan`, `alamat`, `kesalahan`, `sanksi`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (6,'',0,'sepuh benita','benitasepuh@gmail.com','sepuh','sepuh iya puh','terlalu sepuh ben','','',NULL,'',NULL,'',NULL,'',NULL,'',NULL,NULL),(7,'',0,'memet','apasi@gmail.com','sepuh juga','jl.sepuh','terlalu sepuh mey','','',NULL,'',NULL,'',NULL,'',NULL,'',NULL,NULL),(9,'9d91b222-c5eb-4078-9f83-4b27fabd9bce',0,'mang ea?','teampapathore@gmail.com','fgtf','bumi','banyak banget woilahh','dikeluarkan','','2023-11-06 08:47:24','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(10,'1f8f2e9a-48ac-4896-b08a-783471603a14',3,'5','ghinabr@gmail.com','manager','Madyopuro','kebanyakan beli mochi','dikeluarkan','','2023-11-14 12:15:14','ale',NULL,'',NULL,'',NULL,'',0,0);
 /*!40000 ALTER TABLE `suratperingatan` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -66,4 +67,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-15  9:28:09
+-- Dump completed on 2023-11-15  9:54:07

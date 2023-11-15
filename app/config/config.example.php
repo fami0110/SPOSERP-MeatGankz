@@ -1,8 +1,8 @@
 <?php
 
 // $ngrok = "https://86a3-66-96-237-58.ngrok-free.app/";
-// define('BASEURL', "{$ngrok}sposerp-meatgankz/public");
-define('BASEURL', 'http://sposerp-meatgankz.test');
+// define('BASEURL', "{$ngrok}sposerp/public");
+define('BASEURL', 'http://sposerp.test');
 
 // DB
 define('DB_HOST', 'localhost');

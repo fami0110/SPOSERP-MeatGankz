@@ -103,14 +103,6 @@
     }
 </script>
 <script>
-    let table = document.getElementById('datatable');
-
-    const dataTable = new simpleDatatables.DataTable("#datatable", {
-        searchable: table.classList.contains('search'),
-        fixedHeight: true
-    });
-</script>
-<script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
 
     new Chart(ctx, {
@@ -408,10 +400,11 @@
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 <script src="<?= BASEURL; ?>\js\soft-ui-dashboard.min.js"></script>
-<!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8b253dfea2ab4077af8c6f58422dfbfd1689876627854"
-    integrity="sha512-bjgnUKX4azu3dLTVtie9u6TKqgx29RBwfj3QXYt5EKfWM/9hPSAI/4qcV5NACjwAo8UtTeWefx6Zq5PHcMm7Tg=="
-    data-cf-beacon='{"rayId":"817e9cd9abb84c83","token":"1b7cbb72744b40c580f8633c6b62637e","version":"2023.8.0","si":100}'
-    crossorigin="anonymous"></script>
-</body> -->
+</body>
+<style>
+    #ofBar {
+            display: none;
+        }
+</style>
 
 </html>
