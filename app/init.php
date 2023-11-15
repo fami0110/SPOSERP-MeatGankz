@@ -1,5 +1,5 @@
 <?php
-require_once 'config/config.example.php';
+require_once 'config/config.php';
 require_once '../vendor/autoload.php';
 
 spl_autoload_register(function ($class) {
