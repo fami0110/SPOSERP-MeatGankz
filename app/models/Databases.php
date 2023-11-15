@@ -42,7 +42,6 @@ class Databases
 	public function truncate($table_name)
 	{
 		$this->db->query("TRUNCATE TABLE ". DB_NAME .".{$table_name}");
-		$this->db->bind('db_name', DB_NAME);
 		$this->db->execute();
 		$this->db->rowCount();
 	}

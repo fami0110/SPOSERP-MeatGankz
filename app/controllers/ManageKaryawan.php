@@ -2,30 +2,30 @@
 
 class Managekaryawan extends Controller
 {
-	protected $model = 'Managekaryawan_model';
+    protected $model = 'Managekaryawan_model';
 
-	public function index()
+    public function index()
     {
-    $this->auth('user');
+        $this->auth('user');
 
-    $data['title'] = 'Manage Karyawan';
-    $data['user'] = $this->user;
-    $manageModel = $this->model('Managekaryawan_model');
-    $data['Managekaryawan'] = $manageModel->getAllData();
+        $data['title'] = 'Manage Karyawan';
+        $data['user'] = $this->user;
+        $manageModel = $this->model('Managekaryawan_model');
+        $data['Managekaryawan'] = $manageModel->getAllData();
 
-    $this->view('Managekaryawan', $data);
+        $this->view('Managekaryawan', $data);
     }
 
-	public function detail($id)
+    public function detail($id)
     {
-    $this->auth('user');
+        $this->auth('user');
 
-    $data['title'] = 'Detail Karyawan';
-    $data['user'] = $this->user;
-    $manageModel = $this->model('Managekaryawan_model');
-    $data['Managekaryawan'] = $manageModel->getDataById($id);
+        $data['title'] = 'Detail Karyawan';
+        $data['user'] = $this->user;
+        $manageModel = $this->model('Managekaryawan_model');
+        $data['Managekaryawan'] = $manageModel->getDataById($id);
 
-    $this->view('detailKaryawan', $data);
+        $this->view('detailKaryawan', $data);
     }
 
 
@@ -33,7 +33,7 @@ class Managekaryawan extends Controller
     {
         if ($this->model('Managekaryawan_model')->insert($_POST) > 0) {
             Flasher::setFlash('Insert <b>SUCCESS</b>', 'success');
-			header("Location: " . BASEURL . "/Managekaryawan");
+            header("Location: " . BASEURL . "/Managekaryawan");
             exit;
         } else {
             Flasher::setFlash('Insert <b>FAILED</b>', 'danger');
@@ -55,16 +55,9 @@ class Managekaryawan extends Controller
         }
     }
 
-	public function store()
-	{
-	}
-
-	public function update()
+    public function update()
     {
-        $id = $_POST['id']; 
-        $data = $_POST; 
-
-        if ($this->model('Managekaryawan_model')->update($id, $data) > 0) {
+        if ($this->model('Managekaryawan_model')->update($_POST['id'], $_POST) > 0) {
             Flasher::setFlash('Update <b>SUCCESS</b>', 'success');
             header('Location: ' . BASEURL . '/Managekaryawan');
             exit;
@@ -81,7 +74,7 @@ class Managekaryawan extends Controller
         echo json_encode($this->model('Managekaryawan_model')->getDataById($_POST['id']));
     }
 
-	public function destroy()
-	{
-	}
+    public function destroy()
+    {
+    }
 }

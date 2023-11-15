@@ -44,7 +44,7 @@ class Migrate extends Controller
 
 			if ($filename == 'database.sql') {
 				$tables = $this->model($this->model_name)->getAllTables();
-				foreach ($tables as $table) $this->model($this->model_name)->drop($table['TABLE_NAME']);
+				foreach ($tables as $table) $this->model($this->model_name)->drop($table['name']);
 				$this->model($this->model_name)->import($sqlQueries);
 
 				Flasher::setFlash('<b>SUCCESS</b> to migrate all table!', 'success');
@@ -135,7 +135,7 @@ class Migrate extends Controller
 			$this->model($this->model_name)->truncate($target);
 			Flasher::setFlash("<b>SUCCESS</b> to empty table <i>". $target ."</i>!", 'success');
 		} catch (Exception $e) {
-			Flasher::setFlash("Drop <b>FAILED</b>! message: <pre>$e</pre>", 'danger');
+			Flasher::setFlash("Empty <b>FAILED</b>! message: <pre>$e</pre>", 'danger');
 		}
 		header('Location: '. BASEURL .'/migrate');
 		exit;
