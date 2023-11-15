@@ -39,8 +39,6 @@ class Shipment extends Controller
         }
         unset($_POST['nama_biaya_lainnya']);
 
-        // echo '<pre>';
-        // print_r($_POST); die;
 
         if ($this->model($this->model_name)->insert($_POST) > 0) {
             Flasher::setFlash('Insert&nbsp<b>SUCCESS</b>', 'success');
@@ -72,7 +70,6 @@ class Shipment extends Controller
         header('Location: ' . BASEURL . '/shipment');
         exit;
     }
-
 
     public function getUbah()
     {

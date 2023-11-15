@@ -2,17 +2,10 @@
 
 class Controller_template extends Controller
 {
-	protected $model_name = 'Menu_model';
+	protected $model_name = 'Template_model';
 
 	public function index()
 	{
-		$this->auth('both');
-
-		$data['title'] = 'Menu';
-		$data['user'] = $this->user;
-        $data['data'] = $this->model($this->model_name)->getAllData();
-		
-		$this->view('kasir', $data);
 	}
 
     public function insert()
