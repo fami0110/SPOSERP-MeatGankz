@@ -13,7 +13,7 @@ class Karyawan extends Controller
 
         $data['karyawan'] = $this->model($this->model_name)->getAllData();
 
-        $this->view('Managekaryawan', $data);
+        $this->view('karyawan/index', $data);
     }
 
     public function detail($id)
@@ -25,7 +25,7 @@ class Karyawan extends Controller
 
         $data['karyawan'] = $this->model($this->model_name)->getDataById($id);
 
-        $this->view('detailKaryawan', $data);
+        $this->view('karyawan/detailKaryawan', $data);
     }
 
 

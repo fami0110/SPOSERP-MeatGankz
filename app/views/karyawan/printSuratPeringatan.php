@@ -1,4 +1,5 @@
-<?php require_once "templates/header.php" ?>
+<?php Get::view('templates/header', $data) ?>
+
 <!-- <link rel="stylesheet" href="<?= BASEURL; ?>/css/invoice.css"> -->
 <style>
     page[size="A4"] {
@@ -161,4 +162,5 @@
         });
     });
 </script>
-<?php require_once "templates/footer.php" ?>
+
+<?php Get::view('templates/footer', $data) ?>
