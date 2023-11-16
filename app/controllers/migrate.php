@@ -7,7 +7,7 @@ class Migrate extends Controller
 
 	public function __construct() {
 		if (ENV != 'Local') {
-			header('Location: '. BASEURL .'/notfound');
+			header('Location: '. BASEURL .'/http/notfound');
 			exit;
 		}
 	}

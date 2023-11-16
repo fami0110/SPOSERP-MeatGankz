@@ -2,7 +2,7 @@
 
 class App
 {
-    protected $controller = 'Dashboard';
+    protected $controller = 'dashboard';
     protected $method = 'index';
     protected $params = [];
 
@@ -12,7 +12,7 @@ class App
         $url = ($url) ? $url : [$this->controller];
 
         // controller
-        $this->controller = file_exists("../app/controllers/$url[0].php") ? $url[0] : 'Notfound';
+        $this->controller = file_exists("../app/controllers/$url[0].php") ? $url[0] : 'notfound';
         unset($url[0]);
 
         require_once "../app/controllers/{$this->controller}.php";

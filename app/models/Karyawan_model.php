@@ -26,7 +26,6 @@ class Karyawan_model
         $this->db = new Database();
         $this->user = Cookie::get_jwt()->name;
     }
-
 	
     public function getAllData()
     {

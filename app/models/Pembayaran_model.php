@@ -4,7 +4,7 @@ use Ramsey\Uuid\Uuid;
 
 class Pembayaran_model
 {
-	protected $table = "Pembayaran";
+	protected $table = "pembayaran";
 	protected $fields = [
 		'kasir',
 		'pelanggan',
