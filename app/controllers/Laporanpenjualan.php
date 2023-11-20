@@ -10,14 +10,14 @@ class LaporanPenjualan extends Controller
 	{
 		$this->auth('user');
 
-		$data['title'] = 'Home';
+		$data['title'] = 'Laporan Penjualan Harian';
 		$data['user'] = $this->user;
-        $data['menu'] = $this->model('laporanPenjualan_model')->getAllData();
-        $data['tanggal'] = $this->model('laporanPenjualan_model')->getTanggal();
-        $data['keluar'] = $this->model('Pembayaran_model')->getAllData();
+        // $data['menu'] = $this->model('laporanPenjualan_model')->getAllData();
+        // $data['tanggal'] = $this->model('laporanPenjualan_model')->getTanggal();
+        // $data['keluar'] = $this->model('Pembayaran_model')->getAllData();
 
 		
-		$this->view('LaporanPenjualan', $data);
+		$this->view('laporanPenjualan', $data);
 	}
 
     public function insert()
