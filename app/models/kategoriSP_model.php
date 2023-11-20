@@ -107,9 +107,7 @@ class KategoriSP_model
 				SET 
 				`deleted_at` = CURRENT_TIMESTAMP,
 				`deleted_by` = :deleted_by,
-				`is_deleted` = 1,
-				`is_restored` = 0,
-				
+				`is_deleted` = 1
 			WHERE id = :id"
 		);
 

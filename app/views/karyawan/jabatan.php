@@ -56,11 +56,11 @@
                                     </p>
                                 </td>
                                 <td class="align-middle text-center">
-                                    <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                    <button data-bs-toggle="modal" data-bs-target="#exampleModal"
                                         data-id="<?= $jabatan['id']; ?>" class="btn bg-gradient-primary mb-0 tampilModalUbah rounded-pill">
                                         <i class="fa fa-pen"></i>
-                                    </a>
-                                    <a href="" onclick="return confirm ('Hapus data?')" class="btn bg-gradient-dark mb-0 rounded-pill">
+                                    </button>
+                                    <a href="<?= BASEURL ?>/jabatan/delete/<?= $jabatan['id'] ?>" onclick="return confirm ('Hapus data?')" class="btn bg-gradient-dark mb-0 rounded-pill">
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 </td>
@@ -101,13 +101,7 @@
         </div>
     </div>
 </div>
-<!-- <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="<?= BASEURL; ?>/js/datatables.js"></script> -->
-<script>
-    const dataTableSearch = new simpleDatatables.DataTable("#datatable-basic", {
-        searchable: true,
-        fixedHeight: true
-    });
+
 </script>
 <script>
     $(function () {
