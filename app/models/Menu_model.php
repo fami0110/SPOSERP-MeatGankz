@@ -1,8 +1,6 @@
 <?php
 
-
 use Ramsey\Uuid\Uuid;
-use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 class Menu_model
 {
@@ -35,8 +33,8 @@ class Menu_model
 
 	public function getJmlData()
 	{
-			$this->db->query("SELECT COUNT(*) AS count FROM {$this->table} WHERE `status` = 1");
-			return $this->db->fetch();
+		$this->db->query("SELECT COUNT(*) AS count FROM {$this->table} WHERE `status` = 1");
+		return $this->db->fetch();
 	}
 
 	public function getLatestData()
@@ -59,7 +57,7 @@ class Menu_model
 		$this->db->query(
 			"INSERT INTO {$this->table} 
 				VALUES
-			(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, 1)"
+			(null, :uuid, {$fields_query} '', CURRENT_TIMESTAMP, :created_by, null, '', null, '', null, '', 0, 0, DEFAULT)"
 		);
 
 		foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
@@ -131,7 +129,7 @@ class Menu_model
 				SET 
 				`deleted_at` = CURRENT_TIMESTAMP,
 				`deleted_by` = :deleted_by,
-				`is_deleted` = 1,
+				`is_deleted` = 1
 			WHERE id = :id"
 		);
 
