@@ -11,72 +11,6 @@
 
 
 <div class="row">
-    <!-- <div class="col-12">
-        <div class="card mb-4">
-            <div class="card-body px-0 pt-0 pb-2">
-                <div class="d-flex">
-                    <button class="btn btn-info  ms-2 mt-4" style="width: 50%">New Sale</button>
-                    <button class="btn btn-info ms-2 me-2 mt-4" style="width: 50%">Today Sale</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <h3>Cari Produk</h3>
-        <div class="row">
-            <div class="col-md-12 mb-2">
-                <label for="inputPertama">Pilih kategori:</label>
-                <select id="inputPertama" class="form-select" style="width: 100%;">
-                    <option value="">Pilih Kategori...</option>
-                    <option value="1">Semua Kategori</option>
-                    <option value="2">Daging</option>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 mb-2">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="inputKedua">Cari Product:</label>
-                        <input type="text" id="inputKedua" class="form-control" placeholder="Cari..."
-                            style="width: 100%;">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputKetiga">Pilih Product:</label>
-                        <select id="inputKetiga" class="form-select" style="width: 100%;">
-                            <option value="">Pilih opsi...</option>
-                            <option value="A">Steak</option>
-                            <option value="B">Daging</option>
-                            <option value="C">Sayur</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <h4>Cari Produk Dengan Code..</h4>
-        <div class="row">
-            <div class="col-md-12 mb-2">
-                <div class="row">
-                    <div class="col-md-6 mt-2">
-                        <input type="text" id="inputKedua" class="form-control" placeholder="Barcode or Scan Qr"
-                            style="width: 100%;">
-                    </div>
-                    <div class="col-md-6 mt-2">
-                        <input type="text" id="inputKedua" class="form-control" placeholder="Manual input Code"
-                            style="width: 100%;">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            Tombol dengan panjang yang sama
-            <div class="col-md-12 mt-3">
-                <a href="<?= BASEURL; ?>/customer" class="btn btn-success"style="width: 100%">
-                    <i class="bi bi-plus-circle-fill"></i> Tambah Customer
-                </a>
-            </div>
-        </div>
-    </div> -->
     <div class="col-lg-6" style="max-height: calc(100vh - 100px); overflow-y: auto;">
         <div class="container-fluid pt-1 mb-4 border-bottom sticky-top bg-gray-100" style="white-space: nowrap; overflow-x: auto;">
             <input type="radio" 
@@ -110,6 +44,7 @@
                         <?php if ($menu['kategori_id'] !== $kategori['id']) continue ?>
                         <div class="col-sm-4 mb-4 menu" 
                             data-tersedia="<?= ($menu['tersedia']) ? 'true' : 'false' ?>"
+                            data-id="<?= $menu['id'] ?>"
                             data-nama="<?= $menu['nama'] ?>"
                             data-harga="<?= $menu['harga'] ?>"
                         >

@@ -25,6 +25,7 @@ class Pesanan extends Controller
         $data['menu'] = $this->model('Menu_model')->getAllData();
         $data['kategori'] = $this->model('Kategori_model')->getAllData();
         $data['pajak'] = $this->model('Preferences')->getPreference('Besar_Pajak_(%)');
+        $this->model('Menu_model')->countAvailableAll();
 		
 		$this->view('penjualan/kasir', $data);
 	}
@@ -46,19 +47,26 @@ class Pesanan extends Controller
 
     public function insert()
     {
-        $tmp = [];
-        foreach ($_POST['item'] as $i => $item) {
-            array_push($tmp, [
-                'item' => $item,
+        // Proses detail pembayaran untuk invoice
+        $detail_pembayaran = [];
+        foreach ($_POST['id'] as $i => $id) {
+            array_push($detail_pembayaran, [
+                'id' => $id,
+                'item' => $_POST['item'][$i],
                 'amount' => $_POST['amount'][$i],
                 'subtotal' => $_POST['item_subtotal'][$i],
             ]);
         }
-        $_POST['detail_pembayaran'] = json_encode($tmp);
-        unset($_POST['item']); unset($_POST['amount']); unset($_POST['item_subtotal']);
+        $_POST['detail_pembayaran'] = json_encode($detail_pembayaran);
+        unset($_POST['item']); unset($_POST['amount']); unset($_POST['item_subtotal']); unset($_POST['id']);
 
         $_POST['status_order'] = 0; 
 
+        echo '<pre>';
+        print_r($_POST); die;
+        // Cek apakah stok menu tersedia atau tidak
+
+        // insert data pembayaran
         if ($this->model($this->model_name)->insert($_POST) > 0) {
             Flasher::setFlash('Insert&nbsp<b>SUCCESS</b>', 'success');
         } else {

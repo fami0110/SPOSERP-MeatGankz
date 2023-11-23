@@ -12,47 +12,61 @@ class Menu extends Controller
 		$data['user'] = $this->user;
         $data['menu'] = $this->model($this->model_name)->getAllData();
         $data['kategori'] = $this->model('Kategori_model')->getAllData();
+        $data['barang'] = $this->model('Stok_model')->getAllData();
+        $this->model($this->model_name)->countAvailableAll();
 		
 		$this->view('menu/index', $data);
 	}
 
     public function insert()
     {
-        if ($this->model($this->model_name)->insert($_POST) > 0) {
-            Flasher::setFlash('Insert&nbsp<b>SUCCESS</b>', 'success');
-			header("Location: " . BASEURL . "/menu");
-            exit;
-        } else {
-            Flasher::setFlash('Insert&nbsp<b>FAILED</b>', 'danger');
-            header('Location: ' . BASEURL . '/menu');
-            exit;
+        foreach ($_POST['nama_bahan'] as $i => $nama_bahan) {
+            $bahan[$nama_bahan] = floatval($_POST['jumlah_bahan'][$i]);
         }
+        $_POST['bahan'] = json_encode($bahan);
+        unset($_POST['nama_bahan']); unset($_POST['jumlah_bahan']);
+
+        try {
+            $this->model($this->model_name)->insert($_POST);
+            $this->model($this->model_name)->countAvailable();
+            Flasher::setFlash('Insert&nbsp<b>SUCCESS</b>', 'success');   
+        } catch (Exception) {
+            Flasher::setFlash('Insert&nbsp<b>FAILED</b>', 'danger');
+        }
+
+        header('Location: ' . BASEURL . '/menu');
+        exit;
     }
 
     public function delete($id)
     {
         if ($this->model($this->model_name)->delete($id) > 0) {
             Flasher::setFlash('Delete&nbsp<b>SUCCESS</b>', 'success');
-            header('Location: ' . BASEURL . '/menu');
-            exit;
         } else {
             Flasher::setFlash('Delete&nbsp<b>FAILED</b>', 'danger');
-            header('Location: ' . BASEURL . '/menu');
-            exit;
         }
+        header('Location: ' . BASEURL . '/menu');
+        exit;
     }
 
 	public function update($id)
 	{
-        if ($this->model($this->model_name)->update($id, $_POST) > 0) {
-            Flasher::setFlash('Update&nbsp<b>SUCCESS</b>', 'success');
-            header('Location: ' . BASEURL . '/menu');
-            exit;
-        } else {
-            Flasher::setFlash('Update&nbsp<b>FAILED</b>', 'danger');
-            header('Location: ' . BASEURL . '/menu');
-            exit;
+        foreach ($_POST['nama_bahan'] as $i => $nama_bahan) {
+            $bahan[$nama_bahan] = floatval($_POST['jumlah_bahan'][$i]);
         }
+        $_POST['bahan'] = json_encode($bahan);
+        unset($_POST['nama_bahan']); unset($_POST['jumlah_bahan']);
+
+        try {
+            $this->model($this->model_name)->update($id, $_POST);
+            $this->model($this->model_name)->countAvailable($id);
+            Flasher::setFlash('Insert&nbsp<b>SUCCESS</b>', 'success');   
+        } catch (Exception) {
+            Flasher::setFlash('Insert&nbsp<b>FAILED</b>', 'danger');
+        }
+
+        header('Location: ' . BASEURL . '/menu');
+        exit;
 	}
 
 	public function updateStatusMenu($id, $status)

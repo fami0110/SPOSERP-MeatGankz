@@ -9,7 +9,7 @@ class Menu_model
 		'nama',
 		'kategori_id',
 		'harga',
-		'tersedia'
+		'bahan',
 	];
 	protected $user;
 	protected $db;
@@ -25,6 +25,7 @@ class Menu_model
 		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1");
 		return $this->db->fetchAll();
 	}
+
 	public function getBest()
 	{
 		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1 LIMIT 5");
@@ -50,9 +51,48 @@ class Menu_model
 		return $this->db->fetch();
 	}
 
+	public function countAvailableAll()
+	{
+		$allMenu = $this->getAllData();
+
+		foreach ($allMenu as $menu) {
+			$bahan = json_decode($menu['bahan'], true);
+		
+			$availability = [];
+			foreach ($bahan as $key => $value) {
+				$this->db->query("SELECT `stok` FROM stok WHERE `status` = 1 AND `nama` = :nama");
+				$this->db->bind('nama' , $key);
+				$stok = $this->db->fetch(PDO::FETCH_COLUMN);
+				array_push($availability, floor($stok / $value));
+			}
+
+			$this->updateField($menu['id'], 'tersedia', min($availability));
+		}
+		
+		return $this->db->rowCount();
+	}
+
+	public function countAvailable($id = null)
+	{
+		$menu = ($id) ?
+			$this->getDataById($id) :
+			$this->getLatestData();
+		$bahan = json_decode($menu['bahan'], true);
+		
+		$availability = [];
+		foreach ($bahan as $key => $value) {
+			$this->db->query("SELECT `stok` FROM stok WHERE `status` = 1 AND `nama` = :nama");
+			$this->db->bind('nama' , $key);
+			$stok = $this->db->fetch(PDO::FETCH_COLUMN);
+			array_push($availability, floor($stok / $value));
+		}
+
+		return $this->updateField($menu['id'], 'tersedia', min($availability));
+	}
+
 	public function insert($data)
 	{
-		$fields_query = ":nama, :kategori_id, :harga, :tersedia, :foto,";
+		$fields_query = ":nama, :kategori_id, :harga, :bahan, 0, :foto,";
 
 		$this->db->query(
 			"INSERT INTO {$this->table} 
@@ -78,7 +118,7 @@ class Menu_model
 			nama = :nama,
 			kategori_id = :kategori_id,
 			harga = :harga,
-			tersedia = :tersedia,
+			bahan = :bahan,
 			foto = :foto,
 		";
 

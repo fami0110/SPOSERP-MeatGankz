@@ -88,14 +88,15 @@
                 <div class="mb-3 row">
                     <div class="col-md-6">
                         <label for="stok" class="form-label">Jumlah Stok</label>
-                        <input type="number" class="form-control" name="stok" id="stok" required>
+                        <input type="number" class="form-control" name="stok" id="stok" value="0" required>
                     </div>
                     <div class="col-md-6">
                         <label for="satuan" class="form-label">Satuan</label>
                         <select class="form-select" name="satuan" id="satuan" required>
                             <option value="Kg">Kg</option>
-                            <option value="pcs">pcs</option>
                             <option value="Pack">Pack</option>
+                            <option value="Liter">Liter</option>
+                            <option value="pcs">pcs</option>
                         </select>
                     </div>
                 </div>

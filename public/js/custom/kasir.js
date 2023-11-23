@@ -16,14 +16,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.menu').forEach(menu => {
         menu.addEventListener('click', () => {
+            let id = parseInt(menu.dataset.id);
             let tersedia = JSON.parse(menu.dataset.tersedia);
             let nama = menu.dataset.nama;
-            let harga = JSON.parse(menu.dataset.harga);
+            let harga = parseInt(menu.dataset.harga);
 
             if (tersedia) {
                 if (!selected_menu.hasOwnProperty(nama)) {
                     selected_menu[nama] = harga;
-                    addList(nama, harga);
+                    addList(nama, harga, id);
                 }
             } else {
                 alert('Menu telah habis!');
@@ -113,11 +114,12 @@ function toggleDisplay(element, bool) {
     }
 }
 
-function addList(nama, price) {
+function addList(nama, price, id) {
     let item = document.createElement('div');
     item.setAttribute('class', 'row item');
     item.innerHTML = `
         <div class="col-sm-6">
+            <input type="hidden" name="id[]" value="${id}">
             <div class="input-group mb-3">
                 <button class="btn btn-danger m-0 removeList" type="button" data-nama="${nama}">
                     <i class="fa fa-xmark"></i>

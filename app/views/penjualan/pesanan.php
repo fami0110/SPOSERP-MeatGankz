@@ -99,8 +99,7 @@
                             <th class="text-center fw-bold">Jumlah</th>
                         </tr>
                     </thead>
-                    <tbody>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
             <div class="modal-footer">
@@ -109,7 +108,9 @@
         </div>
     </div>
 </div>
+
 <script src="<?= BASEURL; ?>/js/datatables.js"></script>
+
 <script>
     $(function() {
         const BASEURL = window.location.href;

@@ -21392,13 +21392,6 @@ fieldset:disabled .btn {
     padding-right: 10px
 }
 
-.form-control {
-    border-radius: .5rem;
-    border-top-right-radius: .5rem !important;
-    border-bottom-right-radius: .5rem !important;
-    border-left-width: 1px
-}
-
 .focused {
     box-shadow: 0 0 0 2px #e9aede;
     transition: box-shadow .15s ease, border-color .15s ease
