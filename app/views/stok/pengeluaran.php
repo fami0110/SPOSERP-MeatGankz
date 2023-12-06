@@ -36,19 +36,19 @@
                       <?= $barang['nama'] ?>
                     </td>
                     <td class="text-sm text-center font-weight-bold align-middle">
-                      <input type="number" class="form-control text-center stok" value="<?= $barang['stok'] + $data['pengeluaran'][$i - 1] ?>" disabled>
+                      <input type="text" class="form-control text-center stok" value="<?= $barang['stok'] + $data['pengeluaran'][$i - 1] ?>" disabled>
                     </td>
                     <td class="text-sm text-center font-weight-bold align-middle">
                       -
                     </td>
                     <td class="text-sm text-center font-weight-bold align-middle">
-                      <input type="number" class="form-control text-center pengeluaran" name="pengeluaran[]" value="<?= $data['pengeluaran'][$i - 1] ?>" min="0" max="<?= $barang['stok'] + $data['pengeluaran'][$i - 1] ?>" />
+                      <input type="text" class="form-control text-center pengeluaran" name="pengeluaran[]" value="<?= $data['pengeluaran'][$i - 1] ?>" min="0" max="<?= $barang['stok'] + $data['pengeluaran'][$i - 1] ?>" />
                     </td>
                     <td class="text-sm text-center font-weight-bold align-middle">
                       =
                     </td>
                     <td class="text-sm text-center font-weight-bold align-middle">
-                      <input type="number" class="form-control text-center sisa" value="<?= $barang['stok'] ?>" min="0" max="<?= $barang['stok'] + $data['pengeluaran'][$i - 1] ?>"/>
+                      <input type="text" class="form-control text-center sisa" value="<?= $barang['stok'] ?>" min="0" max="<?= $barang['stok'] + $data['pengeluaran'][$i - 1] ?>"/>
                     </td>
                   </tr>
                 <?php endforeach; ?>
