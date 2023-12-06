@@ -26,9 +26,9 @@ function refreshEvent() {
 
     document.querySelectorAll('#bahan input.jumlah-bahan').forEach(input => {
         input.oninput = () => {
-            let alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+            let num = '1234567890.'.split('');
             let inputChar = input.value.split('');
-            inputChar = inputChar.filter(char => !Boolean(alpha.find(alpha => alpha == char)));
+            inputChar = inputChar.filter(char => num.includes(char));
             input.value = inputChar.join('');
         }
     });
