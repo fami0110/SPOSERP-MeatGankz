@@ -39,6 +39,17 @@ class Stok_model
 		return $this->db->fetch();
 	}
 
+	public function getMultipleBy($field = 'id', $data = [])
+	{
+		$sanitized_data = array_map(function ($item) {
+			return (gettype($item) == 'string') ? "'{$item}'" : $item;
+		}, $data);
+		
+		$query = implode(', ', $sanitized_data);
+		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1 AND `{$field}` IN ({$query}) ");
+		return $this->db->fetchAll();
+	}
+
 	public function insert($data)
 	{
 		$fields_query = ":nama, :stok, :satuan, :riwayat,";

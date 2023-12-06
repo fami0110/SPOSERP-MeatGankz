@@ -62,17 +62,73 @@ class Pesanan extends Controller
 
         $_POST['status_order'] = 0; 
 
-        echo '<pre>';
-        print_r($_POST); die;
-        // Cek apakah stok menu tersedia atau tidak
+        try {
+            // Cek apakah stok menu tersedia atau tidak
+            $selected_menu = array_combine(array_column($detail_pembayaran, 'id'), array_column($detail_pembayaran, 'amount'));
+            $data_menu = $this->model("Menu_model")->getMultipleBy('id', array_keys($selected_menu));
+            $tersedia = true;
+            $all_bahan = [];
+            
+            // Cek apakah item tersedia atau tidak
+            foreach ($data_menu as $menu) {
+                if ($menu['tersedia'] <= 0) {
+                    $tersedia = false;
+                    break;
+                }
 
-        // insert data pembayaran
-        if ($this->model($this->model_name)->insert($_POST) > 0) {
-            Flasher::setFlash('Insert&nbsp<b>SUCCESS</b>', 'success');
-        } else {
+                // Tambahkan dan kalikan data bahan berdasarkan amount
+                $bahan = json_decode($menu['bahan'], true);
+                foreach ($bahan as $key => $val) {
+                    $bahan[$key] = $val * $selected_menu[$menu['id']];
+                }
+                array_push($all_bahan, $bahan);
+            }
+
+            // Proses data bahan jika tersedia
+            if ($tersedia) {
+                // Sum all bahan
+                $sum_bahan = [];
+                foreach ($all_bahan as $bahan) {
+                    foreach ($bahan as $key => $val) {
+                        if (array_key_exists($key, $sum_bahan)) {
+                            $sum_bahan[$key] += $val;
+                        } else {
+                            $sum_bahan[$key] = $val;
+                        }
+                    }
+                }
+
+                // Tambah data pengeluaran stok hari ini
+                $stok = $this->model('Stok_model')->getMultipleBy('nama', array_keys($sum_bahan));
+                foreach ($stok as $item) {
+                    $riwayat = json_decode($item['riwayat'], true);
+                    $current_pengeluaran = isset($riwayat[date('Y-m-d')]) ?
+                        $riwayat[date('Y-m-d')]['keluar'] : 0;
+
+                    $this->model('Stok_model')
+                        ->updateStok($item['id'], date('Y-m-d'), ['keluar' => ($current_pengeluaran + $sum_bahan[$item['nama']])]);
+                }
+
+                // Cek ketersediaan menu setelah stok berkurang
+                foreach ($data_menu as $menu) {
+                    $this->model('Menu_model')->countAvailable($menu['id']);
+                }
+                
+                // Insert data pembayaran
+                if ($this->model($this->model_name)->insert($_POST) > 0) {
+                    Flasher::setFlash('Insert&nbsp<b>SUCCESS</b>', 'success');
+                    header('Location: ' . BASEURL . '/pesanan/invoice');
+                    exit;
+                } else {
+                    throw new Exception('Haha error');
+                }
+            } else {
+                Flasher::setFlash('Terdapat menu yang telah habis!', 'danger');
+            }
+        } catch (Exception $e) {
             Flasher::setFlash('Insert&nbsp<b>FAILED</b>', 'danger');
         }
-        header('Location: ' . BASEURL . '/pesanan/invoice');
+        header('Location: ' . BASEURL . '/pesanan/kasir');
         exit;
     }
 
