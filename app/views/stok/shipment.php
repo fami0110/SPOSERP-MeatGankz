@@ -10,10 +10,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="d-flex justify-content-end">
-                            <a href="<?= BASEURL ?>/stok" class="btn bg-gradient-info d-lg-block me-2" type="button">
-                                Daftar Barang
-                            </a>
-                            <button class="btn bg-gradient-primary d-lg-block tombolTambahData" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <button class="btn bg-gradient-primary d-lg-block tombolTambahData" type="button" data-bs-toggle="modal" data-bs-target="#formModal">
                                 Tambah Data
                             </button>
                         </div>
@@ -71,7 +68,7 @@
                                     <td class="text-sm text-center font-weight-bold mb-0">
                                         <?= date('d/m/Y', strtotime($shipment['tanggal'])) ?>
                                     </td>
-                                    <td class="text-sm text-center font-weight-bold mb-0">
+                                    <td class="text-sm text-start font-weight-bold mb-0">
                                         <?= $shipment['deskripsi'] ?>
                                     </td>
                                     <td class="text-sm text-center font-weight-bold mb-0">
@@ -109,6 +106,11 @@
                                         <?php endforeach; ?>
                                     </td>
                                     <td class="align-middle text-sm text-center font-weight-bold mb-0">
+                                        <button type="button"
+                                            class="btn bg-gradient-primary btn-md  p-1 px-2 mb-0 align-middle acc-button tampilModalUbah" 
+                                            data-bs-toggle="modal" data-bs-target="#formModal" data-id="<?= $shipment['id'] ?>">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
                                         <a href="<?= BASEURL ?>/shipment/delete/<?= $shipment['id'] ?>" 
                                             class="btn bg-gradient-dark btn-md  p-1 px-2 mb-0 align-middle acc-button"
                                             onclick="return confirm('Hapus data?')">
@@ -124,7 +126,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="formModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -272,7 +274,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn bg-gradient-primary" onclick="return confirm('Apakah anda yakin ingin menambah data?')">Simpan</button>
+                <button type="submit" class="btn bg-gradient-primary" onclick="return confirm(message)">Simpan</button>
                 </form>
             </div>
         </div>
@@ -280,7 +282,113 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script src="<?= BASEURL ?>/js/custom/shipment.js"></script>
+
+<script>
+    let message = 'Apakah anda yakin ingin menambah data?';
+
+    $(function() {
+        const BASEURL = window.location.href;
+
+        $('.tombolTambahData').on('click', function() {
+            message = 'Apakah anda yakin ingin menambah data?';
+
+            $('modalLabel').html('Tambah Data')
+            $('.modal-footer button[type=submit]').html('Tambah Data');
+            $(".modal-body form").attr("action", `${BASEURL}/insert`);
+            $(".modal-body form")[0].reset();
+            $("#pesan").prop('readonly', false);
+
+            biayaLainnya.innerHTML = `
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <button class="btn btn-danger m-0 px-3 removeItem" type="button">
+                                <i class="fa fa-xmark"></i>
+                            </button>
+                            <input type="text" class="form-control ps-2" name="nama_biaya_lainnya[]" placeholder="Nama biaya" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 ps-0">
+                        <div class="input-group">
+                            <span class="input-group-text">Rp</span>
+                            <input type="number" class="form-control ps-2 biaya-lainnya count" name="biaya_lainnya[]" placeholder="0" min="0" required>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            refreshEvent();
+        });
+
+        $(".tampilModalUbah").click(function() {
+            message = 'Apakah anda yakin ingin mengubah data?';
+            const id = $(this).data("id");
+
+            $("#modal").addClass("edit");
+            $("#modalLabel").html("Ubah Data");
+            $(".modal-footer button[type=submit]").html("Ubah Data");
+            $(".modal-body form").attr("action", `${BASEURL}/update/${id}`);
+            $("#pesan").prop('readonly', true);
+
+            $.ajax({
+                url: `${BASEURL}/getubah/${id}`,
+                method: "get",
+                dataType: "json",
+                success: function(data) {
+                    // console.log(data);
+                    $("#stok_id").val(data.stok_id);
+                    $("#tanggal").val(data.tanggal);
+                    $("#supplier_id").val(data.supplier_id);
+                    $("#deskripsi").val(data.deskripsi);
+                    $("#pesan").val(data.pesan);
+
+                    for (let opt of document.getElementById('stok_id').options) {
+                        if (opt.selected) {
+                            satuan.value = opt.dataset.satuan;
+                            break;
+                        }
+                    }
+
+                    $("#berat").val(data.berat);
+                    $("#harga_exw").val(data.harga_exw);
+                    $("#total_exw").val(data.total_exw);
+
+                    let biaya_lainnya = JSON.parse(data.biaya_lainnya);
+                    biayaLainnya.innerHTML = '';
+
+                    for (let key in biaya_lainnya)  {
+                        let biaya = document.createElement('div');
+                        biaya.setAttribute('class', 'row');
+                        biaya.innerHTML = `
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <button class="btn btn-danger m-0 px-3 removeItem" type="button">
+                                        <i class="fa fa-xmark"></i>
+                                    </button>
+                                    <input type="text" class="form-control ps-2" name="nama_biaya_lainnya[]" placeholder="Nama biaya" value=${key} required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 ps-0">
+                                <div class="input-group">
+                                    <span class="input-group-text">Rp</span>
+                                    <input type="number" class="form-control ps-2 biaya-lainnya count" name="biaya_lainnya[]" value=${biaya_lainnya[key]} placeholder="0" min="0" required>
+                                </div>
+                            </div>
+                        `;
+                        biayaLainnya.appendChild(biaya);
+                    }
+
+                    $("#total_biaya_lainnya").val(data.total_biaya_lainnya);
+                    $("#diskon").val(data.diskon);
+                    $("#total").val(data.total);
+                    $("#harga_all_in").val(data.harga_all_in);
+
+                    refreshEvent();
+                },
+            });
+        });
+    });
+</script>
 
 <?php Get::view('templates/footer', $data) ?>

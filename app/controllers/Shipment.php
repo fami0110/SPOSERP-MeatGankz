@@ -25,8 +25,6 @@ class Shipment extends Controller
 
     public function insert()
     {
-        $_POST['tanggal'] = date('Y-m-d');
-
         if ($_POST['nama_biaya_lainnya'][0]) {
             $tmp = []; $i = 0;
             foreach ($_POST['nama_biaya_lainnya'] as $nama) {
@@ -60,9 +58,21 @@ class Shipment extends Controller
         exit;
     }
 
-	public function update()
+	public function update($id)
     {
-        if ($this->model($this->model_name)->update($_POST['id'], $_POST) > 0) {
+        if ($_POST['nama_biaya_lainnya'][0]) {
+            $tmp = []; $i = 0;
+            foreach ($_POST['nama_biaya_lainnya'] as $nama) {
+                $tmp[$nama] = $_POST['biaya_lainnya'][$i];
+                $i++;
+            }
+            $_POST['biaya_lainnya'] = json_encode($tmp);
+        } else {
+            $_POST['biaya_lainnya'] = "{}";
+        }
+        unset($_POST['nama_biaya_lainnya']);
+        
+        if ($this->model($this->model_name)->update($id, $_POST) > 0) {
             Flasher::setFlash('Update&nbsp<b>SUCCESS</b>', 'success');
         } else {
             Flasher::setFlash('Update&nbsp<b>FAILED</b>', 'danger');
@@ -71,9 +81,9 @@ class Shipment extends Controller
         exit;
     }
 
-    public function getUbah()
+    public function getUbah($id)
     {
-        echo json_encode($this->model($this->model_name)->getDataById($_POST['id']));
+        echo json_encode($this->model($this->model_name)->getDataById($id));
     }
 
 	public function destroy()
