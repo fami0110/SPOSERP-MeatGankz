@@ -131,13 +131,45 @@
                     <td class="text-sm text-center font-weight-bold mb-0 fixed-column"><?= $barang['nama'] ?></td>
                     <td class="text-sm text-center font-weight-bold mb-0"><?= $barang['stok'] ?></td>
                     <td class="text-sm text-center font-weight-bold mb-0"><?= $barang['satuan'] ?></td>
-                    <?php $riwayat = json_decode($barang['riwayat'], true) ?>
+                    <?php 
+                      $riwayat = json_decode($barang['riwayat'], true);
+
+                      // Add index for each item
+                      $i = 0;
+                      $found = false;
+                      foreach ($riwayat as $key => $val) {
+                        $riwayat[$key]['index'] = $i; $i++;
+                      }
+
+                      // Get first value of the range
+                      for ($i = 0; $i <= $range; $i++) {
+                        $key = date('Y-m-d', strtotime($data['filter']['from']) + ($i * 60 * 60 * 24));
+                        if (array_key_exists($key, $riwayat)) {
+                          $found = true;
+                          foreach ($riwayat as $val) {
+                            if (($riwayat[$key]['index'] - 1) == $val['index']) {
+                              $lastVal = $val['stok'];
+                            }
+                          }
+                          break;
+                        }
+                      }
+
+                      // Set the lastVal to latest stok value
+                      if (!$found) {
+                        $lastVal = $barang['stok'];
+                      }
+                    ?>
                     <?php for ($i = 0; $i <= $range; $i++) : ?>
                       <?php $key = date('Y-m-d', strtotime($data['filter']['from']) + ($i * 60 * 60 * 24)) ?>
                       <?php if (array_key_exists($key, $riwayat)) : ?>
-                        <td class="text-sm text-center font-weight-bold mb-0"><?= $riwayat[$key]['masuk'] ?></td>
+                        <td class="text-sm text-center font-weight-bold mb-0<?= (intval($riwayat[$key]['masuk']) > 0) ? ' text-success' : '' ?>">
+                          <?= $riwayat[$key]['masuk'] ?>
+                        </td>
                         <td class="text-sm text-center font-weight-bold mb-0"><?= $riwayat[$key]['stok'] ?></td>
-                        <td class="text-sm text-center font-weight-bold mb-0"><?= $riwayat[$key]['keluar'] ?></td>
+                        <td class="text-sm text-center font-weight-bold mb-0<?= (intval($riwayat[$key]['keluar']) > 0) ? ' text-danger' : '' ?>">
+                          <?= $riwayat[$key]['keluar'] ?>
+                        </td>
                         <?php $lastVal = $riwayat[$key]['stok'] ?>
                       <?php else : ?>
                         <td class="text-sm text-center font-weight-bold mb-0">0</td>
