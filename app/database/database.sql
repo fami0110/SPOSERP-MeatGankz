@@ -229,10 +229,11 @@ CREATE TABLE `menu` (
   `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `kategori_id` int NOT NULL,
   `harga` int NOT NULL,
-  `tersedia` tinyint(1) NOT NULL DEFAULT '0',
+  `bahan` json NOT NULL,
+  `tersedia` int NOT NULL DEFAULT '0',
   `foto` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `note` varchar(50) NOT NULL,
-  `create_at` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
   `created_by` char(36) NOT NULL,
   `modified_at` datetime DEFAULT NULL,
   `modified_by` char(36) NOT NULL,
@@ -244,7 +245,7 @@ CREATE TABLE `menu` (
   `is_restored` tinyint(1) NOT NULL,
   `status` tinyint(1) GENERATED ALWAYS AS ((case when ((`is_deleted` = 0) and (`is_restored` = 0)) then 1 when ((`is_deleted` = 1) and (`is_restored` = 0)) then 0 when ((`is_deleted` = 0) and (`is_restored` = 1)) then 1 end)) STORED,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,7 +254,7 @@ CREATE TABLE `menu` (
 
 LOCK TABLES `menu` WRITE;
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
-INSERT INTO `menu` (`id`, `uuid`, `nama`, `kategori_id`, `harga`, `tersedia`, `foto`, `note`, `create_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'d7b250a3-1f8d-40b8-aacd-2fdb9156b095','Australian Curried Sausages',1,50000,1,'6539e285223b3.jpg','','2023-10-26 10:52:37','admin','2023-11-06 09:32:22','Super Admin',NULL,'',NULL,'',0,0),(2,'8a65c313-d53b-4472-a09d-78c32fe8bc72','Nasi Goreng',1,20000,1,'6539ec4c67a29.jpg','','2023-10-26 11:34:20','admin','2023-10-30 09:36:32','sando',NULL,'',NULL,'',0,0),(3,'6629dff2-5061-45fa-b1ef-2b2749f24cc5','Spageti',1,16000,1,'653b65718c9fa.jpg','','2023-10-26 10:15:54','sando','2023-10-30 09:16:05','sando',NULL,'',NULL,'',0,0),(4,'9849680c-bbc6-4ec0-9b2a-b32662a5372e','Wagyu Steak',1,40000,1,'653f179c50adf.jpeg','','2023-10-30 09:40:28','sando',NULL,'',NULL,'',NULL,'',0,0),(5,'95777022-54d7-4ba3-8a78-70d296e28499','Chiken Steak',1,20000,1,'653f181174be1.jpeg','','2023-10-30 09:42:25','sando','2023-10-30 09:42:41','sando',NULL,'',NULL,'',0,0),(6,'77146b4b-6fc7-4fd2-a43c-a9946c1691b0','Oreo Milkshake',2,15999,1,'653f18650a624.jpg','','2023-10-30 09:43:49','sando','2023-11-20 14:20:26','Super Admin',NULL,'',NULL,'',0,0),(7,'b98ea26a-1eaf-4725-9d11-ff4c0850db69','Soda Gembira',2,22000,1,'653f18a3b9be3.jpg','','2023-10-30 09:44:51','sando','2023-10-30 09:46:20','sando',NULL,'',NULL,'',0,0),(8,'03c2d485-1c3a-42ea-88a3-2272fa3ccb97','French Fries',3,15000,1,'653f198c1f80e.jpg','','2023-10-30 09:48:25','sando','2023-10-30 09:48:44','sando',NULL,'',NULL,'',0,0),(9,'fa162289-5240-4ddb-8805-b7802c9df211','Crepes',3,18000,1,'653f1a8b5900f.jpg','','2023-10-30 09:52:59','sando',NULL,'',NULL,'',NULL,'',0,0),(10,'9c38462f-1ba3-4a56-9395-10247c7111ae','Silky Pudding',4,16000,1,'653f1b1134b87.jpg','','2023-10-30 09:55:13','sando',NULL,'','2023-11-20 14:24:20','Super Admin',NULL,'',0,0),(11,'33ceeb8c-06f8-47ce-83f9-3de84e462838','Ice Cream',4,15000,1,'653f1b547e240.jpg','','2023-10-30 09:56:20','sando',NULL,'',NULL,'',NULL,'',0,0);
+INSERT INTO `menu` (`id`, `uuid`, `nama`, `kategori_id`, `harga`, `bahan`, `tersedia`, `foto`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'1da2ea78-193c-4910-85ca-3f31a198d1f0','Nasi Goreng Ayam',1,18000,'{\"Beras\": 0.2, \"Telur\": 2, \"Wortel\": 0.2, \"Daging Ayam\": 0.3}',41,'655eff70eb338.jpg','','2023-11-23 10:00:29','Super Admin','2023-12-06 10:29:54','Super Admin',NULL,'',NULL,'',0,0),(2,'b1044449-61a6-4b1b-944b-19a1cdf5f746','Salad Buah',4,15000,'{\"Apel\": 0.1, \"Keju\": 0.1, \"Susu\": 0.5}',36,'655ef5fc7f7a0.jpg','','2023-11-23 13:49:32','Super Admin','2023-12-06 10:29:54','Super Admin',NULL,'',NULL,'',0,0),(3,'ad8040ea-e423-4312-bb1b-836d683ef972','Nasi Omlete',1,16000,'{\"Beras\": 0.2, \"Telur\": 1}',83,'655eff0d77ae0.jpg','','2023-11-23 14:28:13','Super Admin','2023-12-06 10:29:54','Super Admin',NULL,'',NULL,'',0,0),(4,'be927ca9-1e42-4609-bc80-7834d5093893','Soda Gembira',2,15000,'{\"Air Mineral (Galon)\": 0.2}',760,'656d76d20bf7f.jpg','','2023-12-04 13:50:58','Super Admin','2023-12-06 10:29:54','Super Admin',NULL,'',NULL,'',0,0),(5,'7556630d-9747-4577-b0fb-c0f24aa260e5','Milkshake',2,16000,'{\"Air Mineral (Galon)\": 0.2}',760,'656d76fd1079b.jpg','','2023-12-04 13:51:41','Super Admin','2023-12-06 10:29:55','Super Admin',NULL,'',NULL,'',0,0),(6,'c9002bce-11d4-4b5a-ad9c-52fd1f4c8501','Kentang Goreng',3,30000,'{\"Kentang\": 0.2}',390,'656d77f377c52.jpg','','2023-12-04 13:55:47','Super Admin','2023-12-06 10:29:55','Super Admin',NULL,'',NULL,'',0,0),(7,'706252d9-2dbd-40da-a67b-52a23d19102b','Fauzan Gaming',1,30000,'{\"Telur\": 0.2, \"Kentang\": 0.2, \"Tepung Terigu\": 0.1}',200,'656e9b38f3b59.png','','2023-12-05 10:38:33','Super Admin','2023-12-06 10:29:55','Super Admin',NULL,'',NULL,'',0,0);
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,7 +293,7 @@ CREATE TABLE `pembayaran` (
   `is_restored` tinyint(1) NOT NULL,
   `status` tinyint(1) GENERATED ALWAYS AS ((case when ((`is_deleted` = 0) and (`is_restored` = 0)) then _utf8mb4'1' when ((`is_deleted` = 1) and (`is_restored` = 0)) then _utf8mb4'0' when ((`is_deleted` = 0) and (`is_restored` = 1)) then _utf8mb4'1' end)) STORED,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -301,7 +302,7 @@ CREATE TABLE `pembayaran` (
 
 LOCK TABLES `pembayaran` WRITE;
 /*!40000 ALTER TABLE `pembayaran` DISABLE KEYS */;
-INSERT INTO `pembayaran` (`id`, `uuid`, `kasir`, `pelanggan`, `nomor_telp`, `detail_pembayaran`, `subtotal`, `pajak`, `total`, `metode_pembayaran`, `kode_transaksi`, `bayar`, `kembali`, `status_order`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'3b6101e8-cd9e-471c-934f-7b00187665e9','Super Admin','sando lalala','0','[{\"item\": \"Nasi Goreng\", \"amount\": \"1\", \"subtotal\": \"20000\"}, {\"item\": \"Spageti\", \"amount\": \"1\", \"subtotal\": \"16000\"}, {\"item\": \"Oreo Milkshake\", \"amount\": \"2\", \"subtotal\": \"32000\"}]',68000,1360,69360,'cash','',69360,0,0,'','2023-11-02 10:50:20','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(2,'7c05ea8e-70e7-40de-a76e-8db00ff39ef2','ale','mey','8123382520','[{\"item\": \"Nasi Goreng\", \"amount\": \"1\", \"subtotal\": \"20000\"}, {\"item\": \"Spageti\", \"amount\": \"1\", \"subtotal\": \"16000\"}, {\"item\": \"Australian Curried Sausages\", \"amount\": \"1\", \"subtotal\": \"50000\"}]',86000,8600,94600,'cash','',100000,5400,0,'','2023-11-09 08:33:52','ale',NULL,'',NULL,'',NULL,'',0,0);
+INSERT INTO `pembayaran` (`id`, `uuid`, `kasir`, `pelanggan`, `nomor_telp`, `detail_pembayaran`, `subtotal`, `pajak`, `total`, `metode_pembayaran`, `kode_transaksi`, `bayar`, `kembali`, `status_order`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'3b6101e8-cd9e-471c-934f-7b00187665e9','Super Admin','sando lalala','0','[{\"item\": \"Nasi Goreng\", \"amount\": \"1\", \"subtotal\": \"20000\"}, {\"item\": \"Spageti\", \"amount\": \"1\", \"subtotal\": \"16000\"}, {\"item\": \"Oreo Milkshake\", \"amount\": \"2\", \"subtotal\": \"32000\"}]',68000,1360,69360,'cash','',69360,0,0,'','2023-11-02 10:50:20','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(2,'7c05ea8e-70e7-40de-a76e-8db00ff39ef2','ale','mey','8123382520','[{\"item\": \"Nasi Goreng\", \"amount\": \"1\", \"subtotal\": \"20000\"}, {\"item\": \"Spageti\", \"amount\": \"1\", \"subtotal\": \"16000\"}, {\"item\": \"Australian Curried Sausages\", \"amount\": \"1\", \"subtotal\": \"50000\"}]',86000,8600,94600,'cash','',100000,5400,0,'','2023-11-09 08:33:52','ale',NULL,'',NULL,'',NULL,'',0,0),(3,'5a13350b-1e27-42b6-a7fe-729ff2379d89','Super Admin','Customer','08983419373','[{\"id\": \"1\", \"item\": \"Nasi Goreng Ayam\", \"amount\": \"4\", \"subtotal\": \"72000\"}, {\"id\": \"3\", \"item\": \"Nasi Omlete\", \"amount\": \"1\", \"subtotal\": \"16000\"}]',88000,1760,89760,'cash','',89760,0,0,'','2023-12-05 10:36:50','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(4,'c9169e16-f86a-40f8-8d10-c738519892d8','Super Admin','Customer','365487','[{\"id\": \"7\", \"item\": \"Fauzan Gaming\", \"amount\": \"10\", \"subtotal\": \"300000\"}, {\"id\": \"1\", \"item\": \"Nasi Goreng Ayam\", \"amount\": \"1\", \"subtotal\": \"18000\"}]',318000,6360,324360,'cash','',324360,0,0,'','2023-12-05 10:39:20','Super Admin',NULL,'',NULL,'',NULL,'',0,0);
 /*!40000 ALTER TABLE `pembayaran` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -368,7 +369,7 @@ CREATE TABLE `shipment` (
   `is_restored` tinyint(1) NOT NULL,
   `status` tinyint(1) GENERATED ALWAYS AS ((case when ((`is_deleted` = 0) and (`is_restored` = 0)) then _utf8mb4'1' when ((`is_deleted` = 1) and (`is_restored` = 0)) then _utf8mb4'0' when ((`is_deleted` = 0) and (`is_restored` = 1)) then _utf8mb4'1' end)) STORED,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -377,7 +378,7 @@ CREATE TABLE `shipment` (
 
 LOCK TABLES `shipment` WRITE;
 /*!40000 ALTER TABLE `shipment` DISABLE KEYS */;
-INSERT INTO `shipment` (`id`, `uuid`, `stok_id`, `supplier_id`, `harga_all_in`, `deskripsi`, `pesan`, `berat`, `harga_exw`, `total_exw`, `biaya_lainnya`, `total_biaya_lainnya`, `diskon`, `total`, `tanggal`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'5df52f8f-145f-44fc-9494-f1a150978025',1,2,105000,'Nambah wahyu',2,2000,98000,196000,'{\"ongkir\": \"12000\", \"icepack\": \"10000\"}',22000,8000,210000,'2023-11-15','','2023-11-15 08:51:53','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(2,'cc1f3a4b-f6fd-4b6d-8636-84f35ab6181b',2,2,104333,'Daging gilang yoi gilang hahahahah',3,3000,104000,312000,'{\"ongkir\": \"12000\", \"icepack\": \"8000\"}',20000,19000,313000,'2023-11-15','','2023-11-15 08:53:44','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(3,'76a48cfd-0efd-416e-9aac-14a068873381',1,3,100600,'Wahyu lagi',5,5000,98000,490000,'{\"ongkir\": \"15000\", \"icepack\": \"10000\"}',25000,12000,503000,'2023-11-15','','2023-11-15 08:55:12','Super Admin',NULL,'',NULL,'',NULL,'',0,0);
+INSERT INTO `shipment` (`id`, `uuid`, `stok_id`, `supplier_id`, `harga_all_in`, `deskripsi`, `pesan`, `berat`, `harga_exw`, `total_exw`, `biaya_lainnya`, `total_biaya_lainnya`, `diskon`, `total`, `tanggal`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'aa4a4ada-dd1f-4229-90c1-7a94c81c32eb',3,1,25000,'Anjay',20,20000,24000,480000,'{\"ongkir\": \"12000\", \"icepack\": \"10000\"}',22000,2000,500000,'2023-11-23','','2023-11-23 09:34:36','Super Admin','2023-12-06 09:29:13','Super Admin',NULL,'',NULL,'',0,0),(2,'a3b4a17f-a60b-46da-a18d-e461f71e7837',5,2,15233,'Restok Beras 43kg',43,43000,15000,645000,'{\"ongkir\": \"12000\"}',12000,2000,655000,'2023-11-23','','2023-11-23 09:38:16','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(3,'a917a08b-de83-4e78-beb2-3699c8232fcf',6,1,25556,'Restok Daging Ayam',36,36000,25000,900000,'{\"ongkir\": \"12000\", \"icepack\": \"10000\"}',22000,2000,920000,'2023-11-23','','2023-11-23 09:39:32','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(4,'9eb92019-d84b-422b-a2a8-c625583dcab3',7,1,19462,'Restok Wortel',26,26000,19000,494000,'{\"ongkir\": \"12000\"}',12000,0,506000,'2023-11-23','','2023-11-23 09:40:30','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(5,'aca1da01-2127-4ca4-8a93-e331eb746845',8,1,31111,'Restok Apel',18,18000,30000,540000,'{\"ongkir\": \"12000\", \"packaging\": \"10000\"}',22000,2000,560000,'2023-11-23','','2023-11-23 09:41:49','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(6,'b7fe2a78-c776-4572-ad1f-3979e03f3ed9',9,2,18071,'Restok telur 8 lusin',96,480000,18000,8640000,'{\"karton\": \"30000\", \"ongkir\": \"12000\"}',42000,8000,8674000,'2023-11-23','','2023-11-23 09:49:07','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(7,'5197dc72-0836-4e23-b1fc-393dc053f0f4',10,2,24500,'Restok Susus',18,18000,24000,432000,'{\"ongkir\": \"12000\"}',12000,3000,441000,'2023-11-23','','2023-11-23 09:51:14','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(8,'802d359b-ffd8-4c87-a9bd-bf8f1b2ba544',11,1,36417,'Restok Keju',7,24000,36000,864000,'{\"ongkir\": \"12000\"}',12000,2000,874000,'2023-11-23','','2023-11-23 09:53:01','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(9,'58b3f62e-0f0e-4d41-b7ea-4a05945a84b5',12,1,10476,'Restok Tepung Terigu 21kg',21,21000,10000,210000,'{\"ongkir\": \"12000\"}',12000,2000,220000,'2023-11-23','','2023-11-23 09:54:10','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(10,'a0c7cdd1-0832-4de6-82e1-612cc61487bc',13,2,1213,'Restok Galon',152,152000,1200,182400,'{\"ongkir\": \"12000\"}',12000,10000,184400,'2023-12-04','','2023-12-04 13:49:40','Super Admin',NULL,'',NULL,'',NULL,'',0,0),(11,'95e734e4-7b80-418c-9617-f1471e700b2b',14,2,12025,'Restok Kentang anjay',80,80000,12000,960000,'{\"ongkir\": \"12000\"}',12000,10000,962000,'2023-12-04','','2023-12-04 13:53:49','Super Admin',NULL,'',NULL,'',NULL,'',0,0);
 /*!40000 ALTER TABLE `shipment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -407,8 +408,9 @@ CREATE TABLE `stok` (
   `is_deleted` tinyint(1) NOT NULL,
   `is_restored` tinyint(1) NOT NULL,
   `status` tinyint(1) GENERATED ALWAYS AS ((case when ((`is_deleted` = 0) and (`is_restored` = 0)) then 1 when ((`is_deleted` = 1) and (`is_restored` = 0)) then 0 when ((`is_deleted` = 0) and (`is_restored` = 1)) then 1 end)) STORED,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nama` (`nama`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -417,7 +419,7 @@ CREATE TABLE `stok` (
 
 LOCK TABLES `stok` WRITE;
 /*!40000 ALTER TABLE `stok` DISABLE KEYS */;
-INSERT INTO `stok` (`id`, `uuid`, `nama`, `stok`, `satuan`, `riwayat`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (1,'3cef8922-4597-4d05-a391-fda65237fad4','Daging Wahyu',4,'Kg','{\"2023-11-15\": {\"stok\": 4, \"masuk\": 7, \"keluar\": \"3\"}}','','2023-11-15 08:48:31','Super Admin','2023-11-15 08:56:47','Super Admin','2023-11-20 14:51:38','Super Admin',NULL,'',0,0),(2,'543d1d94-6acf-42fb-9bc0-c4656c835184','Daging Giling',2,'pcs','{\"2023-11-15\": {\"stok\": 2, \"masuk\": 3, \"keluar\": \"1\"}}','','2023-11-15 08:48:41','Super Admin','2023-11-15 08:56:47','Super Admin',NULL,'',NULL,'',0,0);
+INSERT INTO `stok` (`id`, `uuid`, `nama`, `stok`, `satuan`, `riwayat`, `note`, `created_at`, `created_by`, `modified_at`, `modified_by`, `deleted_at`, `deleted_by`, `restored_at`, `restored_by`, `is_deleted`, `is_restored`) VALUES (3,'407f6f23-5771-4964-967b-661be94a5f73','Daging Sapi',20,'Kg','{\"2023-11-21\": {\"stok\": \"0\", \"masuk\": 0, \"keluar\": 0}, \"2023-11-23\": {\"stok\": 20, \"masuk\": 20, \"keluar\": 0}, \"2023-12-05\": {\"stok\": 20, \"masuk\": 0, \"keluar\": \"0\"}}','','2023-11-21 14:52:48','Super Admin','2023-12-05 10:36:24','Super Admin',NULL,'',NULL,'',0,0),(4,'5f944e1c-5d36-43a6-b41f-443d632adf01','Daging Giling',0,'Pack','{\"2023-11-21\": {\"stok\": \"0\", \"masuk\": 0, \"keluar\": 0}}','','2023-11-21 14:52:59','Super Admin',NULL,'','2023-11-23 09:19:06','Super Admin',NULL,'',1,0),(5,'060dd1b8-3201-4ec0-8d6e-5195d3b0a359','Beras',41.8,'Kg','{\"2023-11-23\": {\"stok\": 43, \"masuk\": 43, \"keluar\": 0}, \"2023-12-05\": {\"stok\": 41.8, \"masuk\": 0, \"keluar\": 1.2}}','','2023-11-23 09:28:00','Super Admin','2023-12-05 10:39:20','Super Admin',NULL,'',NULL,'',0,0),(6,'f1369615-2539-495e-8275-4b0f5dfb0b3a','Daging Ayam',31.5,'Kg','{\"2023-11-23\": {\"stok\": 36, \"masuk\": 36, \"keluar\": 0}, \"2023-12-05\": {\"stok\": 31.5, \"masuk\": 0, \"keluar\": 4.5}}','','2023-11-23 09:28:40','Super Admin','2023-12-05 10:39:20','Super Admin',NULL,'',NULL,'',0,0),(7,'e308df09-d5f0-4aff-9c86-a165607b07aa','Wortel',25,'Kg','{\"2023-11-23\": {\"stok\": 26, \"masuk\": 26, \"keluar\": 0}, \"2023-12-05\": {\"stok\": 25, \"masuk\": 0, \"keluar\": 1}}','','2023-11-23 09:29:41','Super Admin','2023-12-05 10:39:20','Super Admin',NULL,'',NULL,'',0,0),(8,'cbb4f461-e7f9-410a-9e22-c6d334bfd789','Apel',18,'Kg','{\"2023-11-23\": {\"stok\": 18, \"masuk\": 18, \"keluar\": 0}, \"2023-12-05\": {\"stok\": 18, \"masuk\": 0, \"keluar\": \"0\"}}','','2023-11-23 09:30:07','Super Admin','2023-12-05 10:36:24','Super Admin',NULL,'',NULL,'',0,0),(9,'686f1cdb-1c9e-4c2e-bc26-d1d03e2a8ec2','Telur',83,'pcs','{\"2023-11-23\": {\"stok\": 96, \"masuk\": 96, \"keluar\": 0}, \"2023-12-05\": {\"stok\": 83, \"masuk\": 0, \"keluar\": 13}}','','2023-11-23 09:30:18','Super Admin','2023-12-05 10:39:20','Super Admin',NULL,'',NULL,'',0,0),(10,'0d03c75a-bc38-4812-b23c-635cf65558ef','Susu',18,'Liter','{\"2023-11-23\": {\"stok\": 18, \"masuk\": 18, \"keluar\": 0}, \"2023-12-05\": {\"stok\": 18, \"masuk\": 0, \"keluar\": \"0\"}}','','2023-11-23 09:30:31','Super Admin','2023-12-05 10:36:24','Super Admin',NULL,'',NULL,'',0,0),(11,'4471925f-2915-4be0-8d69-dbd7203300ca','Keju',7,'Pack','{\"2023-11-23\": {\"stok\": 7, \"masuk\": 7, \"keluar\": 0}, \"2023-12-05\": {\"stok\": 7, \"masuk\": 0, \"keluar\": \"0\"}}','','2023-11-23 09:31:29','Super Admin','2023-12-05 10:36:24','Super Admin',NULL,'',NULL,'',0,0),(12,'24d6ec66-930b-4c08-ab93-db294228d9d8','Tepung Terigu',20,'Kg','{\"2023-11-23\": {\"stok\": 21, \"masuk\": 21, \"keluar\": 0}, \"2023-12-05\": {\"stok\": 20, \"masuk\": 0, \"keluar\": 1}}','','2023-11-23 09:31:50','Super Admin','2023-12-05 10:39:20','Super Admin',NULL,'',NULL,'',0,0),(13,'3d0766d1-49cf-4c16-93d6-7a8396be771b','Air Mineral (Galon)',152,'Liter','{\"2023-12-04\": {\"stok\": 152, \"masuk\": 152, \"keluar\": 0}, \"2023-12-05\": {\"stok\": 152, \"masuk\": 0, \"keluar\": \"0\"}}','','2023-12-04 13:44:52','Super Admin','2023-12-05 10:36:24','Super Admin',NULL,'',NULL,'',0,0),(14,'6405fedd-8e01-4469-bec7-f0f84a59b637','Kentang',78,'Kg','{\"2023-12-04\": {\"stok\": 80, \"masuk\": 80, \"keluar\": 0}, \"2023-12-05\": {\"stok\": 78, \"masuk\": 0, \"keluar\": 2}}','','2023-12-04 13:52:23','Super Admin','2023-12-05 10:39:20','Super Admin',NULL,'',NULL,'',0,0);
 /*!40000 ALTER TABLE `stok` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -529,7 +531,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Super Admin','e34f92a20532a873cb3184398070b4b82a8fa29cf48572c203dc5f0fa6158231','superadmin@gmail.com','superadmin','2023-11-16 16:13:11',1),(2,'Sando','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','masandofami@gmail.com','admin','2023-11-16 00:44:16',0),(4,'ale','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','alelio@gmail.com','superadmin','2023-11-09 08:25:39',1);
+INSERT INTO `users` VALUES (1,'Super Admin','e34f92a20532a873cb3184398070b4b82a8fa29cf48572c203dc5f0fa6158231','superadmin@gmail.com','superadmin','2023-12-04 13:42:35',1),(2,'Sando','a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','masandofami@gmail.com','admin','2023-11-22 13:49:06',1),(4,'ale','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','alelio@gmail.com','superadmin','2023-11-09 08:25:39',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -542,4 +544,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-20 15:24:49
+-- Dump completed on 2023-12-06 11:35:42

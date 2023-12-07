@@ -5,7 +5,8 @@
     <div class="col-lg-12">
       <div class="card mb-4">
         <div class="card-header pb-2">
-          <h5 class="card-title text-center mt-2">Pengeluaran Stok, tanggal <?= date('d F Y') ?></h5>
+          <?php $formater = new IntlDateFormatter('id_ID', IntlDateFormatter::LONG, IntlDateFormatter::NONE) ?>
+          <h5 class="card-title text-center mt-2">Pengeluaran Stok, tanggal <?= $formater->format(new DateTime()) ?></h5>
         </div>
         <form class="card-body pt-0" action="<?= BASEURL ?>/stok/updatePengeluaran" method="post">
           <div class="table-responsive">
