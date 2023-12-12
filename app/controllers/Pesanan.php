@@ -15,7 +15,7 @@ class Pesanan extends Controller
 		$this->view('penjualan/pesanan', $data);
 	}
 
-    public function kasir()
+    public function kasir($id = null)
     {
 		$this->auth('user');
 
@@ -27,18 +27,23 @@ class Pesanan extends Controller
         $data['pajak'] = $this->model('Preferences')->getPreference('Besar_Pajak_(%)');
         $this->model('Menu_model')->countAvailableAll();
 		
-		$this->view('penjualan/kasir', $data);
+        if (!$id) {
+            $this->view('penjualan/kasir', $data);
+        } else {
+            $data['pesanan'] = $this->model($this->model_name)->getDataById($id);
+            $this->view('penjualan/edit', $data);
+        }
 	}
 
-    public function invoice($id = null)
+    public function invoice($uuid = null)
 	{
 		$this->auth('user');
 
 		$data['title'] = 'Invoice';
 		$data['user'] = $this->user;
         
-        $data['pembayaran'] = ($id) ?
-            $this->model($this->model_name)->getDataById($id) :
+        $data['pembayaran'] = ($uuid) ?
+            $this->model($this->model_name)->getDataByUuid($uuid) :
             $this->model($this->model_name)->getLatestData();
         $data['pajak'] = $this->model('Preferences')->getPreference('Besar_Pajak_(%)');
 
@@ -49,9 +54,9 @@ class Pesanan extends Controller
     {
         // Proses detail pembayaran untuk invoice
         $detail_pembayaran = [];
-        foreach ($_POST['id'] as $i => $id) {
+        foreach ($_POST['id'] as $i => $item_id) {
             array_push($detail_pembayaran, [
-                'id' => $id,
+                'id' => $item_id,
                 'item' => $_POST['item'][$i],
                 'amount' => $_POST['amount'][$i],
                 'subtotal' => $_POST['item_subtotal'][$i],
@@ -61,6 +66,46 @@ class Pesanan extends Controller
         unset($_POST['item']); unset($_POST['amount']); unset($_POST['item_subtotal']); unset($_POST['id']);
 
         $_POST['status_order'] = 0; 
+
+        if ($this->model($this->model_name)->insert($_POST) > 0) {
+            Flasher::setFlash('Insert&nbsp<b>SUCCESS</b>', 'success');
+        } else {
+            Flasher::setFlash('Insert&nbsp<b>FAILED</b>', 'danger');
+        }
+        header('Location: ' . BASEURL . '/pesanan/kasir');
+        exit;
+    }
+
+    public function update($id)
+    {
+        // Proses detail pembayaran untuk invoice
+        $detail_pembayaran = [];
+        foreach ($_POST['id'] as $i => $item_id) {
+            array_push($detail_pembayaran, [
+                'id' => $item_id,
+                'item' => $_POST['item'][$i],
+                'amount' => $_POST['amount'][$i],
+                'subtotal' => $_POST['item_subtotal'][$i],
+            ]);
+        }
+        $_POST['detail_pembayaran'] = json_encode($detail_pembayaran);
+        unset($_POST['item']); unset($_POST['amount']); unset($_POST['item_subtotal']); unset($_POST['id']);
+
+        $_POST['status_order'] = 0; 
+
+        if ($this->model($this->model_name)->update($id, $_POST) > 0) {
+            Flasher::setFlash('Insert&nbsp<b>SUCCESS</b>', 'success');
+        } else {
+            Flasher::setFlash('Insert&nbsp<b>FAILED</b>', 'danger');
+        }
+        header('Location: ' . BASEURL . '/pesanan/kasir');
+        exit;
+    }
+
+	public function updateStatusPesanan($id)
+	{
+        $pesanan = $this->model($this->model_name)->getDataById($id);
+        $detail_pembayaran = json_decode($pesanan['detail_pembayaran'], true);
 
         try {
             // Cek apakah stok menu tersedia atau tidak
@@ -72,7 +117,7 @@ class Pesanan extends Controller
             // Cek apakah item tersedia atau tidak
             foreach ($data_menu as $menu) {
                 if ($menu['tersedia'] <= 0) {
-                    $tersedia = false;
+                    $tersedia = $menu['nama'];
                     break;
                 }
 
@@ -85,7 +130,7 @@ class Pesanan extends Controller
             }
 
             // Proses data bahan jika tersedia
-            if ($tersedia) {
+            if ($tersedia === true) {
                 // Sum all bahan
                 $sum_bahan = [];
                 foreach ($all_bahan as $bahan) {
@@ -114,30 +159,19 @@ class Pesanan extends Controller
                     $this->model('Menu_model')->countAvailable($menu['id']);
                 }
                 
-                // Insert data pembayaran
-                if ($this->model($this->model_name)->insert($_POST) > 0) {
+                // Update status pesanan
+                if ($this->model($this->model_name)->updateField($id, 'status_order', 1) > 0) {
                     Flasher::setFlash('Insert&nbsp<b>SUCCESS</b>', 'success');
-                    header('Location: ' . BASEURL . '/pesanan/invoice');
+                    header('Location: ' . BASEURL . '/pesanan/invoice/' . $pesanan['uuid']);
                     exit;
                 } else {
                     throw new Exception('Haha error');
                 }
             } else {
-                Flasher::setFlash('Terdapat menu yang telah habis!', 'danger');
+                Flasher::setFlash("{$tersedia} yang telah habis!", 'danger');
             }
         } catch (Exception $e) {
             Flasher::setFlash('Insert&nbsp<b>FAILED</b>', 'danger');
-        }
-        header('Location: ' . BASEURL . '/pesanan/kasir');
-        exit;
-    }
-
-	public function updateStatusPesanan($id)
-	{
-        if ($this->model($this->model_name)->updateField($id, 'status_order', 1) > 0) {
-            Flasher::setFlash('Update&nbsp<b>SUCCESS</b>', 'success');
-        } else {
-            Flasher::setFlash('Update&nbsp<b>FAILED</b>', 'danger');
         }
         header('Location: ' . BASEURL . '/pesanan');
         exit;

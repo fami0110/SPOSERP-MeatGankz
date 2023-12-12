@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (tersedia) {
                 if (!selected_menu.hasOwnProperty(nama)) {
-                    selected_menu[nama] = harga;
                     addList(nama, harga, id);
                 }
             } else {
@@ -115,6 +114,8 @@ function toggleDisplay(element, bool) {
 }
 
 function addList(nama, price, id) {
+    selected_menu[nama] = price;
+
     let item = document.createElement('div');
     item.setAttribute('class', 'row item');
     item.innerHTML = `
@@ -179,6 +180,8 @@ function refreshAmountEvent() {
     } else {
         selected_menu = {};
         form.reset();
+        bayar.value = 0;
+        kembali.value = 0;
         kode_transaksi.style.display = 'none';
     }
 }

@@ -158,7 +158,7 @@
 </page>
 
 <div class="position-fixed no-print" style="bottom: 0.5rem; right: 2rem;">
-    <a href="<?= BASEURL ?>/pesanan/kasir" class="btn btn-dark">
+    <a href="<?= BASEURL ?>/pesanan" class="btn btn-dark">
         <i class="bi bi-arrow-left"></i>
         Kembali
     </a>

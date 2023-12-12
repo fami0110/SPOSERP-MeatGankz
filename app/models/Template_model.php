@@ -34,6 +34,13 @@ class Template_model
 		return $this->db->fetch();
 	}
 
+	public function getDataByUuid($id)
+	{
+		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1 AND `id` = :id");
+		$this->db->bind('id', $id);
+		return $this->db->fetch();
+	}
+
 	public function insert($data)
 	{
 		$fields_query = "";

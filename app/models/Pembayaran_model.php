@@ -30,7 +30,7 @@ class Pembayaran_model
 
 	public function getAllData()
 	{
-		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1 ORDER BY `created_at` DESC, `status_order` ASC");
+		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1 ORDER BY `status_order` ASC, `created_at` ASC");
 		return $this->db->fetchAll();
 	}
 
@@ -44,6 +44,13 @@ class Pembayaran_model
 	{
 		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1 AND `id` = :id");
 		$this->db->bind('id', $id);
+		return $this->db->fetch();
+	}
+
+	public function getDataByUuid($uuid)
+	{
+		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1 AND `uuid` = :uuid");
+		$this->db->bind('uuid', $uuid);
 		return $this->db->fetch();
 	}
 

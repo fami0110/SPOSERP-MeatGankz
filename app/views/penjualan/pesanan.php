@@ -47,7 +47,7 @@
                                     </td>
                                     <td class="align-middle text-center">
                                         <a class="btn bg-gradient-info rounded-pill tampilModalUbah m-0" 
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal" 
+                                            data-bs-toggle="modal" data-bs-target="#modal" 
                                             data-id="<?= $pembayaran['id']; ?>">
                                             <i class="bi bi-search"></i>
                                         </a>
@@ -65,9 +65,20 @@
                                         <?php endif ?>
                                     </td>
                                     <td class="text-sm text-center font-weight-bold mb-0">
-                                        <?= date('d/m/Y  H.m', strtotime($pembayaran['created_at'])) ?>
+                                        <?= date('d/m/Y  H.i', strtotime($pembayaran['created_at'])) ?>
                                     </td>
                                     <td class="align-middle text-center">
+                                        <?php if (!$pembayaran['status_order']) : ?>
+                                            <a class="btn bg-gradient-primary rounded-pill m-0" 
+                                                href="<?= BASEURL; ?>/pesanan/kasir/<?= $pembayaran['id'] ?>">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                        <?php else : ?>
+                                            <a class="btn bg-gradient-secondary rounded-pill m-0" 
+                                                href="<?= BASEURL; ?>/pesanan/invoice/<?= $pembayaran['uuid'] ?>">
+                                                <i class="bi bi-card-list"></i>
+                                            </a>
+                                        <?php endif ?>
                                         <a class="btn bg-gradient-dark rounded-pill m-0" 
                                             href="<?= BASEURL; ?>/pesanan/delete/<?= $pembayaran['id'] ?>" 
                                             onclick="return confirm ('Hapus data?')">
@@ -85,7 +96,7 @@
 </div>
 
 <!-- modal -->
-<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
