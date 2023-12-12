@@ -163,11 +163,11 @@
                     <?php for ($i = 0; $i <= $range; $i++) : ?>
                       <?php $key = date('Y-m-d', strtotime($data['filter']['from']) + ($i * 60 * 60 * 24)) ?>
                       <?php if (array_key_exists($key, $riwayat)) : ?>
-                        <td class="text-sm text-center font-weight-bold mb-0<?= (intval($riwayat[$key]['masuk']) > 0) ? ' text-success' : '' ?>">
+                        <td class="text-sm text-center font-weight-bold mb-0<?= (floatval($riwayat[$key]['masuk']) > 0) ? ' text-success' : '' ?>">
                           <?= $riwayat[$key]['masuk'] ?>
                         </td>
                         <td class="text-sm text-center font-weight-bold mb-0"><?= $riwayat[$key]['stok'] ?></td>
-                        <td class="text-sm text-center font-weight-bold mb-0<?= (intval($riwayat[$key]['keluar']) > 0) ? ' text-danger' : '' ?>">
+                        <td class="text-sm text-center font-weight-bold mb-0<?= (floatval($riwayat[$key]['keluar']) > 0) ? ' text-danger' : '' ?>">
                           <?= $riwayat[$key]['keluar'] ?>
                         </td>
                         <?php $lastVal = $riwayat[$key]['stok'] ?>
