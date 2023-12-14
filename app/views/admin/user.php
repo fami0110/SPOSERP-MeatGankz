@@ -25,7 +25,7 @@
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                     No</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Username</th>
+                                    Name</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                     Email</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -99,27 +99,28 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= BASEURL; ?>/kategori/insert" method="post">
+                <form action="<?= BASEURL; ?>/user/insert" method="post">
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" name="username" id="username" placeholder="xxxx">
+                        <label for="username" class="form-label">Name</label>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Username">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="example@email.com">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="email@example.com">
                     </div>
                     <div class="mb-3">
                         <label for="role" class="form-label">Role</label>
-                        <select class="form-control" name="role" id="role">
-                            <option value="Superadmin">Superadmin</option>
-                            <option value="Owner">Owner</option>
-                            <option value="Manager">Manager</option>
-                            <option value="User">User</option>
-                        </select>
+                        <input type="text" class="form-control" name="role" id="role" list="roles" autocomplete="off" placeholder="Select Role">
+                        <datalist id="roles">
+                            <option value="Superadmin">
+                            <option value="Owner">
+                            <option value="Manager">
+                            <option value="User">
+                        </datalist>
                     </div>
                     <div class="mb-3 password-container">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="password" id="password">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                     </div>
             </div>
             <div class="modal-footer">

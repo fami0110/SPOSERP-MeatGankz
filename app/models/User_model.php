@@ -58,15 +58,14 @@ class User_model
 		$this->db->query(
 			"INSERT INTO {$this->table}
 				VALUES
-			(null, :username, :password, :email, 'user', CURRENT_TIMESTAMP, 1)"
+			(null, :username, :password, :email, 'User', CURRENT_TIMESTAMP, 0)"
 		);
 
 		$this->db->bind('username', $username);
 		$this->db->bind('password', hash('sha256', $password));
 		$this->db->bind('email', $email);
-		$this->db->execute();
 
-		$this->db->rowCount(); 
+		$this->db->execute();
 	}
 
 	public function password($id, $password)
@@ -84,7 +83,43 @@ class User_model
 		$this->db->bind('id', $id);
 
 		$this->db->execute();
+		return $this->db->rowCount();
+	}
 
+	public function insert($data)
+	{
+		$this->db->query(
+			"INSERT INTO {$this->table}
+				VALUES
+			(null, :username, :password, :email, :role, CURRENT_TIMESTAMP, 0)"
+		);
+
+		$this->db->bind('username', $data['username']);
+		$this->db->bind('password', hash('sha256', $data['password']));
+		$this->db->bind('email', $data['email']);
+		$this->db->bind('role', $data['role']);
+
+		$this->db->execute();
+		return $this->db->rowCount(); 
+	}
+
+	public function update($id, $data)
+	{
+		$this->db->query(
+			"UPDATE {$this->table}
+				SET
+				username = :username,
+				email = :email,
+				role = :role
+			WHERE id = :id"
+		);
+
+		$this->db->bind('username', $data['username']);
+		$this->db->bind('email', $data['email']);
+		$this->db->bind('role', $data['role']);
+		$this->db->bind('id', $id);
+		
+		$this->db->execute();
 		return $this->db->rowCount();
 	}
 

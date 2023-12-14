@@ -18,7 +18,7 @@ class User extends Controller
 
     public function insert()
     {
-        if ($this->model($this->model_name)->register($_POST['username'], $_POST['password'], $_POST['email']) > 0) {
+        if ($this->model($this->model_name)->insert($_POST) > 0) {
             Flasher::setFlash('Insert&nbsp<b>SUCCESS</b>', 'success');
         } else {
             Flasher::setFlash('Insert&nbsp<b>FAILED</b>', 'danger');
@@ -30,7 +30,7 @@ class User extends Controller
 	public function update($id)
 	{
         if ($this->model($this->model_name)->update($id, $_POST) > 0) {
-            Flasher::setFlash('Update&nbsp<b>SUCCESS</>', 'success');
+            Flasher::setFlash('Update&nbsp<b>SUCCESS</b>', 'success');
         } else {
             Flasher::setFlash('Update&nbsp<b>FAILED</b>', 'danger');
         }
@@ -45,7 +45,7 @@ class User extends Controller
 
 	public function destroy($id)
 	{
-        if ($this->model($this->model_name)->delete($id) > 0) {
+        if ($this->model($this->model_name)->destroy($id) > 0) {
             Flasher::setFlash('Delete&nbsp<b>SUCCESS</b>', 'success');
         } else {
             Flasher::setFlash('Delete&nbsp<b>FAILED</b>', 'danger');
