@@ -34,10 +34,10 @@
                                 </tr>
                                 <tr>
                                     <td class="float-start pt-4">
-                                        <?= date('d F Y', strtotime($pembayaran['created_at'])) ?>
+                                        <?= date('d/M/Y', strtotime($pembayaran['created_at'])) ?>
                                     </td>
                                     <td class="float-end pt-4">
-                                        <?= date('H.i', strtotime($pembayaran['created_at'])) ?>
+                                        <?= date('H:i:s', strtotime($pembayaran['created_at'])) ?>
                                     </td>
                                 </tr>
                                 <tr>

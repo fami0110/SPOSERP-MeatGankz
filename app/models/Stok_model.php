@@ -39,6 +39,13 @@ class Stok_model
 		return $this->db->fetch();
 	}
 
+	public function getIdByName($nama)
+	{
+		$this->db->query("SELECT id FROM {$this->table} WHERE `status` = 1 AND `nama` = :nama");
+		$this->db->bind('nama', $nama);
+		return $this->db->fetch(PDO::FETCH_COLUMN);
+	}
+
 	public function getMultipleBy($field = 'id', $data = [])
 	{
 		$sanitized_data = array_map(function ($item) {

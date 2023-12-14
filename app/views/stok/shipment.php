@@ -44,6 +44,8 @@
                                     Harga All In / Kg</th>
                                 <th rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                     Supplier</th>
+                                <th rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    No Akun</th>
                                 <th rowspan="2" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">
                                     Aksi</th>
                             </tr>
@@ -105,6 +107,9 @@
                                             <?= ($supplier['id'] == $shipment['supplier_id']) ? $supplier['nama'] : '' ?>
                                         <?php endforeach; ?>
                                     </td>
+                                    <td class="text-sm text-center font-weight-bold mb-0">
+                                        <?= $shipment['no_akuntansi'] ?>
+                                    </td>
                                     <td class="align-middle text-sm text-center font-weight-bold mb-0">
                                         <button type="button"
                                             class="btn bg-gradient-primary btn-md  p-1 px-2 mb-0 align-middle acc-button tampilModalUbah" 
@@ -137,20 +142,26 @@
             </div>
             <div class="modal-body">
                 <form action="<?= BASEURL ?>/shipment/insert" method="post">
-                <div class="row mb-3">
-                    <div class="col-lg-4">
+                <div class="row mb-3 gy-2">
+                    <div class="col-lg-6">
                         <label class="form-label" for="stok_id">Nama Barang</label>
-                        <select class="form-select" name="stok_id" id="stok_id" required>
+                        <input type="text" class="form-control" name="stok_id" id="stok_id" list="barang" autocomplete="off" placeholder="Nama Barang" required>
+                        <datalist id="barang">
                             <?php foreach ($data['barang'] as $barang) : ?>
-                                <option value="<?= $barang['id'] ?>" data-satuan=<?= $barang['satuan'] ?>><?= $barang['nama'] ?></option>
+                                <option value="<?= $barang['nama'] ?>" 
+                                    data-satuan="<?= $barang['satuan'] ?>">
                             <?php endforeach; ?>
-                        </select>
+                        </datalist>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <label class="form-label" for="tanggal">Tanggal</label>
                         <input type="date" class="form-control" name="tanggal" id="tanggal" value="<?= date('Y-m-d') ?>">
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
+                        <label class="form-label" for="no_akuntansi">No Akun</label>
+                        <input type="text" class="form-control" name="no_akuntansi" id="no_akuntansi" placeholder="113">
+                    </div>
+                    <div class="col-lg-6">
                         <label class="form-label" for="supplier_id">Supplier</label>
                         <select class="form-select" name="supplier_id" id="supplier_id" required>
                             <?php foreach ($data['supplier'] as $supplier) : ?>
@@ -297,6 +308,7 @@
             $('.modal-footer button[type=submit]').html('Tambah Data');
             $(".modal-body form").attr("action", `${BASEURL}/insert`);
             $(".modal-body form")[0].reset();
+            $("#stok_id").prop('readonly', false);
             $("#pesan").prop('readonly', false);
 
             biayaLainnya.innerHTML = `
@@ -329,6 +341,7 @@
             $("#modalLabel").html("Ubah Data");
             $(".modal-footer button[type=submit]").html("Ubah Data");
             $(".modal-body form").attr("action", `${BASEURL}/update/${id}`);
+            $("#stok_id").prop('readonly', true);
             $("#pesan").prop('readonly', true);
 
             $.ajax({
@@ -339,16 +352,15 @@
                     // console.log(data);
                     $("#stok_id").val(data.stok_id);
                     $("#tanggal").val(data.tanggal);
+                    $("#no_akuntansi").val(data.no_akuntansi);
                     $("#supplier_id").val(data.supplier_id);
                     $("#deskripsi").val(data.deskripsi);
                     $("#pesan").val(data.pesan);
 
-                    for (let opt of document.getElementById('stok_id').options) {
-                        if (opt.selected) {
-                            satuan.value = opt.dataset.satuan;
-                            break;
-                        }
-                    }
+                    satuan.value = Array.from(document.getElementById('barang').options)
+                        .map(opt => {return {nama: opt.value, satuan: opt.dataset.satuan}})
+                        .find(item => item.nama === data.stok_id)
+                        .satuan;
 
                     $("#berat").val(data.berat);
                     $("#harga_exw").val(data.harga_exw);

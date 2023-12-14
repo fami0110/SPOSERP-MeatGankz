@@ -11,13 +11,21 @@ const harga_all_in = document.getElementById('harga_all_in');
 document.addEventListener('DOMContentLoaded', () => {
 
     // Display satuan
-    document.getElementById('stok_id').addEventListener('change', e => {
-        for (let opt of e.target.options) {
-            if (opt.selected) {
-                satuan.value = opt.dataset.satuan;
+    document.getElementById('stok_id').addEventListener('change', (e) => {
+        let value = e.target.value;
+        let barang = Array.from(document.getElementById('barang').options)
+            .map(opt => {return {nama: opt.value, satuan: opt.dataset.satuan}});
+        let find = barang.find(item => item.nama === value);
+
+        if (value) {
+            if (find) {
+                satuan.value = find.satuan;
+            } else {
+                alert(`"${value}" tidak ada di dalam daftar barang!`);
+                e.target.value = '';
             }
         }
-    })
+    });
 
     // Add biaya lainnya
     document.getElementById('btn-biaya-lainnya').addEventListener('click', () => {

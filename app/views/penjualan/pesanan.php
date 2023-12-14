@@ -65,7 +65,7 @@
                                         <?php endif ?>
                                     </td>
                                     <td class="text-sm text-center font-weight-bold mb-0">
-                                        <?= date('d/m/Y  H.i', strtotime($pembayaran['created_at'])) ?>
+                                        <?= date('d/m/Y  H:i:s', strtotime($pembayaran['created_at'])) ?>
                                     </td>
                                     <td class="align-middle text-center">
                                         <?php if (!$pembayaran['status_order']) : ?>

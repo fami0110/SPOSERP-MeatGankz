@@ -20,6 +20,7 @@ class Shipment_model
         'diskon',
         'total',
 		'tanggal',
+		'no_akuntansi',
     ];
 	protected $user;
 	protected $db;
@@ -44,7 +45,27 @@ class Shipment_model
 
 	public function getDataById($id)
 	{
-		$this->db->query("SELECT * FROM {$this->table} WHERE `status` = 1 AND `id` = :id");
+		$this->db->query(
+			"SELECT 
+				`nama` AS `stok_id`, 
+				`supplier_id`, 
+				`harga_all_in`, 
+				`deskripsi`, 
+				`pesan`, 
+				`berat`, 
+				`harga_exw`, 
+				`total_exw`, 
+				`biaya_lainnya`, 
+				`total_biaya_lainnya`, 
+				`diskon`, 
+				`total`, 
+				`tanggal`, 
+				`no_akuntansi` 
+			FROM {$this->table} 
+			INNER JOIN `stok` ON shipment.stok_id = stok.id
+			WHERE shipment.status = 1 AND shipment.id = :id"
+		);
+
 		$this->db->bind('id', $id);
 		return $this->db->fetch();
 	}
@@ -82,6 +103,7 @@ class Shipment_model
 			:diskon,
 			:total,
 			:tanggal,
+			:no_akuntansi,
 		";
 
 		$this->db->query(
@@ -118,6 +140,7 @@ class Shipment_model
 			diskon = :diskon,
 			total = :total,
 			tanggal = :tanggal,
+			no_akuntansi = :no_akuntansi,
         ";
 
 		$this->db->query(
