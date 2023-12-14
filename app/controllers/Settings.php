@@ -6,7 +6,7 @@ class Settings extends Controller
 
 	public function index()
 	{
-        $this->auth('user', 'superadmin');
+        $this->auth('user', 'Superadmin');
 
         $data['title'] = 'Setting';
         $data['user'] = $this->user;
@@ -14,7 +14,7 @@ class Settings extends Controller
         $data['preferences'] = $this->model($this->model_name)->getAllPreference();
         $data['categories'] = $this->model($this->model_name)->getALlCategories();
         
-        $this->view('settings', $data);
+        $this->view('admin/settings', $data);
     }
 
     public function update()

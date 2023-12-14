@@ -1,6 +1,5 @@
 <?php Get::view('templates/header', $data) ?>
 
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <div class="row">
     <div class="col-lg-12">
         <div class="card mb-4">

@@ -6,8 +6,8 @@ class Api extends Controller
 
 	public function __construct()
     {
-        $this->disable_error();
 		if ($_GET['token'] == $this->API_token) {
+        	ini_set('display_errors', 0);
 			header('Access-Control-Allow-Origin: *');
 			header('Content-Type: application/json');
 		} else {

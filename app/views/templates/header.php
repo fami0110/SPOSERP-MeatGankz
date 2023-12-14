@@ -403,9 +403,10 @@
                         </ul>
                     </div>
                 </li>
-                <?php if ($data['user']['role'] == 'superadmin'): ?>
+                <?php if ($data['user']['role'] == 'Superadmin'): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= BASEURL; ?>/settings">
+                        <a data-bs-toggle="collapse" href="#adminExamples" class="nav-link " aria-controls="adminExamples"
+                            role="button" aria-expanded="false">
                             <div
                                 class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                                 <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1"
@@ -431,8 +432,24 @@
                                     </g>
                                 </svg>
                             </div>
-                            <span class="nav-link-text ms-1">Settings</span>
+                            <span class="nav-link-text ms-1">Admin</span>
                         </a>
+                        <div class="collapse" id="adminExamples">
+                            <ul class="nav ms-4 ps-3">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?= BASEURL; ?>/user">
+                                        <span class="sidenav-mini-icon"> U </span>
+                                        <span class="sidenav-normal">Manage User</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?= BASEURL; ?>/settings">
+                                        <span class="sidenav-mini-icon"> S </span>
+                                        <span class="sidenav-normal">Settings</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 <?php endif; ?>
             </ul>

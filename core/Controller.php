@@ -6,9 +6,6 @@ class Controller
 
     public function __construct()
     {
-        // Error Reporting
-        if (ENV == 'Production') $this->disable_error();
-
         // Get user credential using jwt cookie
         $jwt = Cookie::get_jwt();
         if ($jwt) {
@@ -51,11 +48,5 @@ class Controller
     {
         require_once "../app/models/{$model}.php";
         return new $model;
-    }
-
-    public function disable_error() {
-        error_reporting(0);
-        error_reporting(E_ERROR | E_PARSE);
-        ini_set('display_errors', 0);
     }
 }

@@ -1,4 +1,4 @@
-<?php require_once "templates/header.php" ?>
+<?php Get::view('templates/header', $data) ?>
 
 <form class="container-md overflow-hidden" action="<?= BASEURL ?>/settings/update" method="post">
     <?php foreach ($data['categories'] as $category) : ?>
@@ -20,4 +20,4 @@
     </button>
 </form>
 
-<?php require_once "templates/footer.php" ?>
+<?php Get::view('templates/footer', $data) ?>

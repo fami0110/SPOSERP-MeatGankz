@@ -12,7 +12,7 @@ class App
         $url = ($url) ? $url : [$this->controller];
 
         // controller
-        $this->controller = file_exists("../app/controllers/$url[0].php") ? $url[0] : 'notfound';
+        $this->controller = file_exists("../app/controllers/$url[0].php") ? $url[0] : 'http';
         unset($url[0]);
 
         require_once "../app/controllers/{$this->controller}.php";

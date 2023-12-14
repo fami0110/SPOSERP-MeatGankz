@@ -10,6 +10,12 @@ class User_model
 		$this->db = new Database();
 	}
 
+	public function getAllUser()
+	{
+		$this->db->query("SELECT * FROM {$this->table}");
+		return $this->db->fetchAll();
+	}
+
 	public function getUser($username, $password)
 	{
 		$this->db->query("SELECT * FROM {$this->table} WHERE `username` = :username AND `password` = :password");
@@ -17,6 +23,13 @@ class User_model
 		$this->db->bind('username', $username);
 		$this->db->bind('password', $password);
 
+		return $this->db->fetch();
+	}
+
+	public function getUserById($id)
+	{
+		$this->db->query("SELECT * FROM {$this->table} WHERE `id` = :id");
+		$this->db->bind('id', $id);
 		return $this->db->fetch();
 	}
 
@@ -58,9 +71,7 @@ class User_model
 
 	public function password($id, $password)
 	{
-		$fields_query = "
-			password = :password
-		";
+		$fields_query = "password = :password";
 
 		$this->db->query(
       		"UPDATE {$this->table}
@@ -74,6 +85,16 @@ class User_model
 
 		$this->db->execute();
 
+		return $this->db->rowCount();
+	}
+
+	public function destroy($id)
+	{
+		$this->db->query("DELETE FROM {$this->table} WHERE id = :id");
+
+		$this->db->bind('id', $id);
+
+		$this->db->execute();
 		return $this->db->rowCount();
 	}
 }
