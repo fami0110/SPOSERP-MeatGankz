@@ -7,7 +7,6 @@ class Stok_model
 	protected $table = "stok";
 	protected $fields = [
         'nama',
-        'stok',
         'satuan',
         'riwayat',
     ];
@@ -69,6 +68,7 @@ class Stok_model
 
         $this->db->bind('uuid', Uuid::uuid4()->toString());
         foreach ($this->fields as $field) $this->db->bind($field, $data[$field]);
+        $this->db->bind('stok', $data['stok']);
         $this->db->bind('created_by', $this->user);
 
         $this->db->execute();
@@ -81,7 +81,6 @@ class Stok_model
 		$fields_query = "
             nama = :nama,
             satuan = :satuan,
-            stok = :stok,
             riwayat = :riwayat,
         ";
 

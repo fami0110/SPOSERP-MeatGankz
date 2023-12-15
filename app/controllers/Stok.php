@@ -4,19 +4,19 @@ class Stok extends Controller
 {
 	protected $model_name = 'Stok_model';
 
-    public function index()
-	{
-		$this->auth('user');
+    // public function index()
+	// {
+	// 	$this->auth('user');
 
-		$data['title'] = 'Daftar Barang';
-		$data['user'] = $this->user;
+	// 	$data['title'] = 'Daftar Barang';
+	// 	$data['user'] = $this->user;
 
-        $data['barang'] = $this->model($this->model_name)->getAllData();
+    //     $data['barang'] = $this->model($this->model_name)->getAllData();
 		
-		$this->view('stok/index', $data);
-	}
+	// 	$this->view('stok/index', $data);
+	// }
 
-	public function rekap()
+	public function index()
 	{
 		$this->auth('user');
 
@@ -28,7 +28,7 @@ class Stok extends Controller
             ['from' => $_POST['filter'][0], 'to' => $_POST['filter'][1]] :
             ['from' => date('Y-m-d'), 'to' => date('Y-m-d')];
 		
-		$this->view('stok/rekap', $data);
+		$this->view('stok/index', $data);
 	}
 
     public function pengeluaran()
